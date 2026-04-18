@@ -40,6 +40,7 @@ export function Dashboard() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isQuestOpen, setIsQuestOpen] = useState(false);
+  const [showNudge, setShowNudge] = useState(true);
 
   const savedProfile = localStorage.getItem("edupilot-profile");
   const initialProfile = savedProfile ? JSON.parse(savedProfile) : { name: "Explorer", xp: 0, streak: 1 };
@@ -440,13 +441,23 @@ export function Dashboard() {
 
         {/* Right: Live University Cards */}
         <div className="w-full lg:w-[420px] xl:w-[500px] overflow-y-auto p-4 md:p-6 space-y-4">
-          <div className="mb-3">
-            <h3 className="text-base md:text-lg font-semibold text-foreground mb-1">Live University Matches</h3>
-            <p className="text-xs md:text-sm text-foreground/60">Updates as you chat with AI</p>
-          </div>
+          {showNudge && (
+            <SmartNudge />
+          )}
 
-
-          {filteredUniversities.map((uni, i) => (
+          {filteredUniversities.length === 0 ? (
+            <div className="flex flex-col items-center justify-center p-12 text-center bg-white/5 rounded-3xl border border-dashed border-white/10">
+               <motion.div 
+                 animate={{ rotate: 360 }}
+                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                 className="mb-4"
+               >
+                 <Sparkles className="w-8 h-8 text-indigo-400 opacity-50" />
+               </motion.div>
+               <h4 className="text-sm font-medium text-foreground/60 italic">Scanning for your elite matches...</h4>
+            </div>
+          ) : (
+            filteredUniversities.map((uni, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: 20 }}
