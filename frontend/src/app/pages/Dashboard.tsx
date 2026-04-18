@@ -231,9 +231,9 @@ export function Dashboard() {
         if (foundName.length > 5 && !["user_profile", "chat_history", "university"].includes(foundName.toLowerCase())) {
           detected.push({ 
             name: foundName, 
-            location: reply.includes("germany") ? "Germany" : reply.includes("italy") ? "Italy" : reply.includes("usa") ? "USA" : "Global", 
+            location: response.reply.toLowerCase().includes("germany") ? "Germany" : response.reply.toLowerCase().includes("italy") ? "Italy" : response.reply.toLowerCase().includes("usa") ? "USA" : "Global", 
             match: 85 + Math.floor(Math.random() * 10), 
-            tuition: reply.includes("public") || reply.includes("low") ? "Low Tuition" : "$30,000+", 
+            tuition: response.reply.toLowerCase().includes("public") || response.reply.toLowerCase().includes("low") ? "Low Tuition" : "$30,000+", 
             ranking: "#Top 500" 
           });
         }
@@ -271,6 +271,58 @@ export function Dashboard() {
       setMessages((prev) => [...prev, { role: "assistant", content: `⚠️ AI unavailable: ${errMsg}` }]);
     } finally {
       setIsTyping(false);
+    }
+  };
+  const handleTrack = async (uni: any) => {
+    try {
+      const savedApps = JSON.parse(localStorage.getItem("edupilot-apps") || "[]");
+      if (savedApps.find((a: any) => a.university === uni.name)) {
+        alert("Already tracking this university!");
+        return;
+      }
+
+      // 1. Fetch AI Requirements (Smart Tracker)
+      const res = await generateApplicationTracker({ 
+        university: uni.name, 
+        program: profile.field || "Master of Science" 
+      });
+      
+      const newApp = {
+        id: Date.now().toString(),
+        university: uni.name,
+        program: profile.field || "Master's Program",
+        deadline: res.tracker.deadline || "2025-12-01",
+        status: "not-started",
+        documents: res.tracker.documents || [
+            { name: "Statement of Purpose", uploaded: false },
+            { name: "Updated Resume", uploaded: false },
+            { name: "Transcripts", uploaded: false }
+        ],
+        notes: res.tracker.notes || "Ready for application mission."
+      };
+
+      // 2. Save
+      localStorage.setItem("edupilot-apps", JSON.stringify([newApp, ...savedApps]));
+
+      // 3. Reward XP
+      const reward = await awardXP({ user_id: savedUser?.id || "temp", amount: 150, reason: `Tracked ${uni.name}` });
+      setProfile(prev => ({ ...prev, xp: reward.new_xp }));
+      
+      alert(`🚀 Success! ${uni.name} added to your tracker.`);
+      navigate('/application-tracker');
+    } catch (err) {
+      const savedApps = JSON.parse(localStorage.getItem("edupilot-apps") || "[]");
+      const fallback = {
+        id: Date.now().toString(),
+        university: uni.name,
+        program: profile.field || "Graduate Program",
+        deadline: "2025-12-01",
+        status: "not-started",
+        documents: [{ name: "SOP", uploaded: false }, { name: "LOR", uploaded: false }],
+        notes: "Tracked from dashboard."
+      };
+      localStorage.setItem("edupilot-apps", JSON.stringify([fallback, ...savedApps]));
+      navigate('/application-tracker');
     }
   };
 
@@ -715,21 +767,7 @@ export function Dashboard() {
                                 </Button>
                                 <Button 
                                   className="h-8 bg-indigo-500 hover:bg-indigo-600 text-[10px] px-4 rounded-lg shadow-lg shadow-indigo-500/20 text-white"
-                                  onClick={() => {
-                                    const apps = JSON.parse(localStorage.getItem("edupilot-applications") || "[]");
-                                    if (!apps.find((a: any) => a.university === uni.name)) {
-                                      const newApp = {
-                                        id: Date.now().toString(),
-                                        university: uni.name,
-                                        country: uni.location,
-                                        status: "planning",
-                                        deadline: "Jan 15, 2027",
-                                        logo: `https://logo.clearbit.com/${uni.name.toLowerCase().replace(/\s+/g, '')}.edu`
-                                      };
-                                      localStorage.setItem("edupilot-applications", JSON.stringify([...apps, newApp]));
-                                      toast.success(`Tracked ${uni.name}! Check your Tracker.`);
-                                    }
-                                  }}
+                                  onClick={() => handleTrack(uni)}
                                 >
                                   Track
                                 </Button>
