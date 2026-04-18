@@ -14,6 +14,8 @@ app = FastAPI(
 )
 
 # ── CORS (allow your Vite dev server + Vercel deployment) ─────────────────────
+frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
+
 # Allow dev and production origins
 origins = [
     "http://localhost:5173",
