@@ -11,11 +11,12 @@ import { getLoanEligibility, LoanResponse } from "@services";
 
 export function LoanEligibility() {
   const navigate = useNavigate();
+  const savedProfile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
   const [formData, setFormData] = useState({
-    loanAmount: "80000",
-    income: "50000",
-    creditScore: "720",
-    employmentYears: "3",
+    loanAmount: savedProfile.loanAmount || "",
+    income: savedProfile.income || "",
+    creditScore: savedProfile.creditScore || "720",
+    employmentYears: savedProfile.employmentYears || "",
   });
   const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState<LoanResponse | null>(null);
@@ -168,12 +169,14 @@ export function LoanEligibility() {
               </div>
 
               {/* Info Card */}
-              <div className="mt-8 p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
-                <div className="flex items-start gap-2">
+              <div className="mt-8 p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 scroll-mt-20">
+                <div className="flex items-start gap-2" onClick={() => {
+                   const curr = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
+                   localStorage.setItem("edupilot-profile", JSON.stringify({...curr, ...formData}));
+                }}>
                   <Sparkles className="w-4 h-4 text-indigo-400 mt-0.5" />
                   <div className="text-xs text-white/70">
-                    <strong>Instant Decision:</strong> Our AI analyzes your profile in real-time. 
-                    No credit check required for eligibility assessment.
+                    <strong>Synced:</strong> Your financial data is saved to your profile.
                   </div>
                 </div>
               </div>

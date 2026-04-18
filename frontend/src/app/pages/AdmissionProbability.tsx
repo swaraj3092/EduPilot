@@ -11,10 +11,11 @@ import { getAdmissionProbability, AdmissionResponse } from "@services";
 
 export function AdmissionProbability() {
   const navigate = useNavigate();
+  const savedProfile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
   const [scores, setScores] = useState({
-    gre: "325",
-    gpa: "3.8",
-    toefl: "110",
+    gre: savedProfile.gre || "",
+    gpa: savedProfile.gpa || "",
+    toefl: savedProfile.toefl || "",
   });
   const [targetUni, setTargetUni] = useState("");
   const [loading, setLoading] = useState(false);
@@ -159,10 +160,13 @@ export function AdmissionProbability() {
               </div>
 
               <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2" onClick={() => {
+                  const current = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
+                  localStorage.setItem("edupilot-profile", JSON.stringify({...current, ...scores}));
+                }}>
                   <AlertCircle className="w-4 h-4 text-indigo-400 mt-0.5 flex-shrink-0" />
                   <p className="text-xs text-white/70">
-                    This analysis uses machine learning trained on 50,000+ admission decisions.
+                    Your scores are saved to your profile for future use.
                   </p>
                 </div>
               </div>

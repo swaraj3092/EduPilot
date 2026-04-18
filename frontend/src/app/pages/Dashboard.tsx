@@ -613,6 +613,30 @@ export function Dashboard() {
             </button>
           </div>
 
+          {/* Feature Showcase Grid (NEW) - Show on both tabs as a fixed header if needed, or inside matches scroll */}
+          {activeTab === "matches" && (
+            <div className="px-4 mb-4 grid grid-cols-2 gap-3">
+              <motion.div 
+                whileHover={{ y: -5 }}
+                onClick={() => navigate('/roi-calculator')}
+                className="p-4 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-blue-500/20 border border-indigo-500/30 cursor-pointer group hover:bg-indigo-500/30 transition-all shadow-lg"
+              >
+                <TrendingUp className="w-5 h-5 text-indigo-400 mb-2 group-hover:scale-110 transition-transform" />
+                <p className="text-[11px] font-bold text-foreground">ROI Insights</p>
+                <p className="text-[9px] text-foreground/40">Calculate your 5-year gains</p>
+              </motion.div>
+              <motion.div 
+                whileHover={{ y: -5 }}
+                onClick={() => navigate('/admission-probability')}
+                className="p-4 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 cursor-pointer group hover:bg-purple-500/30 transition-all shadow-lg"
+              >
+                <Target className="w-5 h-5 text-purple-400 mb-2 group-hover:scale-110 transition-transform" />
+                <p className="text-[11px] font-bold text-foreground">Admission Odds</p>
+                <p className="text-[9px] text-foreground/40">Check your university match</p>
+              </motion.div>
+            </div>
+          )}
+
           {/* Tab Content */}
           <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-4">
             <AnimatePresence mode="wait">
