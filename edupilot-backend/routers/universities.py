@@ -9,9 +9,27 @@ from typing import List
 import json, re
 
 from gemini_client import generate_content
-from supabase_client import get_cached_data, save_cached_data, is_stale
+from supabase_client import get_cached_data, save_cached_data, is_stale, supabase
 
 router = APIRouter()
+
+
+@router.get("/top")
+async def get_top_universities():
+    """Fetch the top universities from Supabase."""
+    if not supabase:
+        # Fallback if DB is not configured
+        return {
+            "universities": [
+                { "name": "MIT (Fallback)", "location": "USA", "match": 85, "tuition": "$53,790", "ranking": "#1" }
+            ]
+        }
+    
+    try:
+        res = supabase.table("universities").select("*").order("match_score", desc=True).limit(10).execute()
+        return {"universities": res.data}
+    except Exception as e:
+        return {"error": True, "message": str(e)}
 
 
 class UniversitySearchRequest(BaseModel):

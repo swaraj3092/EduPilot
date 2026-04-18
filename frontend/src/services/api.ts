@@ -247,6 +247,14 @@ export async function getROIData(params: {
   return handleResponse(res);
 }
 
+export async function getTopUniversities(): Promise<{ universities: any[] }> {
+  const res = await fetch(`${BASE}/api/universities/top`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  return handleResponse(res);
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Test Prep
 // ─────────────────────────────────────────────────────────────────────────────

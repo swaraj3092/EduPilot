@@ -16,7 +16,7 @@ import { NotificationCenter } from "@components/NotificationCenter";
 import { GrowthFlow } from "@components/GrowthFlow";
 import { Footer } from "@components/Footer";
 import { BackToTop } from "@components/BackToTop";
-import { chatSend, getLeaderboard, completeQuest, awardXP, ChatMessage, getUserProfile } from "@services";
+import { chatSend, getLeaderboard, completeQuest, awardXP, ChatMessage, getUserProfile, getTopUniversities } from "@services";
 import { QuestDashboard } from "@components/QuestDashboard";
 
 const MOCK_UNIVERSITIES = [
@@ -42,7 +42,7 @@ export function Dashboard() {
   const [isQuestOpen, setIsQuestOpen] = useState(false);
 
   const savedProfile = localStorage.getItem("edupilot-profile");
-  const initialProfile = savedProfile ? JSON.parse(savedProfile) : { name: "Rahul Sharma", xp: 0, streak: 1 };
+  const initialProfile = savedProfile ? JSON.parse(savedProfile) : { name: "Explorer", xp: 0, streak: 1 };
   
   const [profile, setProfile] = useState(initialProfile);
   const savedUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
@@ -71,8 +71,22 @@ export function Dashboard() {
 
   // Fetch fresh legit data from DB on mount
   useEffect(() => {
-    const fetchStats = async () => {
+    const fetchStatus = async () => {
       try {
+        // 1. Fetch Top Universities from DB
+        const uniRes = await getTopUniversities();
+        if (uniRes.universities) {
+            const formatted = uniRes.universities.map((u: any) => ({
+                name: u.name,
+                location: u.country,
+                match: u.match_score || 85,
+                tuition: u.tuition || "N/A",
+                ranking: u.ranking || "N/A"
+            }));
+            setFilteredUniversities(formatted);
+        }
+
+        // 2. Fetch Profile Stats
         const authUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
         const userId = authUser.id || authUser.user_id;
         if (!userId) return;
@@ -80,7 +94,6 @@ export function Dashboard() {
         const res = await getUserProfile(userId);
         if (res.status === "success" && res.profile) {
           const dbProfile = res.profile;
-          // Update local cache
           const updatedProfile = {
             ...profile,
             name: dbProfile.full_name,
@@ -101,14 +114,14 @@ export function Dashboard() {
           });
         }
       } catch (e) {
-        console.error("Stats refresh failed", e);
+        console.error("Dashboard sync failed", e);
       }
     };
-    fetchStats();
+    fetchStatus();
   }, []);
 
   const [input, setInput] = useState("");
-  const [filteredUniversities, setFilteredUniversities] = useState(MOCK_UNIVERSITIES);
+  const [filteredUniversities, setFilteredUniversities] = useState<any[]>([]);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
