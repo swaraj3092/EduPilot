@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { X, Flame, Zap, Trophy, Target, Star, Shield, TrendingUp, Users, Crown, ArrowRight, ExternalLink, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { getLeaderboard, completeQuest } from "@lib";
+import { getLeaderboard, completeQuest } from "@services";
 import { useNavigate } from "react-router";
 
 interface QuestDashboardProps {

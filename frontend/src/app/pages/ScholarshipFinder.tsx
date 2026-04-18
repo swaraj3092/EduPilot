@@ -6,7 +6,7 @@ import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Progress } from "../components/ui/progress";
-import { findScholarships, Scholarship } from "@lib";
+import { findScholarships, Scholarship } from "@services";
 
 const COUNTRIES = ["USA", "UK", "Canada", "Australia", "Germany", "Singapore", "Europe", "India"];
 const FIELDS = ["Computer Science", "Engineering", "Business", "Data Science", "Biotechnology", "Medicine", "Arts", "Economics"];

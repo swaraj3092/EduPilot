@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Sparkles, X, ChevronRight, Bot, Mail, ShieldCheck, Rocket } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import { generateAgentBlueprint } from "@lib";
+import { generateAgentBlueprint } from "@services";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 
 export function GrowthFlow() {

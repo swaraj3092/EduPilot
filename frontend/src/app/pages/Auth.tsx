@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { loginUser, registerUser, resetPassword } from "@lib";
+import { loginUser, registerUser, resetPassword } from "@services";
 
 export function Auth() {
   const navigate = useNavigate();

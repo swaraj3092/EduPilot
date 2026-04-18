@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getUserProfile, updateProfile, resetPassword as resetUserPassword } from "@lib";
+import { getUserProfile, updateProfile, resetPassword as resetUserPassword } from "@services";
 
 export function Settings() {
   const navigate = useNavigate();
