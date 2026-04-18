@@ -506,21 +506,21 @@ export function Dashboard() {
 
                 <div className="flex items-center justify-between text-xs md:text-sm">
                   <div>
-                    <div className="text-foreground/50">Annual Tuition</div>
-                    <div className="text-foreground font-semibold">{uni.tuition}</div>
+                    <div className="text-white/50">Annual Tuition</div>
+                    <div className="text-white font-semibold">{uni.tuition}</div>
                   </div>
                   <div className="flex gap-2">
                     <Button size="sm" variant="outline" className="border-white/20 hover:bg-white/10 text-xs">
                       Details
                     </Button>
-                    <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-foreground text-xs px-2" onClick={() => navigate('/loan-eligibility')}>
+                    <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-2" onClick={() => navigate('/loan-eligibility')}>
                       Check Loan
                     </Button>
                   </div>
                 </div>
               </Card>
             </motion.div>
-          ))}
+          )))}
         </div>
       </div>
 
