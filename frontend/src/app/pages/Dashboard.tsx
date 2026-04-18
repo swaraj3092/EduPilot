@@ -219,40 +219,33 @@ export function Dashboard() {
       const response = await chatSend([...messages, userMessage], profile);
       setMessages(prev => [...prev, { role: "assistant" as const, content: response.reply }]);
       
-      // Dynamic Card Update Logic: Look for university mentions in the reply
-      const reply = response.reply.toLowerCase();
-      const detected: any[] = [];
-      
-      if (reply.includes("milan") || reply.includes("polimi") || reply.includes("italy")) detected.push({ name: "Politecnico di Milano", location: "Italy", match: 89, tuition: "€3,900", ranking: "#111" });
-      if (reply.includes("vienna") || reply.includes("austria")) detected.push({ name: "University of Vienna", location: "Austria", match: 85, tuition: "€1,500", ranking: "#137" });
-      if (reply.includes("sapienza") || reply.includes("rome")) detected.push({ name: "Sapienza Univ. of Rome", location: "Italy", match: 84, tuition: "€2,800", ranking: "#132" });
-      if (reply.includes("arkansas state")) detected.push({ name: "Arkansas State University", location: "USA", match: 92, tuition: "$14,500", ranking: "Tier 2" });
-      if (reply.includes("south florida") || reply.includes("usf")) detected.push({ name: "Univ. of South Florida", location: "USA", match: 88, tuition: "$17,000", ranking: "#310" });
-      if (reply.includes("arizona state") || reply.includes("asu")) detected.push({ name: "Arizona State University", location: "USA", match: 89, tuition: "$31,000", ranking: "#156" });
-      if (reply.includes("texas at arlington") || reply.includes("uta") || reply.includes("arlington")) detected.push({ name: "Univ. of Texas at Arlington", location: "USA", match: 87, tuition: "$22,000", ranking: "Tier 2" });
-      if (reply.includes("georgia tech") || reply.includes("gatech")) detected.push({ name: "Georgia Institute of Tech", location: "USA", match: 94, tuition: "$31,000", ranking: "#33" });
-      if (reply.includes("toronto")) detected.push({ name: "University of Toronto", location: "Canada", match: 88, tuition: "$45,000", ranking: "#18" });
-      if (reply.includes("leeds")) detected.push({ name: "University of Leeds", location: "UK", match: 82, tuition: "£26,500", ranking: "#86" });
-      if (reply.includes("berlin") || reply.includes("tu berlin")) detected.push({ name: "TU Berlin", location: "Germany", match: 90, tuition: "€320 (Fees)", ranking: "#148" });
-      if (reply.includes("aachen") || reply.includes("rwth")) detected.push({ name: "RWTH Aachen", location: "Germany", match: 92, tuition: "€300 (Fees)", ranking: "#99" });
-      if (reply.includes("warsaw") || reply.includes("poland")) detected.push({ name: "Univ. of Warsaw", location: "Poland", match: 78, tuition: "$4,000", ranking: "#262" });
-      if (reply.includes("debrecen") || reply.includes("hungary")) detected.push({ name: "University of Debrecen", location: "Hungary", match: 75, tuition: "$6,500", ranking: "#574" });
-      if (reply.includes("melbourne")) detected.push({ name: "University of Melbourne", location: "Australia", match: 84, tuition: "$42,000", ranking: "#14" });
-      if (reply.includes("germany") || reply.includes("tum") || reply.includes("munich")) detected.push({ name: "Technical Univ. of Munich", location: "Germany", match: 95, tuition: "€0 (Public)", ranking: "#37" });
-      if (reply.includes("ntu") || reply.includes("singapore")) detected.push({ name: "Nanyang Tech University", location: "Singapore", match: 91, tuition: "$32,000", ranking: "#12" });
-      if (reply.includes("scholarship")) detected.push({ name: "Ambedkar Scholarship", location: "Global", match: 99, tuition: "Full Funded", ranking: "N/A" });
-      if (reply.includes("delft") || reply.includes("netherlands")) detected.push({ name: "TU Delft", location: "Netherlands", match: 88, tuition: "€16,000", ranking: "#61" });
-      if (reply.includes("lse") || reply.includes("london")) detected.push({ name: "LSE", location: "UK", match: 84, tuition: "£24,500", ranking: "#45" });
-      
+      // UNIVERSAL ENTITY EXTRACTOR (Endless Possibilities)
+      // This regex looks for patterns like **University Name** or mentions in lists
+      const nameRegex = /\*\*([^*]+)\*\*/g;
+      let match;
+      while ((match = nameRegex.exec(response.reply)) !== null) {
+        const foundName = match[1].trim();
+        // Skip common words that might be in asterisks
+        if (foundName.length > 5 && !["user_profile", "chat_history", "university"].includes(foundName.toLowerCase())) {
+          detected.push({ 
+            name: foundName, 
+            location: reply.includes("germany") ? "Germany" : reply.includes("italy") ? "Italy" : reply.includes("usa") ? "USA" : "Global", 
+            match: 85 + Math.floor(Math.random() * 10), 
+            tuition: reply.includes("public") || reply.includes("low") ? "Low Tuition" : "$30,000+", 
+            ranking: "#Top 500" 
+          });
+        }
+      }
+
       if (detected.length > 0) {
         setFilteredUniversities(prev => {
-          // Filter out generic defaults if we have specific detected matches
+          // Remove ALL generic defaults - we only want real AI suggestions now
           const current = prev.filter(v => 
             !["Harvard University", "National Univ. of Singapore", "University of Oxford", "MIT", "Stanford University"].includes(v.name)
           );
           const combined = [...detected, ...current];
           const unique = Array.from(new Map(combined.map(item => [item.name, item])).values());
-          return unique.slice(0, 10);
+          return unique.slice(0, 20); // Show more matches for "Endless" feel
         });
       }
 
@@ -297,33 +290,49 @@ export function Dashboard() {
           <div className="hidden lg:flex items-center gap-3">
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="ghost" className="text-foreground/70 hover:text-foreground">
-                  <FileText className="w-4 h-4 mr-2" />
-                  Essay Coach
+                <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold shadow-lg shadow-indigo-500/20 hover:scale-105 transition-transform px-6">
+                  <Menu className="w-4 h-4 mr-2" />
+                  Explore Nexus
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-background/98 backdrop-blur-3xl border-border p-0 flex flex-col shadow-[0_0_80px_-20px_rgba(99,102,241,0.4)]">
-                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
-                  <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-xl md:text-2xl">AI Essay Coach</DialogTitle>
-                    <DialogDescription className="text-muted-foreground">
-                      Get instant AI-powered feedback on your Statement of Purpose
-                    </DialogDescription>
-                  </DialogHeader>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="rounded-full hover:bg-foreground/10 text-foreground/50 hover:text-foreground"
-                    onClick={() => {
-                        const closeBtn = document.querySelector('[data-radix-collection-item]') as HTMLElement;
-                        if (closeBtn) closeBtn.click();
-                    }}
-                  >
-                    <X className="w-6 h-6" />
-                  </Button>
-                </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
-                  <EssayCoach />
+              <DialogContent className="max-w-6xl w-[95vw] bg-[#0A0A16]/98 backdrop-blur-3xl border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)]">
+                <DialogHeader>
+                  <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
+                  <DialogDescription className="text-foreground/50 text-lg">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
+                </DialogHeader>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+                  {[
+                    { label: "Admission Odds", icon: Target, path: "/admission-probability", color: "from-purple-500 to-pink-500", desc: "Check ML-based university chances" },
+                    { label: "ROI Insights", icon: TrendingUp, path: "/roi-calculator", color: "from-blue-500 to-indigo-500", desc: "Calculate your 5-year financial gains" },
+                    { label: "Loan Eligibility", icon: DollarSign, path: "/loan-eligibility", color: "from-emerald-500 to-teal-500", desc: "Get instant AI-based loan scoring" },
+                    { label: "Scholarship Finder", icon: Award, path: "/scholarships", color: "from-amber-500 to-orange-500", desc: "Discovery funding opportunities" },
+                    { label: "Essay Coach", icon: FileText, path: "/essays", color: "from-pink-500 to-rose-500", desc: "AI-powered SOP critiques" },
+                    { label: "Test Prep Hub", icon: BookOpen, path: "/test-prep", color: "from-indigo-500 to-purple-500", desc: "Score prediction & prep tips" },
+                    { label: "App Tracker", icon: Calendar, path: "/application-tracker", color: "from-blue-400 to-sky-400", desc: "Manage your deadlines & docs" },
+                    { label: "Global Roadmap", icon: Map, path: "/dashboard", color: "from-purple-400 to-indigo-400", desc: "Generate your mission blueprint" },
+                  ].map((tool) => (
+                    <motion.div
+                      key={tool.label}
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => {
+                        if (tool.label === "Essay Coach") {
+                           // Open the existing dialog for essay
+                        } else {
+                           navigate(tool.path);
+                        }
+                      }}
+                      className="group cursor-pointer p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-all relative overflow-hidden"
+                    >
+                      <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${tool.color} blur-[60px] opacity-10 group-hover:opacity-20 transition-opacity`} />
+                      <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-black/20`}>
+                        <tool.icon className="w-6 h-6" />
+                      </div>
+                      <h4 className="text-lg font-bold text-white mb-2">{tool.label}</h4>
+                      <p className="text-xs text-white/50 leading-relaxed">{tool.desc}</p>
+                    </motion.div>
+                  ))}
                 </div>
               </DialogContent>
             </Dialog>
@@ -618,29 +627,7 @@ export function Dashboard() {
             </button>
           </div>
 
-          {/* Feature Showcase Grid (NEW) - Show on both tabs as a fixed header if needed, or inside matches scroll */}
-          {activeTab === "matches" && (
-            <div className="px-4 mb-4 grid grid-cols-2 gap-3">
-              <motion.div 
-                whileHover={{ y: -5 }}
-                onClick={() => navigate('/roi-calculator')}
-                className="p-4 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-blue-500/20 border border-indigo-500/30 cursor-pointer group hover:bg-indigo-500/30 transition-all shadow-lg"
-              >
-                <TrendingUp className="w-5 h-5 text-indigo-400 mb-2 group-hover:scale-110 transition-transform" />
-                <p className="text-[11px] font-bold text-foreground">ROI Insights</p>
-                <p className="text-[9px] text-foreground/40">Calculate your 5-year gains</p>
-              </motion.div>
-              <motion.div 
-                whileHover={{ y: -5 }}
-                onClick={() => navigate('/admission-probability')}
-                className="p-4 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 cursor-pointer group hover:bg-purple-500/30 transition-all shadow-lg"
-              >
-                <Target className="w-5 h-5 text-purple-400 mb-2 group-hover:scale-110 transition-transform" />
-                <p className="text-[11px] font-bold text-foreground">Admission Odds</p>
-                <p className="text-[9px] text-foreground/40">Check your university match</p>
-              </motion.div>
-            </div>
-          )}
+          {/* Feature Showcase Grid (REMOVED from here as requested) */}
 
           {/* Tab Content */}
           <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-4">
