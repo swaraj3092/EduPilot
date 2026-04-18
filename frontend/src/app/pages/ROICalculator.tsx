@@ -2,12 +2,12 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 import { ArrowLeft, TrendingUp, DollarSign, Loader2, RefreshCw, Info } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Label } from "../components/ui/label";
-import { Slider } from "../components/ui/slider";
+import { Button } from "@components/ui/button";
+import { Card } from "@components/ui/card";
+import { Label } from "@components/ui/label";
+import { Slider } from "@components/ui/slider";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { getROIData, ROIData } from "@/lib/api";
+import { getROIData, ROIData } from "@lib/api";
 
 const COUNTRIES = ["USA", "UK", "Canada", "Australia", "Germany", "Singapore", "India"];
 const FIELDS = ["Computer Science", "AI / Machine Learning", "Data Science", "Electrical Engineering", "Business", "Biotechnology"];

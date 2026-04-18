@@ -2,10 +2,10 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 import { ArrowLeft, Plus, X, Check, TrendingUp, DollarSign, Users, Award, MapPin, Loader2, RefreshCw } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { compareUniversities, UniversityData } from "@/lib/api";
+import { Button } from "@components/ui/button";
+import { Card } from "@components/ui/card";
+import { Input } from "@components/ui/input";
+import { compareUniversities, UniversityData } from "@lib/api";
 
 const POPULAR_UNIVERSITIES = [
   "MIT", "Stanford", "Harvard", "Carnegie Mellon", "UC Berkeley",
