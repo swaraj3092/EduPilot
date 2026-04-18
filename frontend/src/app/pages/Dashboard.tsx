@@ -218,6 +218,8 @@ export function Dashboard() {
       const reply = response.reply.toLowerCase();
       const detected: any[] = [];
       
+      if (reply.includes("milan") || reply.includes("polimi") || reply.includes("italy")) detected.push({ name: "Politecnico di Milano", location: "Italy", match: 89, tuition: "€3,900", ranking: "#111" });
+      if (reply.includes("vienna") || reply.includes("austria")) detected.push({ name: "University of Vienna", location: "Austria", match: 85, tuition: "€1,500", ranking: "#137" });
       if (reply.includes("arkansas state")) detected.push({ name: "Arkansas State University", location: "USA", match: 92, tuition: "$14,500", ranking: "Tier 2" });
       if (reply.includes("arizona state") || reply.includes("asu")) detected.push({ name: "Arizona State University", location: "USA", match: 89, tuition: "$31,000", ranking: "#156" });
       if (reply.includes("texas at arlington") || reply.includes("uta") || reply.includes("arlington")) detected.push({ name: "Univ. of Texas at Arlington", location: "USA", match: 87, tuition: "$22,000", ranking: "Tier 2" });
@@ -236,10 +238,11 @@ export function Dashboard() {
       
       if (detected.length > 0) {
         setFilteredUniversities(prev => {
-          // Flatten existing matches but remove duplicates by name
-          const combined = [...detected, ...prev];
+          // Remove potential defaults if we have real matches
+          const current = prev.filter(p => p.name !== "Harvard University" && p.name !== "National Univ. of Singapore");
+          const combined = [...detected, ...current];
           const unique = Array.from(new Map(combined.map(item => [item.name, item])).values());
-          return unique.slice(0, 10); // Keep top 10 for performance
+          return unique.slice(0, 10);
         });
       }
 
