@@ -268,8 +268,14 @@ export function EssayCoach() {
           <div className="flex items-center gap-3 mb-4">
             <motion.div
               className="w-12 h-12 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center shadow-lg"
-              animate={{ boxShadow: ["0 0 20px rgba(168,85,247,0.4)", "0 0 40px rgba(236,72,153,0.6)", "0 0 20px rgba(168,85,247,0.4)"] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              animate={{ 
+                y: [0, -4, 0],
+                boxShadow: ["0 0 20px rgba(168,85,247,0.4)", "0 0 40px rgba(236,72,153,0.6)", "0 0 20px rgba(168,85,247,0.4)"] 
+              }}
+              transition={{ 
+                y: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+                boxShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+              }}
             >
               <FileText className="w-6 h-6 text-white" />
             </motion.div>
@@ -526,14 +532,25 @@ export function EssayCoach() {
 
           {!analyzed && !analyzing && (
             <motion.div key="empty" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="h-full">
-              <Card className="p-12 bg-[#0F0F1A]/40 backdrop-blur-2xl border-white/5 border-dashed flex flex-col items-center justify-center text-center min-h-[500px] shadow-2xl">
-                <div className="flex flex-col items-center">
-                  <Sparkles className="w-16 h-16 text-white/20 mb-6" />
-                  <p className="text-lg text-white/40 mb-2">Paste your essay and click "Analyze with AI"</p>
-                  <Button variant="outline" className="mt-4" onClick={handleLoadSample}>
+              <Card className="p-12 bg-[#0F0F1A]/40 backdrop-blur-2xl border-white/5 border-dashed flex flex-col items-center justify-center text-center min-h-[500px] shadow-2xl group">
+                <motion.div 
+                  className="flex flex-col items-center"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="relative">
+                    <Sparkles className="w-16 h-16 text-white/20 mb-6 group-hover:text-purple-400 transition-colors duration-500" />
+                    <motion.div 
+                      className="absolute -inset-4 bg-purple-500/10 blur-xl rounded-full"
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    />
+                  </div>
+                  <p className="text-lg text-white/40 mb-2 font-medium">Paste your essay and click "Analyze with AI"</p>
+                  <Button variant="outline" className="mt-4 border-white/10 hover:bg-white/10 text-white/60 hover:text-white transition-all hover:scale-105 active:scale-95" onClick={handleLoadSample}>
                     Load Sample Essay
                   </Button>
-                </div>
+                </motion.div>
               </Card>
             </motion.div>
           )}
@@ -549,15 +566,38 @@ export function EssayCoach() {
                   </div>
                   <Progress value={totalProgress} className="h-2" />
                 </div>
-                <div className="mt-8 space-y-2 w-full max-w-sm">
+                <div className="mt-8 space-y-3 w-full max-w-sm">
                   {ANALYSIS_STEPS.map((step, i) => {
                     const isCompleted = completedSteps.includes(i);
                     const isActive = currentStep === i;
                     return (
-                      <div key={i} className={`flex items-center gap-3 px-4 py-2 rounded-lg ${isActive ? "bg-purple-500/10 border border-purple-500/30" : "opacity-40"}`}>
-                        {isCompleted ? <CheckCircle2 className="w-4 h-4 text-green-400" /> : <div className="w-4 h-4 rounded-full border border-white/20" />}
-                        <span className="text-sm text-white/70">{step.label}</span>
-                      </div>
+                      <motion.div 
+                        key={i} 
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1, type: "spring", stiffness: 100 }}
+                        className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-500 border ${
+                          isActive ? "bg-purple-500/20 border-purple-500/40 shadow-[0_0_20px_rgba(168,85,247,0.15)]" : 
+                          isCompleted ? "bg-green-500/10 border-green-500/20 opacity-100" :
+                          "bg-white/5 border-transparent opacity-30"
+                        }`}
+                      >
+                        {isCompleted ? (
+                          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 300 }}>
+                            <CheckCircle2 className="w-4 h-4 text-green-400 shadow-[0_0_10px_rgba(74,222,128,0.5)]" />
+                          </motion.div>
+                        ) : isActive ? (
+                          <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }}>
+                            <div className="w-4 h-4 rounded-full border-2 border-purple-500 border-t-transparent" />
+                          </motion.div>
+                        ) : (
+                          <div className="w-4 h-4 rounded-full border border-white/10" />
+                        )}
+                        <span className={`text-sm font-medium ${isActive ? "text-white" : "text-white/60"}`}>{step.label}</span>
+                        {isActive && (
+                          <motion.div className="ml-auto w-1.5 h-1.5 rounded-full bg-purple-400" animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }} transition={{ duration: 1, repeat: Infinity }} />
+                        )}
+                      </motion.div>
                     );
                   })}
                 </div>
