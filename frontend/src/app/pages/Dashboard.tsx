@@ -225,7 +225,9 @@ export function Dashboard() {
       
       if (reply.includes("milan") || reply.includes("polimi") || reply.includes("italy")) detected.push({ name: "Politecnico di Milano", location: "Italy", match: 89, tuition: "€3,900", ranking: "#111" });
       if (reply.includes("vienna") || reply.includes("austria")) detected.push({ name: "University of Vienna", location: "Austria", match: 85, tuition: "€1,500", ranking: "#137" });
+      if (reply.includes("sapienza") || reply.includes("rome")) detected.push({ name: "Sapienza Univ. of Rome", location: "Italy", match: 84, tuition: "€2,800", ranking: "#132" });
       if (reply.includes("arkansas state")) detected.push({ name: "Arkansas State University", location: "USA", match: 92, tuition: "$14,500", ranking: "Tier 2" });
+      if (reply.includes("south florida") || reply.includes("usf")) detected.push({ name: "Univ. of South Florida", location: "USA", match: 88, tuition: "$17,000", ranking: "#310" });
       if (reply.includes("arizona state") || reply.includes("asu")) detected.push({ name: "Arizona State University", location: "USA", match: 89, tuition: "$31,000", ranking: "#156" });
       if (reply.includes("texas at arlington") || reply.includes("uta") || reply.includes("arlington")) detected.push({ name: "Univ. of Texas at Arlington", location: "USA", match: 87, tuition: "$22,000", ranking: "Tier 2" });
       if (reply.includes("georgia tech") || reply.includes("gatech")) detected.push({ name: "Georgia Institute of Tech", location: "USA", match: 94, tuition: "$31,000", ranking: "#33" });
@@ -234,8 +236,9 @@ export function Dashboard() {
       if (reply.includes("berlin") || reply.includes("tu berlin")) detected.push({ name: "TU Berlin", location: "Germany", match: 90, tuition: "€320 (Fees)", ranking: "#148" });
       if (reply.includes("aachen") || reply.includes("rwth")) detected.push({ name: "RWTH Aachen", location: "Germany", match: 92, tuition: "€300 (Fees)", ranking: "#99" });
       if (reply.includes("warsaw") || reply.includes("poland")) detected.push({ name: "Univ. of Warsaw", location: "Poland", match: 78, tuition: "$4,000", ranking: "#262" });
+      if (reply.includes("debrecen") || reply.includes("hungary")) detected.push({ name: "University of Debrecen", location: "Hungary", match: 75, tuition: "$6,500", ranking: "#574" });
       if (reply.includes("melbourne")) detected.push({ name: "University of Melbourne", location: "Australia", match: 84, tuition: "$42,000", ranking: "#14" });
-      if (reply.includes("germany") || reply.includes("tum") || reply.includes("munich")) detected.push({ name: "Technical Univ. of Munich", location: "Germany", match: 95, tuition: "€250 (Fees)", ranking: "#37" });
+      if (reply.includes("germany") || reply.includes("tum") || reply.includes("munich")) detected.push({ name: "Technical Univ. of Munich", location: "Germany", match: 95, tuition: "€0 (Public)", ranking: "#37" });
       if (reply.includes("ntu") || reply.includes("singapore")) detected.push({ name: "Nanyang Tech University", location: "Singapore", match: 91, tuition: "$32,000", ranking: "#12" });
       if (reply.includes("scholarship")) detected.push({ name: "Ambedkar Scholarship", location: "Global", match: 99, tuition: "Full Funded", ranking: "N/A" });
       if (reply.includes("delft") || reply.includes("netherlands")) detected.push({ name: "TU Delft", location: "Netherlands", match: 88, tuition: "€16,000", ranking: "#61" });
@@ -243,8 +246,10 @@ export function Dashboard() {
       
       if (detected.length > 0) {
         setFilteredUniversities(prev => {
-          // Remove potential defaults if we have real matches
-          const current = prev.filter(p => p.name !== "Harvard University" && p.name !== "National Univ. of Singapore");
+          // Filter out generic defaults if we have specific detected matches
+          const current = prev.filter(v => 
+            !["Harvard University", "National Univ. of Singapore", "University of Oxford", "MIT", "Stanford University"].includes(v.name)
+          );
           const combined = [...detected, ...current];
           const unique = Array.from(new Map(combined.map(item => [item.name, item])).values());
           return unique.slice(0, 10);
