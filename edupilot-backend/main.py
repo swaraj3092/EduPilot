@@ -5,7 +5,7 @@ load_dotenv()
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import chat, essay, admission, loan, scholarships, universities, testprep, applications, agent, auth
+from routers import chat, essay, admission, loan, scholarships, universities, testprep, applications, agent, auth, news
 
 app = FastAPI(
     title="EduPilot API",
@@ -49,6 +49,7 @@ app.include_router(testprep.router,     prefix="/api/testprep",     tags=["Test 
 app.include_router(applications.router, prefix="/api/applications", tags=["Applications"])
 app.include_router(agent.router,        prefix="/api/agent",        tags=["AI Agent"])
 app.include_router(auth.router,         prefix="/api/auth",         tags=["Authentication"])
+app.include_router(news.router,         prefix="/api/news",         tags=["News"])
 
 
 @app.get("/")

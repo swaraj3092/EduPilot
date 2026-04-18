@@ -438,3 +438,14 @@ export async function completeQuest(params: {
   });
   return handleResponse(res);
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// News
+// ─────────────────────────────────────────────────────────────────────────────
+export async function getLatestNews(country: string = "USA"): Promise<{ articles: any[] }> {
+  const res = await fetch(`${BASE}/api/news/latest?country=${encodeURIComponent(country)}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  return handleResponse(res);
+}

@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useNavigate } from "react-router";
 import {
-  Send, Sparkles, TrendingUp, DollarSign, FileText, Award,
-  GraduationCap, Target, Calendar, BookOpen, GitCompare,
-  Settings as SettingsIcon, Menu, X, Flame, Zap
+  Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map, ListTodo, PlayCircle, Info
 } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
@@ -15,8 +13,9 @@ import { NotificationCenter } from "@components/NotificationCenter";
 import { GrowthFlow } from "@components/GrowthFlow";
 import { Footer } from "@components/Footer";
 import { BackToTop } from "@components/BackToTop";
-import { chatSend, getLeaderboard, completeQuest, awardXP, ChatMessage, getUserProfile, getTopUniversities } from "@services";
 import { QuestDashboard } from "@components/QuestDashboard";
+import { getLatestNews, generateAgentBlueprint } from "@services";
+import ReactMarkdown from 'react-markdown';
 
 const MOCK_UNIVERSITIES = [
   { name: "MIT", location: "USA", match: 85, tuition: "$53,790", ranking: "#1" },
@@ -39,7 +38,12 @@ export function Dashboard() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isQuestOpen, setIsQuestOpen] = useState(false);
-  const [showNudge, setShowNudge] = useState(true);
+  const [activeTab, setActiveTab] = useState<"matches" | "discover">("matches");
+  const [news, setNews] = useState<any[]>([]);
+  const [newsLoading, setNewsLoading] = useState(false);
+  const [isBlueprintOpen, setIsBlueprintOpen] = useState(false);
+  const [blueprint, setBlueprint] = useState("");
+  const [blueprintLoading, setBlueprintLoading] = useState(false);
 
   const savedProfile = localStorage.getItem("edupilot-profile");
   const initialProfile = savedProfile ? JSON.parse(savedProfile) : { name: "Explorer", xp: 0, streak: 1 };
