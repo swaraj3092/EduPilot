@@ -349,20 +349,12 @@ export function Dashboard() {
                   Explore Nexus
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-background border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] overflow-y-auto">
-                <DialogHeader className="flex flex-row items-center justify-between">
+              <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-[#0A0A16]/95 dark:bg-[#0A0A16]/95 light:bg-white border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] overflow-y-auto">
+                <DialogHeader className="flex flex-row items-center justify-between pb-4 border-b border-white/5 mb-6">
                   <div>
                     <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
-                    <DialogDescription className="text-muted-foreground text-lg">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
+                    <DialogDescription className="text-white/50 text-lg">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
                   </div>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="rounded-full hover:bg-foreground/10 text-foreground/50 hover:text-foreground"
-                    onClick={() => setIsNexusOpen(false)}
-                  >
-                    <X className="w-6 h-6" />
-                  </Button>
                 </DialogHeader>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
@@ -390,14 +382,14 @@ export function Dashboard() {
                            navigate(tool.path);
                         }
                       }}
-                      className="group cursor-pointer p-6 rounded-3xl bg-card border border-border hover:border-indigo-500/30 transition-all relative overflow-hidden"
+                      className="group cursor-pointer p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-all relative overflow-hidden"
                     >
                       <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${tool.color} blur-[60px] opacity-10 group-hover:opacity-20 transition-opacity`} />
-                      <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-black/10`}>
+                      <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-black/20`}>
                         <tool.icon className="w-6 h-6" />
                       </div>
-                      <h4 className="text-lg font-bold text-foreground mb-2">{tool.label}</h4>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{tool.desc}</p>
+                      <h4 className="text-lg font-bold text-white mb-2">{tool.label}</h4>
+                      <p className="text-xs text-white/50 leading-relaxed">{tool.desc}</p>
                     </motion.div>
                   ))}
                 </div>
