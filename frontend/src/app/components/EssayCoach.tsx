@@ -239,7 +239,7 @@ export function EssayCoach() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
       >
-        <Card className="p-6 bg-card backdrop-blur-xl border-border flex-1 flex flex-col shadow-2xl">
+        <Card className="p-6 bg-[#0F0F1A]/80 backdrop-blur-2xl border-white/5 flex-1 flex flex-col shadow-[0_0_40px_-15px_rgba(0,0,0,0.5)]">
           <div className="mb-4">
             <label className="text-xs text-muted-foreground mb-2 block">Essay Type</label>
             <div className="flex gap-2">
@@ -281,7 +281,7 @@ export function EssayCoach() {
 
           <Textarea
             placeholder={`Paste your ${ESSAY_TYPES.find(t => t.id === selectedType)?.label || "essay"} here...`}
-            className="flex-1 bg-background border-border text-foreground placeholder:text-muted-foreground/50 mb-3 resize-none min-h-[220px] text-sm p-4 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
+            className="flex-1 bg-[#05050A]/60 border-white/5 text-white/90 placeholder:text-white/20 mb-3 resize-none min-h-[220px] text-sm p-4 focus:border-purple-500/50 focus:ring-0 transition-all rounded-xl"
             value={essay}
             onChange={(e) => { setEssay(e.target.value); setAnalyzed(false); }}
           />
@@ -387,12 +387,12 @@ export function EssayCoach() {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`flex-1 py-2.5 px-3 rounded-xl text-xs transition-all min-w-[100px] ${
+                    className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-medium transition-all min-w-[100px] border ${
                       activeTab === tab
-                        ? tab === "plagiarism" ? "bg-amber-500/20 border border-amber-500/50 text-amber-300"
-                        : tab === "history" ? "bg-indigo-500/20 border border-indigo-500/50 text-indigo-300"
-                        : "bg-purple-500/20 border border-purple-500/50 text-purple-300"
-                        : "bg-card border border-border text-foreground hover:bg-accent"
+                        ? tab === "plagiarism" ? "bg-amber-500/20 border-amber-500/40 text-amber-300"
+                        : tab === "history" ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-300"
+                        : "bg-purple-500/20 border-purple-500/40 text-purple-300"
+                        : "bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white/60"
                     }`}
                   >
                     {tab === "feedback" ? "Feedback" : tab === "improved" ? "AI Improved" : tab === "plagiarism" ? "Plagiarism" : `History (${versionHistory.length})`}
@@ -405,16 +405,16 @@ export function EssayCoach() {
                   {activeTab === "feedback" && (
                     <motion.div key="feedback" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} className="space-y-3">
                       {scores.map((item, i) => (
-                        <Card key={item.label} className="p-4 bg-card border-border hover:border-purple-500/30 transition-colors">
+                        <Card key={item.label} className="p-4 bg-[#0F0F1A]/60 border-white/5 hover:border-purple-500/30 transition-colors shadow-lg">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
                               {item.score >= 75 ? <CheckCircle2 className="w-4 h-4 text-green-400" /> : <AlertCircle className="w-4 h-4 text-amber-400" />}
-                              <span className="text-sm text-foreground font-semibold">{item.label}</span>
+                              <span className="text-sm text-white/90 font-semibold">{item.label}</span>
                             </div>
                             <span className={`text-lg font-bold ${getScoreColor(item.score)}`}>{item.score}</span>
                           </div>
-                          <Progress value={item.score} className="h-1.5 mb-2" />
-                          <p className="text-xs text-muted-foreground leading-relaxed">{item.feedback}</p>
+                          <Progress value={item.score} className="h-1.5 mb-2 bg-white/5" />
+                          <p className="text-xs text-white/50 leading-relaxed font-light">{item.feedback}</p>
                         </Card>
                       ))}
                     </motion.div>
@@ -457,12 +457,12 @@ export function EssayCoach() {
                       </Card>
                       <div className="space-y-3">
                         {plagiarism.sources.map((source, i) => (
-                          <div key={i} className="p-3 rounded-lg bg-card border border-border">
+                          <div key={i} className="p-3 rounded-lg bg-[#0F0F1A]/60 border border-white/5 shadow-inner">
                             <div className="flex items-start justify-between gap-3 mb-1">
-                              <p className="text-xs text-amber-300/80 italic">"{source.text}"</p>
-                              <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px]">{source.similarity}% match</span>
+                              <p className="text-xs text-amber-300/80 italic font-medium">"{source.text}"</p>
+                              <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] border border-amber-500/30">{source.similarity}% match</span>
                             </div>
-                            <p className="text-[10px] text-muted-foreground">Source: {source.source}</p>
+                            <p className="text-[10px] text-white/30 font-light">Source: {source.source}</p>
                           </div>
                         ))}
                       </div>
@@ -471,18 +471,18 @@ export function EssayCoach() {
 
                   {activeTab === "improved" && (
                     <motion.div key="improved" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }}>
-                      <Card className="p-5 bg-card border-border shadow-2xl">
+                      <Card className="p-5 bg-[#0F0F1A]/60 border-white/5 shadow-2xl">
                         <div className="flex items-center justify-between mb-4">
-                          <h4 className="text-base font-bold text-foreground flex items-center gap-2">
+                          <h4 className="text-base font-bold text-white/90 flex items-center gap-2">
                             <TrendingUp className="w-5 h-5 text-green-400" />
                             AI-Improved Version
                           </h4>
-                          <Button size="sm" variant="outline" className="gap-1.5" onClick={handleCopyImproved}>
+                          <Button size="sm" variant="outline" className="gap-1.5 border-white/10 hover:bg-white/5 text-white/70" onClick={handleCopyImproved}>
                             {copied ? <ClipboardCheck className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
                             <span className="text-xs">{copied ? "Copied" : "Copy"}</span>
                           </Button>
                         </div>
-                        <div className="p-4 rounded-xl bg-background border border-border text-sm text-foreground/80 leading-relaxed whitespace-pre-line">
+                        <div className="p-4 rounded-xl bg-[#05050A]/40 border border-white/5 text-sm text-white/80 leading-relaxed font-light whitespace-pre-line">
                           {improvedVersion}
                         </div>
                       </Card>
@@ -496,8 +496,8 @@ export function EssayCoach() {
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-3">
                               <div>
-                                <div className="text-sm text-foreground font-semibold">Version {versionHistory.length - i}</div>
-                                <div className="text-[10px] text-muted-foreground flex items-center gap-2">
+                                <div className="text-sm text-white/90 font-semibold">Version {versionHistory.length - i}</div>
+                                <div className="text-[10px] text-white/40 flex items-center gap-2">
                                   <Clock className="w-3 h-3" />
                                   {version.timestamp.toLocaleDateString()}
                                   <span>•</span>
@@ -526,7 +526,7 @@ export function EssayCoach() {
 
           {!analyzed && !analyzing && (
             <motion.div key="empty" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="h-full">
-              <Card className="p-12 bg-white/5 backdrop-blur-xl border-white/10 border-dashed flex flex-col items-center justify-center text-center min-h-[500px]">
+              <Card className="p-12 bg-[#0F0F1A]/40 backdrop-blur-2xl border-white/5 border-dashed flex flex-col items-center justify-center text-center min-h-[500px] shadow-2xl">
                 <div className="flex flex-col items-center">
                   <Sparkles className="w-16 h-16 text-white/20 mb-6" />
                   <p className="text-lg text-white/40 mb-2">Paste your essay and click "Analyze with AI"</p>
@@ -540,7 +540,7 @@ export function EssayCoach() {
 
           {analyzing && (
             <motion.div key="loading" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
-              <Card className="p-10 bg-white/5 backdrop-blur-xl border-white/10 flex flex-col items-center justify-center text-center min-h-[500px]">
+              <Card className="p-10 bg-[#0F0F1A]/60 backdrop-blur-2xl border-white/5 flex flex-col items-center justify-center text-center min-h-[500px] shadow-2xl">
                 <div className="w-20 h-20 rounded-full border-4 border-white/10 border-t-purple-500 animate-spin mb-8" />
                 <div className="w-full max-w-sm">
                   <div className="flex items-center justify-between text-xs text-white/50 mb-2">

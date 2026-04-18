@@ -420,11 +420,11 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isEssayOpen} onOpenChange={setIsEssayOpen}>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-background/98 backdrop-blur-3xl border-border p-0 flex flex-col shadow-[0_0_80px_-20px_rgba(99,102,241,0.4)]">
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0A0A16]/95 backdrop-blur-3xl border-white/5 p-0 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)]">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-xl md:text-2xl">AI Essay Coach</DialogTitle>
-                    <DialogDescription className="text-muted-foreground">
+                    <DialogTitle className="text-white text-xl md:text-2xl font-bold">AI Essay Coach</DialogTitle>
+                    <DialogDescription className="text-white/50">
                       Get instant AI-powered feedback on your Statement of Purpose
                     </DialogDescription>
                   </DialogHeader>
