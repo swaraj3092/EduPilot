@@ -2,30 +2,30 @@
 
 :root {
   --font-size: 16px;
-  --background: #F8FAFC;
+  --background: #F0F4F8;
   --foreground: #0F172A;
   --card: #FFFFFF;
   --card-foreground: #0F172A;
   --popover: #FFFFFF;
   --popover-foreground: #0F172A;
-  --primary: #4F46E5;
+  --primary: #6366F1;
   --primary-foreground: #FFFFFF;
-  --secondary: #F1F5F9;
+  --secondary: #E2E8F0;
   --secondary-foreground: #1E293B;
-  --muted: #F1F5F9;
-  --muted-foreground: #64748B;
-  --accent: #F1F5F9;
+  --muted: #CBD5E1;
+  --muted-foreground: #475569;
+  --accent: #E2E8F0;
   --accent-foreground: #1E293B;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #E2E8F0;
-  --input: #F1F5F9;
+  --border: #CBD5E1;
+  --input: #F8FAFC;
   --input-background: #FFFFFF;
-  --switch-background: #E2E8F0;
+  --switch-background: #CBD5E1;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #4F46E5;
-  --radius: 0.625rem;
+  --ring: #6366F1;
+  --radius: 0.75rem;
   
   /* EduPilot Aurora Gradients (Light-tuned) */
   --aurora-from: #4F46E5;
