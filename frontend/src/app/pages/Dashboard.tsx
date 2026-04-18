@@ -177,7 +177,7 @@ export function Dashboard() {
           <div className="hidden lg:flex items-center gap-3">
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="ghost" className="text-white/70 hover:text-white">
+                <Button variant="ghost" className="text-foreground/70 hover:text-foreground">
                   <FileText className="w-4 h-4 mr-2" />
                   Essay Coach
                 </Button>
@@ -185,8 +185,8 @@ export function Dashboard() {
               <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-2xl border-white/10 p-0 flex flex-col">
                 <div className="p-6 md:p-8 pb-3">
                   <DialogHeader>
-                    <DialogTitle className="text-white text-xl md:text-2xl">AI Essay Coach</DialogTitle>
-                    <DialogDescription className="text-white/60">
+                    <DialogTitle className="text-foreground text-xl md:text-2xl">AI Essay Coach</DialogTitle>
+                    <DialogDescription className="text-foreground/60">
                       Get instant AI-powered feedback on your Statement of Purpose
                     </DialogDescription>
                   </DialogHeader>
@@ -201,7 +201,7 @@ export function Dashboard() {
               // Show only the 4 most critical buttons in Desktop Nav
               if (["Admission Odds", "ROI Calc", "Loan Check", "Compare"].includes(item.label)) {
                 return (
-                  <Button key={item.path} variant="ghost" className="text-white/70 hover:text-white" onClick={() => navigate(item.path)}>
+                  <Button key={item.path} variant="ghost" className="text-foreground/70 hover:text-foreground" onClick={() => navigate(item.path)}>
                     <item.icon className="w-4 h-4 mr-2" />
                     {item.label}
                   </Button>
@@ -216,19 +216,19 @@ export function Dashboard() {
                 className="hidden sm:flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-full hover:bg-orange-500/20 transition-colors active:scale-95 group"
               >
                 <Flame className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-white uppercase tracking-wider">{userStats.streak} Day Pulse</span>
+                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.streak} Day Pulse</span>
               </button>
               <button 
                 onClick={() => setIsQuestOpen(true)}
                 className="hidden sm:flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 px-3 py-1.5 rounded-full mr-2 hover:bg-purple-500/20 transition-colors active:scale-95 group"
               >
                 <Zap className="w-4 h-4 text-purple-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-white uppercase tracking-wider">{userStats.xp.toLocaleString()} XP</span>
+                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.xp.toLocaleString()} XP</span>
               </button>
               <NotificationCenter />
             </div>
 
-            <Button variant="ghost" size="icon" className="text-white/70 hover:text-white" onClick={() => navigate("/settings")}>
+            <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground" onClick={() => navigate("/settings")}>
               <SettingsIcon className="w-5 h-5" />
             </Button>
             <Button variant="outline" className="border-white/20 hover:bg-white/10" onClick={() => navigate("/profile")}>
@@ -247,7 +247,7 @@ export function Dashboard() {
             <NotificationCenter />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg hover:bg-white/10 transition text-white/70"
+              className="p-2 rounded-lg hover:bg-white/10 transition text-foreground/70"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -277,7 +277,7 @@ export function Dashboard() {
                   <Dialog>
                     <DialogTrigger asChild>
                       <button
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition"
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         <FileText className="w-5 h-5 text-purple-400" />
@@ -287,8 +287,8 @@ export function Dashboard() {
                     <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-2xl border-white/10 p-0 flex flex-col">
                       <div className="p-5 pb-3">
                         <DialogHeader>
-                          <DialogTitle className="text-white text-xl">AI Essay Coach</DialogTitle>
-                          <DialogDescription className="text-white/60">
+                          <DialogTitle className="text-foreground text-xl">AI Essay Coach</DialogTitle>
+                          <DialogDescription className="text-foreground/60">
                             Get instant AI-powered feedback on your SOP
                           </DialogDescription>
                         </DialogHeader>
@@ -305,7 +305,7 @@ export function Dashboard() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.05 + i * 0.05 }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition"
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
                       onClick={() => { navigate(item.path); setMobileMenuOpen(false); }}
                     >
                       <item.icon className="w-5 h-5 text-indigo-400" />
@@ -318,7 +318,7 @@ export function Dashboard() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.3 }}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
                       onClick={() => { navigate("/settings"); setMobileMenuOpen(false); }}
                     >
                       <SettingsIcon className="w-5 h-5" />
@@ -328,7 +328,7 @@ export function Dashboard() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.35 }}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-white/20 text-white/70 hover:text-white hover:bg-white/10 transition"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-white/20 text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
                       onClick={() => { navigate("/profile"); setMobileMenuOpen(false); }}
                     >
                       <span className="text-sm">Profile</span>
@@ -355,12 +355,12 @@ export function Dashboard() {
               >
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 blur-xl opacity-60" />
                 <div className="absolute inset-2 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                  <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-foreground" />
                 </div>
               </motion.div>
               <div>
-                <h2 className="text-lg md:text-xl font-bold text-white">AI Career Navigator</h2>
-                <p className="text-xs md:text-sm text-white/60">Your personal study abroad mentor</p>
+                <h2 className="text-lg md:text-xl font-bold text-foreground">AI Career Navigator</h2>
+                <p className="text-xs md:text-sm text-foreground/60">Your personal study abroad mentor</p>
               </div>
             </div>
           </div>
@@ -377,8 +377,8 @@ export function Dashboard() {
                 <div
                   className={`max-w-[90%] md:max-w-[80%] p-3 md:p-4 rounded-2xl shadow-xl backdrop-blur-md ${
                     message.role === "user"
-                      ? "bg-gradient-to-r from-indigo-600/90 to-purple-600/90 border border-white/10 text-white"
-                      : "bg-[#0B0B1A]/80 border border-white/20 text-white/95 font-medium"
+                      ? "bg-gradient-to-r from-indigo-600/90 to-purple-600/90 border border-white/10 text-foreground"
+                      : "bg-[#0B0B1A]/80 border border-white/20 text-foreground/95 font-medium"
                   }`}
                 >
                   <p className="whitespace-pre-line text-xs md:text-sm leading-relaxed">{message.content}</p>
@@ -405,7 +405,7 @@ export function Dashboard() {
             <div className="flex items-center gap-2 md:gap-3">
               <Input
                 placeholder="Ask me anything..."
-                className="flex-1 bg-white/5 border-white/20 text-white placeholder:text-white/30 text-sm"
+                className="flex-1 bg-white/5 border-white/20 text-foreground placeholder:text-foreground/30 text-sm"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
@@ -419,7 +419,7 @@ export function Dashboard() {
                 <Send className="w-4 h-4" />
               </Button>
             </div>
-            <p className="text-[10px] md:text-xs text-white/40 mt-2 hidden sm:block">
+            <p className="text-[10px] md:text-xs text-foreground/40 mt-2 hidden sm:block">
               💡 Try: "Compare MIT and Stanford" or "Show me scholarships"
             </p>
           </div>
@@ -428,8 +428,8 @@ export function Dashboard() {
         {/* Right: Live University Cards */}
         <div className="w-full lg:w-[420px] xl:w-[500px] overflow-y-auto p-4 md:p-6 space-y-4">
           <div className="mb-3">
-            <h3 className="text-base md:text-lg font-semibold text-white mb-1">Live University Matches</h3>
-            <p className="text-xs md:text-sm text-white/60">Updates as you chat with AI</p>
+            <h3 className="text-base md:text-lg font-semibold text-foreground mb-1">Live University Matches</h3>
+            <p className="text-xs md:text-sm text-foreground/60">Updates as you chat with AI</p>
           </div>
 
 
@@ -449,11 +449,11 @@ export function Dashboard() {
               <Card className="p-4 md:p-6 bg-white/5 backdrop-blur-sm border-white/10 hover:border-white/20 transition">
                 <div className="flex items-start justify-between mb-3 md:mb-4">
                   <div>
-                    <h4 className="text-base md:text-lg font-bold text-white">{uni.name}</h4>
-                    <p className="text-xs md:text-sm text-white/60">{uni.location}</p>
+                    <h4 className="text-base md:text-lg font-bold text-foreground">{uni.name}</h4>
+                    <p className="text-xs md:text-sm text-foreground/60">{uni.location}</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-[10px] md:text-sm text-white/50">World Rank</div>
+                    <div className="text-[10px] md:text-sm text-foreground/50">World Rank</div>
                     <div className="text-base md:text-lg font-bold text-indigo-400">{uni.ranking}</div>
                   </div>
                 </div>
@@ -461,8 +461,8 @@ export function Dashboard() {
                 {/* Match Score */}
                 <div className="mb-3 md:mb-4">
                   <div className="flex items-center justify-between text-xs md:text-sm mb-1.5">
-                    <span className="text-white/60">Match Score</span>
-                    <span className="text-white font-semibold">{uni.match}%</span>
+                    <span className="text-foreground/60">Match Score</span>
+                    <span className="text-foreground font-semibold">{uni.match}%</span>
                   </div>
                   <div className="h-1.5 md:h-2 bg-white/10 rounded-full overflow-hidden">
                     <motion.div
@@ -482,14 +482,14 @@ export function Dashboard() {
 
                 <div className="flex items-center justify-between text-xs md:text-sm">
                   <div>
-                    <div className="text-white/50">Annual Tuition</div>
-                    <div className="text-white font-semibold">{uni.tuition}</div>
+                    <div className="text-foreground/50">Annual Tuition</div>
+                    <div className="text-foreground font-semibold">{uni.tuition}</div>
                   </div>
                   <div className="flex gap-2">
                     <Button size="sm" variant="outline" className="border-white/20 hover:bg-white/10 text-xs">
                       Details
                     </Button>
-                    <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-2" onClick={() => navigate('/loan-eligibility')}>
+                    <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-foreground text-xs px-2" onClick={() => navigate('/loan-eligibility')}>
                       Check Loan
                     </Button>
                   </div>
