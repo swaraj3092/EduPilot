@@ -259,10 +259,10 @@ export function EssayCoach() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
       >
-        <Card className="p-6 bg-white/5 backdrop-blur-xl border-white/10 flex-1 flex flex-col shadow-2xl">
+        <Card className="p-6 bg-card backdrop-blur-xl border-border flex-1 flex flex-col shadow-2xl">
           {/* Essay Type Selector */}
           <div className="mb-4">
-            <label className="text-xs text-white/50 mb-2 block">Essay Type</label>
+            <label className="text-xs text-muted-foreground mb-2 block">Essay Type</label>
             <div className="flex gap-2">
               {ESSAY_TYPES.map((type) => {
                 const Icon = type.icon;
@@ -293,18 +293,18 @@ export function EssayCoach() {
               animate={{ boxShadow: ["0 0 20px rgba(168,85,247,0.4)", "0 0 40px rgba(236,72,153,0.6)", "0 0 20px rgba(168,85,247,0.4)"] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Sparkles className="w-6 h-6 text-white" />
+              <FileText className="w-6 h-6 text-white" />
             </motion.div>
             <div>
-              <h3 className="text-lg font-bold text-white">AI Essay Coach</h3>
-              <p className="text-xs text-white/60">Paste your essay for instant feedback</p>
+              <h3 className="text-lg font-bold text-foreground">AI Essay Coach</h3>
+              <p className="text-xs text-muted-foreground">Paste your essay for instant feedback</p>
             </div>
           </motion.div>
 
           {/* Textarea */}
           <Textarea
             placeholder={`Paste your ${ESSAY_TYPES.find(t => t.id === selectedType)?.label || "essay"} here...`}
-            className="flex-1 bg-white/5 border-white/20 text-white placeholder:text-white/30 mb-3 resize-none min-h-[220px] text-sm p-4 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
+            className="flex-1 bg-background border-border text-foreground placeholder:text-muted-foreground/50 mb-3 resize-none min-h-[220px] text-sm p-4 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
             value={essay}
             onChange={(e) => { setEssay(e.target.value); setAnalyzed(false); }}
           />
@@ -426,7 +426,7 @@ export function EssayCoach() {
                         ? tab === "plagiarism" ? "bg-amber-500/20 border border-amber-500/50 text-amber-300"
                         : tab === "history" ? "bg-indigo-500/20 border border-indigo-500/50 text-indigo-300"
                         : "bg-purple-500/20 border border-purple-500/50 text-purple-300"
-                        : "bg-white/5 border border-white/10 text-white/60 hover:border-white/20"
+                        : "bg-card border border-border text-foreground hover:bg-accent"
                     }`}
                   >
                     {tab === "feedback" ? "Feedback" : tab === "improved" ? "AI Improved" : tab === "plagiarism" ? "Plagiarism" : `History (${versionHistory.length})`}
@@ -440,18 +440,18 @@ export function EssayCoach() {
                   <motion.div key="feedback-tab" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.25 }} className="space-y-3">
                     {scores.map((item, i) => (
                       <motion.div key={item.label} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.05 + i * 0.08 }} whileHover={{ scale: 1.01 }}>
-                        <Card className="p-4 bg-white/5 backdrop-blur-xl border-white/10 hover:border-white/20 transition-colors">
+                        <Card className="p-4 bg-card backdrop-blur-xl border-border hover:border-purple-500/30 transition-colors">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
                               {item.score >= 75 ? <CheckCircle2 className="w-4 h-4 text-green-400" /> : <AlertCircle className="w-4 h-4 text-amber-400" />}
-                              <span className="text-sm text-white font-semibold">{item.label}</span>
+                              <span className="text-sm text-foreground font-semibold">{item.label}</span>
                             </div>
                             <span className={`text-lg font-bold ${getScoreColor(item.score)}`}>{item.score}</span>
                           </div>
                           <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.8, delay: 0.2 + i * 0.08 }} className="origin-left">
                             <Progress value={item.score} className="h-1.5 mb-2" />
                           </motion.div>
-                          <p className="text-xs text-white/70 leading-relaxed">{item.feedback}</p>
+                          <p className="text-xs text-muted-foreground leading-relaxed">{item.feedback}</p>
                         </Card>
                       </motion.div>
                     ))}
@@ -573,24 +573,24 @@ export function EssayCoach() {
                 {/* Improved Tab */}
                 {activeTab === "improved" && (
                   <motion.div key="improved-tab" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.25 }}>
-                    <Card className="p-5 bg-white/5 backdrop-blur-xl border-white/10 shadow-2xl">
+                    <Card className="p-5 bg-card backdrop-blur-xl border-border shadow-2xl">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                           <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
                             <TrendingUp className="w-5 h-5 text-green-400" />
                           </motion.div>
-                          <h4 className="text-base font-bold text-white">AI-Improved Version</h4>
+                          <h4 className="text-base font-bold text-foreground">AI-Improved Version</h4>
                         </div>
                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                          <Button size="sm" variant="outline" className="border-white/20 hover:bg-white/10 gap-1.5" onClick={handleCopyImproved}>
+                          <Button size="sm" variant="outline" className="border-border hover:bg-accent gap-1.5" onClick={handleCopyImproved}>
                             {copied ? (<><ClipboardCheck className="w-3.5 h-3.5 text-green-400" /><span className="text-green-400 text-xs">Copied!</span></>) : (<><Copy className="w-3.5 h-3.5" /><span className="text-xs">Copy</span></>)}
                           </Button>
                         </motion.div>
                       </div>
-                      <motion.div className="p-4 rounded-xl bg-white/5 border border-white/10 text-sm text-white/80 leading-relaxed whitespace-pre-line" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                      <motion.div className="p-4 rounded-xl bg-background border border-border text-sm text-foreground/80 leading-relaxed whitespace-pre-line" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                         {improvedVersion}
                       </motion.div>
-                      <p className="text-[10px] text-white/40 mt-2">This is an AI-generated suggestion. Always personalize and review before submitting.</p>
+                      <p className="text-[10px] text-muted-foreground mt-2">This is an AI-generated suggestion. Always personalize and review before submitting.</p>
                     </Card>
                   </motion.div>
                 )}
@@ -646,13 +646,13 @@ export function EssayCoach() {
                                   if (!s2) return null;
                                   const diff = s2.score - s1.score;
                                   return (
-                                    <div key={s1.label} className="flex items-center justify-between text-xs p-2 rounded-lg bg-white/5">
-                                      <span className="text-white/70">{s1.label}</span>
+                                    <div key={s1.label} className="flex items-center justify-between text-xs p-2 rounded-lg bg-background">
+                                      <span className="text-muted-foreground">{s1.label}</span>
                                       <div className="flex items-center gap-2">
-                                        <span className="text-white/50">{s1.score}</span>
-                                        <span className="text-white/30">→</span>
-                                        <span className="text-white/80">{s2.score}</span>
-                                        <span className={`text-[10px] font-semibold ${diff > 0 ? "text-green-400" : diff < 0 ? "text-red-400" : "text-white/40"}`}>
+                                        <span className="text-muted-foreground/60">{s1.score}</span>
+                                        <span className="text-muted-foreground/30">→</span>
+                                        <span className="text-foreground">{s2.score}</span>
+                                        <span className={`text-[10px] font-semibold ${diff > 0 ? "text-green-400" : diff < 0 ? "text-red-400" : "text-muted-foreground/40"}`}>
                                           {diff > 0 ? `+${diff}` : diff}
                                         </span>
                                       </div>
@@ -668,16 +668,16 @@ export function EssayCoach() {
 
                     {/* Version List */}
                     {versionHistory.length === 0 ? (
-                      <Card className="p-8 bg-white/5 border-white/10 text-center">
-                        <History className="w-10 h-10 text-white/20 mx-auto mb-3" />
-                        <p className="text-sm text-white/40">No versions yet. Analyze an essay to create your first version.</p>
+                      <Card className="p-8 bg-card border-border text-center">
+                        <History className="w-10 h-10 text-muted-foreground/20 mx-auto mb-3" />
+                        <p className="text-sm text-muted-foreground">No versions yet. Analyze an essay to create your first version.</p>
                       </Card>
                     ) : (
                       versionHistory.map((version, i) => {
                         const isSelected = compareVersions.includes(version.id);
                         return (
                           <motion.div key={version.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-                            <Card className={`p-4 bg-white/5 backdrop-blur-xl border-white/10 hover:border-white/20 transition-all ${
+                            <Card className={`p-4 bg-card backdrop-blur-xl border-border hover:border-indigo-500/30 transition-all ${
                               isSelected ? "ring-1 ring-indigo-500/50 border-indigo-500/30" : ""
                             }`}>
                               <div className="flex items-center justify-between mb-2">
@@ -703,13 +703,13 @@ export function EssayCoach() {
                                     </button>
                                   )}
                                   <div>
-                                    <div className="text-sm text-white font-semibold flex items-center gap-2">
+                                    <div className="text-sm text-foreground font-semibold flex items-center gap-2">
                                       Version {versionHistory.length - i}
-                                      <span className="px-2 py-0.5 rounded-full bg-white/10 text-[10px] text-white/50">
+                                      <span className="px-2 py-0.5 rounded-full bg-accent text-[10px] text-muted-foreground">
                                         {ESSAY_TYPES.find(t => t.id === version.essayType)?.label || "Essay"}
                                       </span>
                                     </div>
-                                    <div className="text-[10px] text-white/40 flex items-center gap-2 mt-0.5">
+                                    <div className="text-[10px] text-muted-foreground flex items-center gap-2 mt-0.5">
                                       <Clock className="w-3 h-3" />
                                       {version.timestamp.toLocaleString()}
                                       <span>•</span>
@@ -732,15 +732,13 @@ export function EssayCoach() {
                                     <div className={`h-full rounded-full ${s.score >= 75 ? "bg-green-400" : s.score >= 60 ? "bg-yellow-400" : "bg-red-400"}`} style={{ width: `${s.score}%` }} />
                                   </div>
                                 ))}
-                              </div>
-
-                              <AnimatePresence>
+                                                    <AnimatePresence>
                                 {expandedVersion === version.id && (
                                   <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden">
-                                    <div className="pt-3 border-t border-white/10 mt-2 space-y-2">
-                                      <p className="text-xs text-white/60 line-clamp-3">{version.essayText.substring(0, 200)}...</p>
+                                    <div className="pt-3 border-t border-border mt-2 space-y-2">
+                                      <p className="text-xs text-muted-foreground line-clamp-3">{version.essayText.substring(0, 200)}...</p>
                                       <div className="flex gap-2">
-                                        <Button size="sm" variant="outline" className="border-white/20 hover:bg-white/10 text-xs flex-1" onClick={() => loadVersion(version)}>
+                                        <Button size="sm" variant="outline" className="border-border hover:bg-accent text-xs flex-1" onClick={() => loadVersion(version)}>
                                           <Eye className="w-3 h-3 mr-1" /> Load
                                         </Button>
                                         <Button size="sm" variant="outline" className="border-red-500/30 hover:bg-red-500/10 text-red-400 text-xs" onClick={() => deleteVersion(version.id)}>
@@ -751,6 +749,7 @@ export function EssayCoach() {
                                   </motion.div>
                                 )}
                               </AnimatePresence>
+ </AnimatePresence>
                             </Card>
                           </motion.div>
                         );

@@ -472,7 +472,7 @@ export function Dashboard() {
                 className="hidden sm:flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-full hover:bg-orange-500/20 transition-colors active:scale-95 group"
               >
                 <Flame className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.streak} Days Pulse</span>
+                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.streak} Day Streak</span>
               </button>
               <button 
                 onClick={() => setIsQuestOpen(true)}
