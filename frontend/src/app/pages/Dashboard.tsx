@@ -310,7 +310,7 @@ export function Dashboard() {
                     { label: "Essay Coach", icon: FileText, path: "/essays", color: "from-pink-500 to-rose-500", desc: "AI-powered SOP critiques" },
                     { label: "Test Prep Hub", icon: BookOpen, path: "/test-prep", color: "from-indigo-500 to-purple-500", desc: "Score prediction & prep tips" },
                     { label: "App Tracker", icon: Calendar, path: "/application-tracker", color: "from-blue-400 to-sky-400", desc: "Manage your deadlines & docs" },
-                    { label: "Global Roadmap", icon: Map, path: "/dashboard", color: "from-purple-400 to-indigo-400", desc: "Generate your mission blueprint" },
+                    { label: "Global Roadmap", icon: GlobeMap, path: "/dashboard", color: "from-purple-400 to-indigo-400", desc: "Generate your mission blueprint" },
                   ].map((tool) => (
                     <motion.div
                       key={tool.label}
