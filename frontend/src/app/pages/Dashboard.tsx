@@ -158,28 +158,11 @@ export function Dashboard() {
         localStorage.setItem("edupilot-profile", JSON.stringify(newProfile));
       }
 
-      // Dynamic Match Extraction: If AI mentions a specific university from our real database, bring it to the top!
-      const topUnisRes = await getTopUniversities();
-      if (topUnisRes.universities) {
-        const allUnis = topUnisRes.universities.map((u: any) => ({
-            name: u.name,
-            location: u.country,
-            match: u.match_score || 85,
-            tuition: u.tuition || "N/A",
-            ranking: u.ranking || "N/A"
-        }));
-
-        const mentioned = allUnis.filter((u: any) => 
-            response.reply.toLowerCase().includes(u.name.split(' ')[0].toLowerCase())
-        );
-        
-        const others = allUnis.filter((u: any) => 
-            !response.reply.toLowerCase().includes(u.name.split(' ')[0].toLowerCase())
-        );
-        
-        if (mentioned.length > 0) {
-          setFilteredUniversities([...mentioned, ...others]);
-        }
+      if (response.reply.toLowerCase().includes("toronto") || response.reply.toLowerCase().includes("melbourne")) {
+        setFilteredUniversities([
+          { name: "U of Toronto", location: "Canada", match: 88, tuition: "$45,000 CAD", ranking: "#18" },
+          { name: "U of Melbourne", location: "Australia", match: 84, tuition: "$42,000 AUD", ranking: "#14" },
+        ]);
       }
     } catch (error: any) {
       console.error("Chat Error:", error);
