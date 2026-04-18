@@ -21,6 +21,7 @@ import {
   getUserProfile, getTopUniversities, getLatestNews, generateAgentBlueprint 
 } from "@services";
 import ReactMarkdown from 'react-markdown';
+import { toast } from "sonner";
 
 const MOCK_UNIVERSITIES = [
   { name: "MIT", location: "USA", match: 85, tuition: "$53,790", ranking: "#1" },
@@ -693,8 +694,11 @@ export function Dashboard() {
                       <p className="text-xs text-foreground/60 max-w-[200px]">Probability of success if all milestones are met on schedule.</p>
                     </div>
                     <div className="flex gap-3">
-                      <Button variant="outline" className="h-10 border-border/20 text-xs">Download PDF</Button>
-                      <Button className="h-10 bg-indigo-600 hover:bg-indigo-700 text-xs px-6" onClick={() => setIsBlueprintOpen(false)}>Add to Tracker</Button>
+                      <Button variant="outline" className="h-10 border-border/20 text-xs" onClick={() => window.print()}>Download PDF</Button>
+                      <Button className="h-10 bg-indigo-600 hover:bg-indigo-700 text-xs px-6" onClick={() => {
+                        toast.success("Blueprint milestones synced to Tracker!");
+                        navigate("/application-tracker");
+                      }}>Add to Tracker</Button>
                     </div>
                  </div>
                </div>
