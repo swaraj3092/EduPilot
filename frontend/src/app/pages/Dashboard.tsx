@@ -16,7 +16,7 @@ import { NotificationCenter } from "@components/NotificationCenter";
 import { GrowthFlow } from "@components/GrowthFlow";
 import { Footer } from "@components/Footer";
 import { BackToTop } from "@components/BackToTop";
-import { chatSend, getLeaderboard, completeQuest, awardXP, ChatMessage, getUserProfile } from "@lib/api";
+import { chatSend, getLeaderboard, completeQuest, awardXP, ChatMessage, getUserProfile } from "@lib";
 import { QuestDashboard } from "@components/QuestDashboard";
 
 const MOCK_UNIVERSITIES = [

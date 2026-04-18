@@ -5,7 +5,7 @@ import { ArrowLeft, Plus, X, Check, TrendingUp, DollarSign, Users, Award, MapPin
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
 import { Input } from "@components/ui/input";
-import { compareUniversities, UniversityData } from "@lib/api";
+import { compareUniversities, UniversityData } from "@lib";
 
 const POPULAR_UNIVERSITIES = [
   "MIT", "Stanford", "Harvard", "Carnegie Mellon", "UC Berkeley",
