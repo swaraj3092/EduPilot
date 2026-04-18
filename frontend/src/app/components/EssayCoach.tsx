@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Sparkles, CheckCircle2, AlertCircle, TrendingUp, Copy, RotateCcw,
@@ -43,8 +43,8 @@ const ESSAY_TYPES = [
 
 const SAMPLE_ESSAYS: Record<string, string> = {
   sop: "Growing up in a small town, I always dreamed of pursuing higher education abroad. My fascination with computer science began when I built my first website at age 14. Since then, I have dedicated myself to understanding the intersection of technology and human experience.\n\nDuring my undergraduate studies at Delhi University, I maintained a 3.8 GPA while leading the AI Research Club. My capstone project on natural language processing for regional languages received recognition at the National Tech Symposium.\n\nI am drawn to MIT's Computer Science program because of its emphasis on interdisciplinary research. Professor Johnson's work on ethical AI aligns perfectly with my research interests. I believe my background in both technical development and social impact positions me uniquely to contribute to this program.",
-  personal: "The monsoon rain hammered against the tin roof of our community center as I watched a farmer struggle to understand a government document written in English. That moment crystallized my purpose â€” to bridge the gap between technology and accessibility.\n\nThis experience drove me to develop a mobile app that translates official documents into 12 regional languages, serving over 50,000 users in rural India. The project taught me that technology's true value lies not in its complexity but in its ability to empower.",
-  diversity: "As a first-generation college student from a tribal community in northeastern India, my journey to higher education has been anything but conventional. Growing up without electricity until age 12, I learned to study by candlelight, developing a resilience that has defined my academic career.\n\nMy unique perspective has allowed me to approach problems differently. When our village needed clean water, I didn't just see a problem â€” I saw an engineering challenge that my community's traditional knowledge could help solve.",
+  personal: "The monsoon rain hammered against the tin roof of our community center as I watched a farmer struggle to understand a government document written in English. That moment crystallized my purpose —  to bridge the gap between technology and accessibility.\n\nThis experience drove me to develop a mobile app that translates official documents into 12 regional languages, serving over 50,000 users in rural India. The project taught me that technology's true value lies not in its complexity but in its ability to empower.",
+  diversity: "As a first-generation college student from a tribal community in northeastern India, my journey to higher education has been anything but conventional. Growing up without electricity until age 12, I learned to study by candlelight, developing a resilience that has defined my academic career.\n\nMy unique perspective has allowed me to approach problems differently. When our village needed clean water, I didn't just see a problem —  I saw an engineering challenge that my community's traditional knowledge could help solve.",
 };
 
 // Analysis step definitions
@@ -117,7 +117,7 @@ export function EssayCoach() {
 
   const handleAnalyze = async () => {
     if (!essay.trim()) return;
-    
+
     setAnalyzing(true);
     setAnalyzed(false);
     setCurrentStep(-1);
@@ -143,7 +143,7 @@ export function EssayCoach() {
     try {
       const authUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
       const response = await analyzeEssay(essay, selectedType as "sop" | "personal" | "diversity", authUser.id);
-      
+
       // Wait for at least the animations to finish a bit or finish them early if API was slow
       const finalTimeout = setTimeout(() => {
         const newScores: FeedbackScore[] = response.scores;
@@ -252,7 +252,7 @@ export function EssayCoach() {
 
   return (
     <div className="grid lg:grid-cols-5 gap-6 w-full min-h-[600px]">
-      {/* Left: Input â€” 2 columns */}
+      {/* Left: Input —  2 columns */}
       <motion.div
         className="lg:col-span-2 flex flex-col"
         initial={{ opacity: 0, x: -30 }}
@@ -319,7 +319,7 @@ export function EssayCoach() {
               wordCount >= idealWordRange[0] && wordCount <= idealWordRange[1] ? "text-green-400" :
               wordCount > idealWordRange[1] ? "text-red-400" : "text-yellow-400"
             }>
-              Ideal: {idealWordRange[0]}â€“{idealWordRange[1]}
+              Ideal: {idealWordRange[0]}— {idealWordRange[1]}
             </span>
           </div>
 
@@ -372,7 +372,7 @@ export function EssayCoach() {
         </Card>
       </motion.div>
 
-      {/* Right: Feedback â€” 3 columns */}
+      {/* Right: Feedback —  3 columns */}
       <div className="lg:col-span-3 overflow-y-auto pr-1 max-h-[calc(90vh-140px)]">
         <AnimatePresence mode="wait">
           {analyzed && (
@@ -394,7 +394,7 @@ export function EssayCoach() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-lg font-bold text-white mb-1">
-                          {overallScore >= 80 ? "Excellent Essay!" : overallScore >= 65 ? "Good Work â€” Room to Shine" : "Needs Improvement"}
+                          {overallScore >= 80 ? "Excellent Essay!" : overallScore >= 65 ? "Good Work —  Room to Shine" : "Needs Improvement"}
                         </h3>
                         <p className="text-xs text-white/60 mb-3">
                           {overallScore >= 80 ? "Your essay is strong and compelling." : overallScore >= 65 ? "Solid foundation with areas for improvement." : "Focus on the suggestions below."}
@@ -434,7 +434,7 @@ export function EssayCoach() {
                 ))}
               </div>
 
-              <AnimatePresence mode="wait">
+              <AnimatePresence>
                 {/* Feedback Tab */}
                 {activeTab === "feedback" && (
                   <motion.div key="feedback-tab" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.25 }} className="space-y-3">
@@ -463,9 +463,9 @@ export function EssayCoach() {
                           <h4 className="text-sm text-white font-semibold">Quick Wins</h4>
                         </div>
                         <ul className="space-y-1.5">
-                          {["Start with a compelling hook â€” a specific moment or experience", "Show, don't tell: use concrete examples instead of generic claims", "Connect your past experiences directly to your future goals", "End with a forward-looking statement about your contribution"].map((tip, i) => (
+                          {["Start with a compelling hook —  a specific moment or experience", "Show, don't tell: use concrete examples instead of generic claims", "Connect your past experiences directly to your future goals", "End with a forward-looking statement about your contribution"].map((tip, i) => (
                             <motion.li key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 + i * 0.08 }} className="flex items-start gap-2 text-xs text-white/60">
-                              <span className="text-purple-400 mt-0.5">â€¢</span>{tip}
+                              <span className="text-purple-400 mt-0.5">— </span>{tip}
                             </motion.li>
                           ))}
                         </ul>
@@ -650,7 +650,7 @@ export function EssayCoach() {
                                       <span className="text-muted-foreground">{s1.label}</span>
                                       <div className="flex items-center gap-2">
                                         <span className="text-muted-foreground/60">{s1.score}</span>
-                                        <span className="text-muted-foreground/30">â†’</span>
+                                        <span className="text-muted-foreground/30">→</span>
                                         <span className="text-foreground">{s2.score}</span>
                                         <span className={`text-[10px] font-semibold ${diff > 0 ? "text-green-400" : diff < 0 ? "text-red-400" : "text-muted-foreground/40"}`}>
                                           {diff > 0 ? `+${diff}` : diff}
@@ -712,7 +712,7 @@ export function EssayCoach() {
                                     <div className="text-[10px] text-muted-foreground flex items-center gap-2 mt-0.5">
                                       <Clock className="w-3 h-3" />
                                       {version.timestamp.toLocaleString()}
-                                      <span>â€¢</span>
+                                      <span>— </span>
                                       {version.wordCount} words
                                     </div>
                                   </div>
@@ -776,7 +776,7 @@ export function EssayCoach() {
             </motion.div>
           )}
 
-          {/* Analyzing State â€” Enhanced Steps */}
+          {/* Analyzing State - Enhanced Steps */}
           {analyzing && (
             <motion.div key="loading" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
               <Card className="p-10 bg-white/5 backdrop-blur-xl border-white/10 flex flex-col items-center justify-center text-center min-h-[500px]">
