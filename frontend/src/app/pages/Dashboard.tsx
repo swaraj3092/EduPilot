@@ -54,10 +54,9 @@ export function Dashboard() {
   const [blueprint, setBlueprint] = useState("");
   const [blueprintLoading, setBlueprintLoading] = useState(false);
 
-  const savedProfile = localStorage.getItem("edupilot-profile");
-  const initialProfile = savedProfile ? JSON.parse(savedProfile) : { name: "Explorer", xp: 0, streak: 1 };
-  
   const [profile, setProfile] = useState(initialProfile);
+  const [isNexusOpen, setIsNexusOpen] = useState(false);
+  const [isEssayOpen, setIsEssayOpen] = useState(false);
   const savedUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
   const calculateLevel = (xp: number) => {
     if (xp < 1000) return 1;
@@ -288,7 +287,7 @@ export function Dashboard() {
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-3">
-            <Dialog>
+            <Dialog open={isNexusOpen} onOpenChange={setIsNexusOpen}>
               <DialogTrigger asChild>
                 <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold shadow-lg shadow-indigo-500/20 hover:scale-105 transition-transform px-6">
                   <Menu className="w-4 h-4 mr-2" />
@@ -310,15 +309,18 @@ export function Dashboard() {
                     { label: "Essay Coach", icon: FileText, path: "/essays", color: "from-pink-500 to-rose-500", desc: "AI-powered SOP critiques" },
                     { label: "Test Prep Hub", icon: BookOpen, path: "/test-prep", color: "from-indigo-500 to-purple-500", desc: "Score prediction & prep tips" },
                     { label: "App Tracker", icon: Calendar, path: "/application-tracker", color: "from-blue-400 to-sky-400", desc: "Manage your deadlines & docs" },
-                    { label: "Global Roadmap", icon: GlobeMap, path: "/dashboard", color: "from-purple-400 to-indigo-400", desc: "Generate your mission blueprint" },
+                    { label: "Global Roadmap", icon: GlobeMap, path: "/roadmap", color: "from-purple-400 to-indigo-400", desc: "Generate your mission blueprint" },
                   ].map((tool) => (
                     <motion.div
                       key={tool.label}
                       whileHover={{ y: -8, scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => {
+                        setIsNexusOpen(false);
                         if (tool.label === "Essay Coach") {
-                           // Open the existing dialog for essay
+                           setIsEssayOpen(true);
+                        } else if (tool.label === "Global Roadmap") {
+                           handleGenerateBlueprint();
                         } else {
                            navigate(tool.path);
                         }
@@ -333,6 +335,30 @@ export function Dashboard() {
                       <p className="text-xs text-white/50 leading-relaxed">{tool.desc}</p>
                     </motion.div>
                   ))}
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={isEssayOpen} onOpenChange={setIsEssayOpen}>
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-background/98 backdrop-blur-3xl border-border p-0 flex flex-col shadow-[0_0_80px_-20px_rgba(99,102,241,0.4)]">
+                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
+                  <DialogHeader className="text-left">
+                    <DialogTitle className="text-foreground text-xl md:text-2xl">AI Essay Coach</DialogTitle>
+                    <DialogDescription className="text-muted-foreground">
+                      Get instant AI-powered feedback on your Statement of Purpose
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="rounded-full hover:bg-foreground/10 text-foreground/50 hover:text-foreground"
+                    onClick={() => setIsEssayOpen(false)}
+                  >
+                    <X className="w-6 h-6" />
+                  </Button>
+                </div>
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+                  <EssayCoach />
                 </div>
               </DialogContent>
             </Dialog>
