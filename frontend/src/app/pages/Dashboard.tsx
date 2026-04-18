@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import {
   Send, Sparkles, TrendingUp, DollarSign, FileText, Award,
   GraduationCap, Target, Calendar, BookOpen, GitCompare,
-  Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map, ListTodo, PlayCircle, Info, Loader2
+  Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map as GlobeMap, ListTodo, PlayCircle, Info, Loader2
 } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
@@ -580,7 +580,7 @@ export function Dashboard() {
                 className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 cursor-pointer hover:from-indigo-500/20 transition-colors shadow-lg shadow-indigo-500/5"
               >
                 <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center text-white">
-                  <Map className="w-4 h-4" />
+                  <GlobeMap className="w-4 h-4" />
                 </div>
                 <div className="flex-1">
                   <p className="text-xs font-bold text-indigo-100">AI Global Roadmap</p>
@@ -663,7 +663,7 @@ export function Dashboard() {
                               <span className="text-[10px] font-bold text-primary/60 bg-primary/10 px-1.5 py-0.5 rounded uppercase">{uni.ranking}</span>
                             </div>
                             <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground mb-3">
-                              <Map className="w-3 h-3" />
+                              <GlobeMap className="w-3 h-3" />
                               {uni.location}
                             </div>
                             
@@ -769,7 +769,7 @@ export function Dashboard() {
           <div className="p-6 border-b border-border/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
-                <Map className="w-5 h-5" />
+                <GlobeMap className="w-5 h-5" />
               </div>
               <div>
                 <h2 className="text-xl font-bold text-foreground">12-Month Global Success Blueprint</h2>
