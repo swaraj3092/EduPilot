@@ -9,12 +9,16 @@ import re
 
 from gemini_client import generate_content
 
+from routers.auth import get_supabase_client
+from supabase_client import supabase
+
 router = APIRouter()
 
 
 class EssayRequest(BaseModel):
     essay_text: str
     essay_type: str = "sop"   # sop | personal | diversity
+    user_id: str = None
 
 
 ESSAY_TYPE_LABELS = {
@@ -22,6 +26,12 @@ ESSAY_TYPE_LABELS = {
     "personal": "Personal Statement",
     "diversity": "Diversity Essay",
 }
+
+
+@router.get("/history/{user_id}")
+async def get_essay_history(user_id: str):
+    res = supabase.table("essays").select("*").eq("user_id", user_id).order("created_at", desc=True).execute()
+    return {"status": "success", "history": res.data}
 
 
 @router.post("/analyze")
@@ -70,6 +80,23 @@ JSON structure:
 
     try:
         data = json.loads(raw)
+        
+        # PERSISTENCE: Save to DB if user_id is provided
+        if req.user_id:
+            try:
+                supabase.table("essays").insert({
+                    "user_id": req.user_id,
+                    "essay_text": req.essay_text,
+                    "essay_type": req.essay_type,
+                    "overall_score": data["overall_score"],
+                    "scores": data["scores"],
+                    "improved_version": data["improved_version"],
+                    "plagiarism": data["plagiarism"],
+                    "word_count": data["word_count"]
+                }).execute()
+            except Exception as e:
+                print(f"Failed to persist essay: {e}")
+                
     except json.JSONDecodeError:
         return {
             "error": True,

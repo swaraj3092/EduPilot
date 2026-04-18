@@ -13,6 +13,7 @@ from typing import List
 import json
 
 from gemini_client import generate_content
+from supabase_client import get_cached_data, save_cached_data, is_stale
 
 router = APIRouter()
 
@@ -68,11 +69,21 @@ async def chat_send(req: ChatRequest):
         chat_history_str += "-----------------------------\n"
 
     latest_message = req.messages[-1].content
+    cache_key = f"chat_{latest_message.lower().strip()}"
+    
+    # Try Cache
+    cached = get_cached_data(cache_key)
+    if cached and not is_stale(cached['created_at'], days=7):
+        return {"reply": cached['content'], "role": "assistant", "cached": True}
+
     full_prompt = f"{system_prompt}\n\n{chat_history_str}\nUSER: {latest_message}\nASSISTANT:"
 
     reply_text = generate_content(full_prompt)
+    
+    # Save to Cache
+    save_cached_data(cache_key, reply_text)
 
-    return {"reply": reply_text, "role": "assistant"}
+    return {"reply": reply_text, "role": "assistant", "cached": False}
 
 
 # ── /stream — SSE token-by-token (typewriter effect) ─────────────────────────

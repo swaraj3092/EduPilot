@@ -10,6 +10,8 @@ import json
 import re
 
 from gemini_client import generate_content
+from supabase_client import get_cached_data, save_cached_data, is_stale
+import hashlib
 
 router = APIRouter()
 
@@ -94,8 +96,18 @@ async def admission_probability(req: AdmissionRequest):
     # Sort best → worst
     university_results.sort(key=lambda x: x["probability"], reverse=True)
 
-    # Gemini: generate a personalised 3-line profile summary
-    prompt = f"""An Indian student applying for {req.target_course} has:
+    # ── Cache AI Summary ──
+    # Create a unique key based on the profile inputs
+    profile_uid = f"{req.gre}_{req.gpa}_{req.toefl}_{req.backlogs}_{req.research_papers}_{req.internships}_{req.work_experience_years}_{req.target_course}"
+    cache_key = f"profile_summary_{hashlib.md5(profile_uid.encode()).hexdigest()}"
+    
+    cached = get_cached_data(cache_key)
+    if cached and not is_stale(cached['created_at'], days=7):
+        profile_summary = cached['content']
+        is_fresh = False
+    else:
+        # Gemini: generate a personalised 2-line profile summary
+        prompt = f"""An Indian student applying for {req.target_course} has:
 GRE: {req.gre}/340, GPA: {req.gpa}/4.0, TOEFL: {req.toefl}/120,
 Research papers: {req.research_papers}, Internships: {req.internships},
 Backlogs: {req.backlogs}, Work experience: {req.work_experience_years} years.
@@ -104,7 +116,9 @@ Their overall profile score is {base_score}/100.
 Write a 2-sentence encouraging profile summary for this student. Be specific.
 Do NOT use markdown. Plain text only."""
 
-    profile_summary = generate_content(prompt)
+        profile_summary = generate_content(prompt)
+        save_cached_data(cache_key, profile_summary)
+        is_fresh = True
 
     return {
         "base_score":         base_score,
