@@ -11,7 +11,6 @@ import { Card } from "@components/ui/card";
 import { Input } from "@components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@components/ui/dialog";
 import { EssayCoach } from "@components/EssayCoach";
-import { SmartNudge } from "@components/SmartNudge";
 import { NotificationCenter } from "@components/NotificationCenter";
 import { GrowthFlow } from "@components/GrowthFlow";
 import { Footer } from "@components/Footer";
@@ -441,9 +440,6 @@ export function Dashboard() {
 
         {/* Right: Live University Cards */}
         <div className="w-full lg:w-[420px] xl:w-[500px] overflow-y-auto p-4 md:p-6 space-y-4">
-          {showNudge && (
-            <SmartNudge />
-          )}
 
           {filteredUniversities.length === 0 ? (
             <div className="flex flex-col items-center justify-center p-12 text-center bg-white/5 rounded-3xl border border-dashed border-white/10">
