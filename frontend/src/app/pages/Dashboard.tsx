@@ -54,6 +54,9 @@ export function Dashboard() {
   const [blueprint, setBlueprint] = useState("");
   const [blueprintLoading, setBlueprintLoading] = useState(false);
 
+  const savedProfile = localStorage.getItem("edupilot-profile");
+  const initialProfile = savedProfile ? JSON.parse(savedProfile) : { name: "Explorer", xp: 0, streak: 1 };
+  
   const [profile, setProfile] = useState(initialProfile);
   const [isNexusOpen, setIsNexusOpen] = useState(false);
   const [isEssayOpen, setIsEssayOpen] = useState(false);
