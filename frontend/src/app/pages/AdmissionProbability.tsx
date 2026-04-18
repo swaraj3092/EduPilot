@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 import { ArrowLeft, TrendingUp, AlertCircle, Sparkles } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
-import { Card } from "../components/ui/card";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
+import { Label } from "@components/ui/label";
+import { Card } from "@components/ui/card";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
-import { getAdmissionProbability, AdmissionResponse } from "@/lib/api";
+import { getAdmissionProbability, AdmissionResponse } from "@lib/api";
 
 export function AdmissionProbability() {
   const navigate = useNavigate();

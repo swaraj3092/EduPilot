@@ -6,18 +6,18 @@ import {
   GraduationCap, Target, Calendar, BookOpen, GitCompare,
   Settings as SettingsIcon, Menu, X, Flame, Zap
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "../components/ui/dialog";
-import { EssayCoach } from "../components/EssayCoach";
-import { SmartNudge } from "../components/SmartNudge";
-import { NotificationCenter } from "../components/NotificationCenter";
-import { GrowthFlow } from "../components/GrowthFlow";
-import { Footer } from "../components/Footer";
-import { BackToTop } from "../components/BackToTop";
-import { chatSend, getLeaderboard, completeQuest, awardXP, ChatMessage, getUserProfile } from "@/lib/api";
-import { QuestDashboard } from "../components/QuestDashboard";
+import { Button } from "@components/ui/button";
+import { Card } from "@components/ui/card";
+import { Input } from "@components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@components/ui/dialog";
+import { EssayCoach } from "@components/EssayCoach";
+import { SmartNudge } from "@components/SmartNudge";
+import { NotificationCenter } from "@components/NotificationCenter";
+import { GrowthFlow } from "@components/GrowthFlow";
+import { Footer } from "@components/Footer";
+import { BackToTop } from "@components/BackToTop";
+import { chatSend, getLeaderboard, completeQuest, awardXP, ChatMessage, getUserProfile } from "@lib/api";
+import { QuestDashboard } from "@components/QuestDashboard";
 
 const MOCK_UNIVERSITIES = [
   { name: "MIT", location: "USA", match: 85, tuition: "$53,790", ranking: "#1" },
