@@ -23,7 +23,15 @@ import {
 import ReactMarkdown from 'react-markdown';
 import { toast } from "sonner";
 
-const MOCK_UNIVERSITIES: any[] = [];
+const DEFAULT_ELITES = [
+  { name: "Harvard University", location: "USA", match: "Elite", tuition: "$54,402", ranking: "#1" },
+  { name: "National Univ. of Singapore", location: "Singapore", match: "High", tuition: "$32,000", ranking: "#8" },
+  { name: "University of Oxford", location: "UK", match: "Elite", tuition: "£28,950", ranking: "#3" },
+  { name: "MIT", location: "USA", match: "Elite", tuition: "$53,790", ranking: "#1" },
+  { name: "Stanford University", location: "USA", match: "Elite", tuition: "$56,169", ranking: "#3" },
+];
+
+const MOCK_UNIVERSITIES: any[] = DEFAULT_ELITES;
 
 const NAV_ITEMS = [
   { label: "Admission Odds", icon: Target, path: "/admission-probability" },
@@ -126,7 +134,7 @@ export function Dashboard() {
   }, []);
 
   const [input, setInput] = useState("");
-  const [filteredUniversities, setFilteredUniversities] = useState<any[]>([]);
+  const [filteredUniversities, setFilteredUniversities] = useState<any[]>(DEFAULT_ELITES);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
@@ -237,14 +245,25 @@ export function Dashboard() {
                   Essay Coach
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-2xl border-white/10 p-0 flex flex-col">
-                <div className="p-6 md:p-8 pb-3">
-                  <DialogHeader>
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/98 backdrop-blur-3xl border-white/20 p-0 flex flex-col shadow-[0_0_80px_-20px_rgba(99,102,241,0.4)]">
+                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
+                  <DialogHeader className="text-left">
                     <DialogTitle className="text-foreground text-xl md:text-2xl">AI Essay Coach</DialogTitle>
                     <DialogDescription className="text-foreground/60">
                       Get instant AI-powered feedback on your Statement of Purpose
                     </DialogDescription>
                   </DialogHeader>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="rounded-full hover:bg-white/10 text-white/50 hover:text-white"
+                    onClick={() => {
+                        const closeBtn = document.querySelector('[data-radix-collection-item]') as HTMLElement;
+                        if (closeBtn) closeBtn.click();
+                    }}
+                  >
+                    <X className="w-6 h-6" />
+                  </Button>
                 </div>
                 <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
                   <EssayCoach />
