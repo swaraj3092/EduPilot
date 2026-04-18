@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { useNavigate } from "react-router";
 import {
   ArrowLeft, Plus, Calendar, Upload, CheckCircle2, Clock,
-  AlertCircle, FileText, GraduationCap, Trash2, Loader2, Sparkles, AlertTriangle
+  AlertCircle, FileText, GraduationCap, Trash2, Loader2, Sparkles, AlertTriangle,
+  TrendingUp, Award, DollarSign
 } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
@@ -239,7 +240,34 @@ export function ApplicationTracker() {
             <p className="text-white/60 max-w-md mx-auto mb-8">
               Start tracking your university applications. Add a university and our AI will automatically fetch the deadline and required documents for your program!
             </p>
-            <Button size="lg" className="bg-indigo-500 hover:bg-indigo-600 text-white" onClick={() => setIsAdding(true)}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left mt-12">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-2 text-indigo-400">
+                  <TrendingUp className="w-4 h-4" />
+                  <span className="text-[10px] uppercase font-bold tracking-widest">Trending Now</span>
+                </div>
+                <h4 className="text-sm font-bold text-white mb-1">Singapore Hub</h4>
+                <p className="text-[10px] text-white/50 leading-relaxed">35% increase in STEM applications to NUS and NTU for 2026/27.</p>
+              </div>
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-2 text-emerald-400">
+                  <Award className="w-4 h-4" />
+                  <span className="text-[10px] uppercase font-bold tracking-widest">Scholarship Alert</span>
+                </div>
+                <h4 className="text-sm font-bold text-white mb-1">DAAD Germany</h4>
+                <p className="text-[10px] text-white/50 leading-relaxed">New merit-based grants for Indian postgraduates announced today.</p>
+              </div>
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-2 text-orange-400">
+                  <DollarSign className="w-4 h-4" />
+                  <span className="text-[10px] uppercase font-bold tracking-widest">Finance Trend</span>
+                </div>
+                <h4 className="text-sm font-bold text-white mb-1">Interest Rate Drop</h4>
+                <p className="text-[10px] text-white/50 leading-relaxed">Average education loan rates for US-bound students fell to 8.9%.</p>
+              </div>
+            </div>
+
+            <Button size="lg" className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white mt-10 shadow-lg shadow-indigo-500/20" onClick={() => setIsAdding(true)}>
               <Plus className="w-5 h-5 mr-2" />
               Add Your First Application
             </Button>

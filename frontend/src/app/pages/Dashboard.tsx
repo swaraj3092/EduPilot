@@ -23,12 +23,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import { toast } from "sonner";
 
-const MOCK_UNIVERSITIES = [
-  { name: "MIT", location: "USA", match: 85, tuition: "$53,790", ranking: "#1" },
-  { name: "Stanford", location: "USA", match: 82, tuition: "$56,169", ranking: "#3" },
-  { name: "Oxford", location: "UK", match: 78, tuition: "£28,950", ranking: "#2" },
-  { name: "ETH Zurich", location: "Switzerland", match: 75, tuition: "CHF 1,460", ranking: "#6" },
-];
+const MOCK_UNIVERSITIES: any[] = [];
 
 const NAV_ITEMS = [
   { label: "Admission Odds", icon: Target, path: "/admission-probability" },
