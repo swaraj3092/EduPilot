@@ -152,10 +152,10 @@ export function ApplicationTracker() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2 text-xl">
                   <Sparkles className="w-5 h-5 text-indigo-400" />
-                  AI-Powered Application Setup
+                  Smart Doc Assistant
                 </DialogTitle>
                 <p className="text-white/60 text-sm mt-2">
-                  Enter the university and program to automatically generate the correct deadline and strict document checklist using real market data.
+                  Our AI will scan the {newUni} database to fetch the exact 2026/27 requirements and auto-fill your tracker checklist.
                 </p>
               </DialogHeader>
               <div className="space-y-4 py-4">
@@ -358,10 +358,30 @@ export function ApplicationTracker() {
 
                       {/* Right Column: Document Checklist */}
                       <div className="flex-1 lg:pl-6 lg:border-l border-white/10">
-                        <h4 className="text-sm font-semibold text-white/80 mb-4 flex items-center gap-2">
-                          <FileText className="w-4 h-4" />
-                          Required Documents
-                        </h4>
+                          <div className="flex items-center justify-between mb-4">
+                            <h4 className="text-sm font-semibold text-white/80 flex items-center gap-2">
+                              <FileText className="w-4 h-4" />
+                              Required Documents
+                            </h4>
+                            <Button 
+                              size="sm" 
+                              variant="ghost" 
+                              className="h-7 text-[10px] bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border border-indigo-500/20"
+                              onClick={() => {
+                                // Simulate AI Auto-fill
+                                setApplications(apps => apps.map(a => {
+                                  if (a.id !== app.id) return a;
+                                  return {
+                                    ...a,
+                                    documents: a.documents.map(d => ({ ...d, uploaded: true }))
+                                  };
+                                }));
+                              }}
+                            >
+                              <Sparkles className="w-3 h-3 mr-1" />
+                              Magic Prep
+                            </Button>
+                          </div>
                         <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                           {app.documents.map((doc, idx) => (
                             <div 
