@@ -387,21 +387,32 @@ export function Settings() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm text-white/60 mb-3 block">Language Dashboard Translation</label>
+                  <label className="text-sm text-foreground/60 mb-3 block">Language Dashboard Translation</label>
                   <select 
-                    className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 text-white"
+                    className="w-full px-3 py-2 rounded-lg bg-card border border-border text-foreground"
                     value={pendingLang}
-                    onChange={(e) => setPendingLang(e.target.value)}
+                    onChange={(e) => {
+                      const newLang = e.target.value;
+                      setPendingLang(newLang);
+                      
+                      // 1. Set Google Translate Cookie immediately
+                      document.cookie = `googtrans=/en/${newLang}; path=/`;
+                      document.cookie = `googtrans=/en/${newLang}; path=/; domain=.vercel.app`; // For deployment
+                      
+                      // 2. Refresh to apply (Google Translate often requires a soft refresh)
+                      localStorage.setItem("edupilot-lang", newLang);
+                      window.location.reload();
+                    }}
                   >
-                    <option value="en" className="bg-[#0D0D1A]">English</option>
-                    <option value="es" className="bg-[#0D0D1A]">Español (Spanish)</option>
-                    <option value="fr" className="bg-[#0D0D1A]">Français (French)</option>
-                    <option value="de" className="bg-[#0D0D1A]">Deutsch (German)</option>
-                    <option value="hi" className="bg-[#0D0D1A]">हिन्दी (Hindi)</option>
-                    <option value="zh-CN" className="bg-[#0D0D1A]">中文 (Chinese)</option>
-                    <option value="ja" className="bg-[#0D0D1A]">日本語 (Japanese)</option>
+                    <option value="en" className="bg-card">English</option>
+                    <option value="es" className="bg-card">Español (Spanish)</option>
+                    <option value="fr" className="bg-card">Français (French)</option>
+                    <option value="de" className="bg-card">Deutsch (German)</option>
+                    <option value="hi" className="bg-card">हिन्दी (Hindi)</option>
+                    <option value="zh-CN" className="bg-card">中文 (Chinese)</option>
+                    <option value="ja" className="bg-card">日本語 (Japanese)</option>
                   </select>
-                  <div className="text-xs text-white/50 mt-2">
+                  <div className="text-xs text-foreground/50 mt-2">
                     Applies live translation to the entire project interface instantly.
                   </div>
                 </div>
