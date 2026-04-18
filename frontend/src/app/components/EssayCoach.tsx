@@ -274,8 +274,8 @@ export function EssayCoach() {
               <FileText className="w-6 h-6 text-white" />
             </motion.div>
             <div>
-              <h3 className="text-lg font-bold text-foreground">AI Essay Coach</h3>
-              <p className="text-xs text-muted-foreground">Paste your essay for instant feedback</p>
+              <h3 className="text-lg font-bold text-white/90">AI Essay Coach</h3>
+              <p className="text-xs text-white/40">Paste your essay for instant feedback</p>
             </div>
           </div>
 

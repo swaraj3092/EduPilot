@@ -375,10 +375,20 @@ export function Dashboard() {
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-[#0A0A16]/95 dark:bg-[#0A0A16]/95 light:bg-white border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] overflow-y-auto">
-                <DialogHeader className="pb-4 border-b border-white/5 mb-6">
-                  <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
-                  <DialogDescription className="text-white/50 text-lg">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
-                </DialogHeader>
+                <div className="flex items-start justify-between border-b border-white/5 pb-4 mb-6">
+                  <DialogHeader>
+                    <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
+                    <DialogDescription className="text-white/50 text-lg">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
+                  </DialogHeader>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="text-white/50 hover:text-white hover:bg-white/10" 
+                    onClick={() => setIsNexusOpen(false)}
+                  >
+                    <X className="w-6 h-6" />
+                  </Button>
+                </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
                   {[
@@ -428,6 +438,14 @@ export function Dashboard() {
                       Get instant AI-powered feedback on your Statement of Purpose
                     </DialogDescription>
                   </DialogHeader>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="text-white/50 hover:text-white hover:bg-white/10" 
+                    onClick={() => setIsEssayOpen(false)}
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
                 </div>
                 <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
                   <EssayCoach />
@@ -454,14 +472,14 @@ export function Dashboard() {
                 className="hidden sm:flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-full hover:bg-orange-500/20 transition-colors active:scale-95 group"
               >
                 <Flame className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.streak} Day Streak</span>
+                <span className="text-xs font-bold text-white uppercase tracking-wider">{userStats.streak} Day Streak</span>
               </button>
               <button 
                 onClick={() => setIsQuestOpen(true)}
                 className="hidden sm:flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 px-3 py-1.5 rounded-full mr-2 hover:bg-purple-500/20 transition-colors active:scale-95 group"
               >
                 <Zap className="w-4 h-4 text-purple-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.xp.toLocaleString()} XP</span>
+                <span className="text-xs font-bold text-white uppercase tracking-wider">{userStats.xp.toLocaleString()} XP</span>
               </button>
               <NotificationCenter />
             </div>
@@ -522,14 +540,22 @@ export function Dashboard() {
                         <span className="text-sm">Essay Coach</span>
                       </button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-2xl border-white/10 p-0 flex flex-col">
-                      <div className="p-5 pb-3">
-                        <DialogHeader>
-                          <DialogTitle className="text-foreground text-xl">AI Essay Coach</DialogTitle>
-                          <DialogDescription className="text-foreground/60">
+                    <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0A0A16]/95 backdrop-blur-2xl border-white/5 p-0 flex flex-col shadow-2xl">
+                      <div className="p-5 pb-3 flex items-center justify-between">
+                        <DialogHeader className="text-left">
+                          <DialogTitle className="text-white text-xl font-bold">AI Essay Coach</DialogTitle>
+                          <DialogDescription className="text-white/50">
                             Get instant AI-powered feedback on your SOP
                           </DialogDescription>
                         </DialogHeader>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="text-white/50 hover:text-white" 
+                          onClick={() => setIsEssayOpen(false)}
+                        >
+                          <X className="w-5 h-5" />
+                        </Button>
                       </div>
                       <div className="flex-1 overflow-y-auto px-5 pb-5">
                         <EssayCoach />
