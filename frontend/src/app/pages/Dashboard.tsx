@@ -142,6 +142,21 @@ export function Dashboard() {
     },
   ]);
 
+  // CHAT PERSISTENCE: Load saved messages on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("edupilot-chat-history");
+    if (saved) {
+      setMessages(JSON.parse(saved));
+    }
+  }, []);
+
+  // CHAT PERSISTENCE: Save messages on update
+  useEffect(() => {
+    if (messages.length > 1) { // Don't save just the welcome message
+      localStorage.setItem("edupilot-chat-history", JSON.stringify(messages));
+    }
+  }, [messages]);
+
   // Fetch news when jumping to discover
   useEffect(() => {
     if (activeTab === "discover" && news.length === 0) {
@@ -198,11 +213,13 @@ export function Dashboard() {
       
       if (reply.includes("arkansas state")) detected.push({ name: "Arkansas State University", location: "USA", match: 92, tuition: "$14,500", ranking: "Tier 2" });
       if (reply.includes("arizona state") || reply.includes("asu")) detected.push({ name: "Arizona State University", location: "USA", match: 89, tuition: "$31,000", ranking: "#156" });
-      if (reply.includes("texas at arlington") || reply.includes("uta")) detected.push({ name: "Univ. of Texas at Arlington", location: "USA", match: 87, tuition: "$22,000", ranking: "#Tier 2" });
+      if (reply.includes("texas at arlington") || reply.includes("uta") || reply.includes("arlington")) detected.push({ name: "Univ. of Texas at Arlington", location: "USA", match: 87, tuition: "$22,000", ranking: "Tier 2" });
+      if (reply.includes("georgia tech") || reply.includes("gatech")) detected.push({ name: "Georgia Institute of Tech", location: "USA", match: 94, tuition: "$31,000", ranking: "#33" });
       if (reply.includes("toronto")) detected.push({ name: "University of Toronto", location: "Canada", match: 88, tuition: "$45,000", ranking: "#18" });
       if (reply.includes("melbourne")) detected.push({ name: "University of Melbourne", location: "Australia", match: 84, tuition: "$42,000", ranking: "#14" });
-      if (reply.includes("germany") || reply.includes("tum")) detected.push({ name: "Technical Univ. of Munich", location: "Germany", match: 95, tuition: "€0 (Public)", ranking: "#37" });
+      if (reply.includes("germany") || reply.includes("tum") || reply.includes("munich")) detected.push({ name: "Technical Univ. of Munich", location: "Germany", match: 95, tuition: "€0 (Public)", ranking: "#37" });
       if (reply.includes("ntu") || reply.includes("singapore")) detected.push({ name: "Nanyang Tech University", location: "Singapore", match: 91, tuition: "$32,000", ranking: "#12" });
+      if (reply.includes("scholarship")) detected.push({ name: "Ambedkar Scholarship", location: "Global", match: 99, tuition: "Full Funded", ranking: "N/A" });
       
       if (detected.length > 0) {
         setFilteredUniversities(detected);
