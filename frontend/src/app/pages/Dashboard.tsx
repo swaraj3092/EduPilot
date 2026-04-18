@@ -375,11 +375,19 @@ export function Dashboard() {
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-[#0A0A16]/95 dark:bg-[#0A0A16]/95 light:bg-white border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] overflow-y-auto">
-                <DialogHeader className="flex flex-row items-center justify-between pb-4 border-b border-white/5 mb-6">
+                <DialogHeader className="flex flex-row items-center justify-between pb-4 border-b border-white/5 mb-6 relative">
                   <div>
                     <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
                     <DialogDescription className="text-white/50 text-lg">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
                   </div>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="rounded-full hover:bg-white/10 text-white/50 hover:text-white"
+                    onClick={() => setIsNexusOpen(false)}
+                  >
+                    <X className="w-8 h-8" />
+                  </Button>
                 </DialogHeader>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
@@ -464,7 +472,7 @@ export function Dashboard() {
                 className="hidden sm:flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-full hover:bg-orange-500/20 transition-colors active:scale-95 group"
               >
                 <Flame className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.streak} Day Pulse</span>
+                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{(userStats.streak > 100 || userStats.streak < 1) ? 1 : userStats.streak} Day Pulse</span>
               </button>
               <button 
                 onClick={() => setIsQuestOpen(true)}
