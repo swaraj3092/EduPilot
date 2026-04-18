@@ -88,7 +88,36 @@ export function Dashboard() {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        // 1. Fetch Top Universities from DB
+        const authUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
+        const userId = authUser.id || authUser.user_id;
+
+        // 1. Streak & Daily Check Logic
+        const today = new Date().toISOString().split('T')[0];
+        const localProfile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
+        const lastLogin = localProfile.last_login_date;
+
+        if (userId && lastLogin !== today) {
+           const yesterday = new Date();
+           yesterday.setDate(yesterday.getDate() - 1);
+           const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+           let newStreak = localProfile.streak || 1;
+           if (lastLogin === yesterdayStr) {
+              newStreak += 1;
+              toast.success(`🔥 Streak Level Up: ${newStreak} Days! +50 XP granted.`);
+              await awardXP({ user_id: userId, amount: 50, reason: "Daily Return Bonus" });
+           } else if (lastLogin) {
+              newStreak = 1;
+              toast.info("Streak reset to 1. Stay consistent!");
+           }
+
+           const updated = { ...localProfile, streak: newStreak, last_login_date: today };
+           localStorage.setItem("edupilot-profile", JSON.stringify(updated));
+           setProfile(updated);
+           setUserStats(prev => ({ ...prev, streak: newStreak }));
+        }
+
+        // 2. Fetch Top Universities from DB
         try {
           const uniRes = await getTopUniversities();
           if (uniRes && Array.isArray(uniRes.universities)) {
@@ -103,34 +132,30 @@ export function Dashboard() {
           }
         } catch (uniError) {
           console.warn("Top universities fetch failed, using defaults:", uniError);
-          // Stay with DEFAULT_ELITES
         }
 
-        // 2. Fetch Profile Stats
-        const authUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
-        const userId = authUser.id || authUser.user_id;
+        // 3. Fetch Full Profile
         if (!userId) return;
-
         const res = await getUserProfile(userId);
         if (res.status === "success" && res.profile) {
           const dbProfile = res.profile;
+          // Only take DB XP and Streak if they are higher (prevent local loss)
           const updatedProfile = {
             ...profile,
             name: dbProfile.full_name,
-            full_name: dbProfile.full_name,
-            xp: dbProfile.xp,
-            streak: dbProfile.streak || 1,
+            xp: Math.max(dbProfile.xp, profile.xp),
+            streak: Math.max(dbProfile.streak || 1, profile.streak || 1),
             quests_completed: dbProfile.quests_completed || []
           };
           localStorage.setItem("edupilot-profile", JSON.stringify(updatedProfile));
           setProfile(updatedProfile);
           
           setUserStats({
-            xp: dbProfile.xp,
-            streak: dbProfile.streak || 1,
-            level: calculateLevel(dbProfile.xp),
-            levelTitle: calculateLevelTitle(calculateLevel(dbProfile.xp)),
-            name: dbProfile.full_name
+            xp: updatedProfile.xp,
+            streak: updatedProfile.streak,
+            level: calculateLevel(updatedProfile.xp),
+            levelTitle: calculateLevelTitle(calculateLevel(updatedProfile.xp)),
+            name: updatedProfile.full_name
           });
         }
       } catch (e) {
