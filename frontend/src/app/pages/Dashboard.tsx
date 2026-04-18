@@ -261,7 +261,7 @@ export function Dashboard() {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <GraduationCap className="w-7 h-7 md:w-8 md:h-8 text-indigo-400" />
-            <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
               EduPilot
             </span>
           </div>
@@ -275,18 +275,18 @@ export function Dashboard() {
                   Essay Coach
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/98 backdrop-blur-3xl border-white/20 p-0 flex flex-col shadow-[0_0_80px_-20px_rgba(99,102,241,0.4)]">
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-background/98 backdrop-blur-3xl border-border p-0 flex flex-col shadow-[0_0_80px_-20px_rgba(99,102,241,0.4)]">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
                   <DialogHeader className="text-left">
                     <DialogTitle className="text-foreground text-xl md:text-2xl">AI Essay Coach</DialogTitle>
-                    <DialogDescription className="text-foreground/60">
+                    <DialogDescription className="text-muted-foreground">
                       Get instant AI-powered feedback on your Statement of Purpose
                     </DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="rounded-full hover:bg-white/10 text-white/50 hover:text-white"
+                    className="rounded-full hover:bg-foreground/10 text-foreground/50 hover:text-foreground"
                     onClick={() => {
                         const closeBtn = document.querySelector('[data-radix-collection-item]') as HTMLElement;
                         if (closeBtn) closeBtn.click();
@@ -457,35 +457,33 @@ export function Dashboard() {
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 blur-xl opacity-60" />
-                <div className="absolute inset-2 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-foreground" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-purple-500 blur-xl opacity-60" />
+                <div className="absolute inset-2 rounded-full bg-gradient-to-r from-primary to-purple-400 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
                 </div>
               </motion.div>
               <div>
                 <h2 className="text-lg md:text-xl font-bold text-foreground">AI Career Navigator</h2>
-                <p className="text-xs md:text-sm text-foreground/60">Your personal study abroad mentor</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Your personal study abroad mentor</p>
               </div>
             </div>
           </div>
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
-            {messages.map((message, i) => (
+            {messages.map((msg, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                initial={{ opacity: 0, x: msg.role === "user" ? 20 : -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                <div
-                  className={`max-w-[90%] md:max-w-[80%] p-3 md:p-4 rounded-2xl shadow-xl backdrop-blur-md ${
-                    message.role === "user"
-                      ? "bg-gradient-to-r from-indigo-600/90 to-purple-600/90 border border-white/10 text-foreground"
-                      : "bg-[#0B0B1A]/80 border border-white/20 text-foreground/95 font-medium"
-                  }`}
-                >
-                  <p className="whitespace-pre-line text-xs md:text-sm leading-relaxed">{message.content}</p>
+                <div className={`max-w-[85%] p-4 rounded-2xl shadow-lg border ${
+                  msg.role === "user" 
+                    ? "bg-indigo-600 border-indigo-500 text-white" 
+                    : "bg-muted/80 backdrop-blur-md border-border text-foreground"
+                }`}>
+                  <p className="whitespace-pre-line text-xs md:text-sm leading-relaxed">{msg.content}</p>
                 </div>
               </motion.div>
             ))}
@@ -613,67 +611,64 @@ export function Dashboard() {
                     filteredUniversities.map((uni, i) => (
                       <Card key={i} className="p-4 bg-card border-border/10 hover:border-indigo-500/30 transition-all group overflow-hidden relative">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 blur-3xl -mr-12 -mt-12 group-hover:bg-indigo-500/10 transition-colors" />
-                        <div className="flex items-start justify-between mb-4 relative z-10">
-                          <div className="flex-1">
-                            <h4 className="text-sm font-bold text-foreground leading-tight group-hover:text-indigo-400 transition-colors">{uni.name}</h4>
-                            <p className="text-[10px] text-foreground/50 mt-1 flex items-center gap-1">
-                              <Compass className="w-2.5 h-2.5" /> {uni.location}
-                            </p>
-                          </div>
-                          <div className="bg-indigo-500/10 px-2 py-1 rounded text-[10px] font-bold text-indigo-400 border border-indigo-500/10">
-                            {uni.ranking}
-                          </div>
-                        </div>
-                        <div className="space-y-3 relative z-10">
-                          <div>
-                            <div className="flex justify-between text-[10px] mb-1">
-                              <span className="text-foreground/40">AI Match Confidence</span>
-                              <span className="font-bold text-foreground">{uni.match}%</span>
+                        <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between mb-1">
+                              <h4 className="text-sm font-bold text-foreground line-clamp-1">{uni.name}</h4>
+                              <span className="text-[10px] font-bold text-primary/60 bg-primary/10 px-1.5 py-0.5 rounded uppercase">{uni.ranking}</span>
                             </div>
-                            <div className="h-1 bg-muted rounded-full overflow-hidden">
+                            <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground mb-3">
+                              <Map className="w-3 h-3" />
+                              {uni.location}
+                            </div>
+                            
+                            <div className="flex items-center justify-between text-[10px] mb-2">
+                              <span className="text-muted-foreground">AI Match Confidence</span>
+                              <span className="text-foreground font-bold">{uni.match}%</span>
+                            </div>
+                            <div className="h-1 bg-muted rounded-full overflow-hidden mb-4">
                               <motion.div 
+                                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
                                 initial={{ width: 0 }}
                                 animate={{ width: `${uni.match}%` }}
-                                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500" 
+                                transition={{ duration: 1, delay: 0.5 }}
                               />
                             </div>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <p className="text-[10px] text-foreground/30 uppercase">Tuition</p>
-                              <p className="text-xs font-bold text-foreground/80">{uni.tuition}</p>
+                            <div className="flex items-center justify-between border-t border-border/5 pt-3">
+                              <div>
+                                <p className="text-[10px] text-muted-foreground uppercase leading-none mb-1">Tuition</p>
+                                <p className="text-xs font-bold text-foreground">{uni.tuition}</p>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Button 
+                                  variant="ghost" 
+                                  className="h-8 text-[10px] text-muted-foreground hover:text-indigo-400 hover:bg-transparent p-0"
+                                  onClick={() => navigate("/admission-probability", { state: { university: uni.name } })}
+                                >
+                                  Analysis
+                                </Button>
+                                <Button 
+                                  className="h-8 bg-indigo-500 hover:bg-indigo-600 text-[10px] px-4 rounded-lg shadow-lg shadow-indigo-500/20 text-white"
+                                  onClick={() => {
+                                    const apps = JSON.parse(localStorage.getItem("edupilot-applications") || "[]");
+                                    if (!apps.find((a: any) => a.university === uni.name)) {
+                                      const newApp = {
+                                        id: Date.now().toString(),
+                                        university: uni.name,
+                                        country: uni.location,
+                                        status: "planning",
+                                        deadline: "Jan 15, 2027",
+                                        logo: `https://logo.clearbit.com/${uni.name.toLowerCase().replace(/\s+/g, '')}.edu`
+                                      };
+                                      localStorage.setItem("edupilot-applications", JSON.stringify([...apps, newApp]));
+                                      toast.success(`Tracked ${uni.name}! Check your Tracker.`);
+                                    }
+                                  }}
+                                >
+                                  Track
+                                </Button>
+                              </div>
                             </div>
-                            <div className="mt-4 flex items-center justify-end gap-3 pt-4 border-t border-white/5">
-                            <Button 
-                              variant="ghost" 
-                              className="h-8 text-[10px] text-white/40 hover:text-indigo-400 hover:bg-transparent p-0"
-                              onClick={() => navigate("/admission-probability", { state: { university: uni.name } })}
-                            >
-                              Analysis
-                            </Button>
-                            <Button 
-                              className="h-8 bg-indigo-500 hover:bg-indigo-600 text-[10px] px-4 rounded-lg shadow-lg shadow-indigo-500/20"
-                              onClick={() => {
-                                const apps = JSON.parse(localStorage.getItem("edupilot-applications") || "[]");
-                                if (!apps.find((a: any) => a.university === uni.name)) {
-                                  const newApp = {
-                                    id: Date.now().toString(),
-                                    university: uni.name,
-                                    country: uni.location,
-                                    status: "planning",
-                                    deadline: "Jan 15, 2027",
-                                    logo: `https://logo.clearbit.com/${uni.name.toLowerCase().replace(/\s+/g, '')}.edu`
-                                  };
-                                  localStorage.setItem("edupilot-applications", JSON.stringify([...apps, newApp]));
-                                  toast.success(`Tracked ${uni.name}! Check your Tracker.`);
-                                }
-                              }}
-                            >
-                              Track
-                            </Button>
                           </div>
-                          </div>
-                        </div>
                       </Card>
                     ))
                   )}
