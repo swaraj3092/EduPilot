@@ -7,7 +7,7 @@ import { Card } from "../components/ui/card";
 import { Label } from "../components/ui/label";
 import { Slider } from "../components/ui/slider";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { getROIData, ROIData } from "../../lib/api";
+import { getROIData, ROIData } from "@/lib/api";
 
 const COUNTRIES = ["USA", "UK", "Canada", "Australia", "Germany", "Singapore", "India"];
 const FIELDS = ["Computer Science", "AI / Machine Learning", "Data Science", "Electrical Engineering", "Business", "Biotechnology"];

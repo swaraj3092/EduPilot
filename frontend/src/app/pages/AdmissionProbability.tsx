@@ -7,7 +7,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Card } from "../components/ui/card";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
-import { getAdmissionProbability, AdmissionResponse } from "../../lib/api";
+import { getAdmissionProbability, AdmissionResponse } from "@/lib/api";
 
 export function AdmissionProbability() {
   const navigate = useNavigate();

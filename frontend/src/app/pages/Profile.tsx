@@ -7,7 +7,7 @@ import { Card } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Progress } from "../components/ui/progress";
-import { getUserProfile } from "../../lib/api";
+import { getUserProfile } from "@/lib/api";
 
 const BADGES = [
   { id: "early_adopter", name: "Early Adopter", icon: "🚀", unlocked: true, desc: "Joined EduPilot" },

@@ -5,7 +5,7 @@ import { ChevronRight, User, MapPin, DollarSign, Sparkles } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { updateProfile } from "../../lib/api";
+import { updateProfile } from "@/lib/api";
 
 export function Onboarding() {
   const navigate = useNavigate();
