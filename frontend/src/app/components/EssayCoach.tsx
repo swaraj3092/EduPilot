@@ -10,7 +10,7 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Textarea } from "./ui/textarea";
 import { Progress } from "./ui/progress";
-import { analyzeEssay, EssayAnalysisResponse } from "@services";
+import { analyzeEssay, EssayAnalysisResponse, getEssayHistory } from "@services";
 
 interface FeedbackScore {
   label: string;
@@ -79,8 +79,37 @@ export function EssayCoach() {
   const charCount = essay.length;
   const idealWordRange = selectedType === "sop" ? [500, 1000] : selectedType === "personal" ? [400, 800] : [300, 600];
 
-  // Cleanup timeouts on unmount
+  // Fetch History on mount
   useEffect(() => {
+    const fetchHistory = async () => {
+      const authUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
+      if (!authUser.id) return;
+
+      try {
+        const res = await getEssayHistory(authUser.id);
+        if (res.status === "success" && res.history) {
+          const mapped: EssayVersion[] = res.history.map((h: any) => ({
+            id: h.id,
+            essayText: h.essay_text,
+            essayType: h.essay_type,
+            overallScore: h.overall_score,
+            scores: h.scores,
+            improvedVersion: h.improved_version,
+            plagiarism: {
+              overallOriginality: h.plagiarism.overall_originality,
+              sources: h.plagiarism.sources || []
+            },
+            timestamp: new Date(h.created_at),
+            wordCount: h.word_count
+          }));
+          setVersionHistory(mapped);
+        }
+      } catch (e) {
+        console.error("Failed to load essay history", e);
+      }
+    };
+    fetchHistory();
+
     return () => {
       analyzeTimeoutRef.current.forEach(clearTimeout);
     };
@@ -112,7 +141,8 @@ export function EssayCoach() {
     });
 
     try {
-      const response = await analyzeEssay(essay, selectedType as "sop" | "personal" | "diversity");
+      const authUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
+      const response = await analyzeEssay(essay, selectedType as "sop" | "personal" | "diversity", authUser.id);
       
       // Wait for at least the animations to finish a bit or finish them early if API was slow
       const finalTimeout = setTimeout(() => {

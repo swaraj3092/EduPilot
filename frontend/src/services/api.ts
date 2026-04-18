@@ -131,14 +131,24 @@ export async function chatSend(
 /** Essay Coach: analyze + score + rewrite */
 export async function analyzeEssay(
   essayText: string,
-  essayType: "sop" | "personal" | "diversity" = "sop"
+  essayType: "sop" | "personal" | "diversity" = "sop",
+  userId?: string
 ): Promise<EssayAnalysisResponse> {
   const res = await fetch(`${BASE}/api/essay/analyze`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ essay_text: essayText, essay_type: essayType }),
+    body: JSON.stringify({ essay_text: essayText, essay_type: essayType, user_id: userId }),
   });
   return handleResponse<EssayAnalysisResponse>(res);
+}
+
+/** Fetch Essay History */
+export async function getEssayHistory(userId: string): Promise<{ status: string; history: any[] }> {
+    const res = await fetch(`${BASE}/api/essay/history/${userId}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    return handleResponse(res);
 }
 
 /** Admission probability per university */
