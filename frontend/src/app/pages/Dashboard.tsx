@@ -90,18 +90,33 @@ export function Dashboard() {
       try {
         const authUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
         const userId = authUser.id || authUser.user_id;
+        if (!userId) return;
 
-        // 1. Streak & Daily Check Logic
+        // 1. Fetch Full Profile from DB FIRST (Source of Truth)
+        const res = await getUserProfile(userId);
+        let currentProfile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
+        
+        if (res.status === "success" && res.profile) {
+          const db = res.profile;
+          currentProfile = {
+            ...currentProfile,
+            name: db.full_name,
+            xp: db.xp,
+            streak: db.streak || 1,
+            last_login_date: db.last_login_date || currentProfile.last_login_date
+          };
+        }
+
+        // 2. Streak & Daily Check Logic (Using DB-synced value)
         const today = new Date().toISOString().split('T')[0];
-        const localProfile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
-        const lastLogin = localProfile.last_login_date;
+        const lastLogin = currentProfile.last_login_date;
 
-        if (userId && lastLogin !== today) {
+        if (lastLogin !== today) {
            const yesterday = new Date();
            yesterday.setDate(yesterday.getDate() - 1);
            const yesterdayStr = yesterday.toISOString().split('T')[0];
 
-           let newStreak = localProfile.streak || 1;
+           let newStreak = currentProfile.streak;
            if (lastLogin === yesterdayStr) {
               newStreak += 1;
               toast.success(`🔥 Streak Level Up: ${newStreak} Days! +50 XP granted.`);
@@ -111,13 +126,22 @@ export function Dashboard() {
               toast.info("Streak reset to 1. Stay consistent!");
            }
 
-           const updated = { ...localProfile, streak: newStreak, last_login_date: today };
-           localStorage.setItem("edupilot-profile", JSON.stringify(updated));
-           setProfile(updated);
-           setUserStats(prev => ({ ...prev, streak: newStreak }));
+           currentProfile.streak = newStreak;
+           currentProfile.last_login_date = today;
+           localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
         }
 
-        // 2. Fetch Top Universities from DB
+        // 3. Update Global States
+        setProfile(currentProfile);
+        setUserStats({
+          xp: currentProfile.xp,
+          streak: currentProfile.streak,
+          level: calculateLevel(currentProfile.xp),
+          levelTitle: calculateLevelTitle(calculateLevel(currentProfile.xp)),
+          name: currentProfile.name || currentProfile.full_name
+        });
+
+        // 4. Fetch Top Universities from DB
         try {
           const uniRes = await getTopUniversities();
           if (uniRes && Array.isArray(uniRes.universities)) {
@@ -134,30 +158,6 @@ export function Dashboard() {
           console.warn("Top universities fetch failed, using defaults:", uniError);
         }
 
-        // 3. Fetch Full Profile
-        if (!userId) return;
-        const res = await getUserProfile(userId);
-        if (res.status === "success" && res.profile) {
-          const dbProfile = res.profile;
-          // Only take DB XP and Streak if they are higher (prevent local loss)
-          const updatedProfile = {
-            ...profile,
-            name: dbProfile.full_name,
-            xp: Math.max(dbProfile.xp, profile.xp),
-            streak: Math.max(dbProfile.streak || 1, profile.streak || 1),
-            quests_completed: dbProfile.quests_completed || []
-          };
-          localStorage.setItem("edupilot-profile", JSON.stringify(updatedProfile));
-          setProfile(updatedProfile);
-          
-          setUserStats({
-            xp: updatedProfile.xp,
-            streak: updatedProfile.streak,
-            level: calculateLevel(updatedProfile.xp),
-            levelTitle: calculateLevelTitle(calculateLevel(updatedProfile.xp)),
-            name: updatedProfile.full_name
-          });
-        }
       } catch (e) {
         console.error("Dashboard sync failed", e);
       }
