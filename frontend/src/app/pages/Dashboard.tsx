@@ -142,20 +142,27 @@ export function Dashboard() {
     },
   ]);
 
-  // CHAT PERSISTENCE: Load saved messages on mount
+  // CHAT & MATCH PERSISTENCE: Load saved data on mount
   useEffect(() => {
-    const saved = localStorage.getItem("edupilot-chat-history");
-    if (saved) {
-      setMessages(JSON.parse(saved));
-    }
+    const savedChat = localStorage.getItem("edupilot-chat-history");
+    if (savedChat) setMessages(JSON.parse(savedChat));
+    
+    const savedMatches = localStorage.getItem("edupilot-discovered-matches");
+    if (savedMatches) setFilteredUniversities(JSON.parse(savedMatches));
   }, []);
 
-  // CHAT PERSISTENCE: Save messages on update
+  // PERSISTENCE: Save data on update
   useEffect(() => {
-    if (messages.length > 1) { // Don't save just the welcome message
+    if (messages.length > 1) {
       localStorage.setItem("edupilot-chat-history", JSON.stringify(messages));
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (filteredUniversities.length > 0) {
+      localStorage.setItem("edupilot-discovered-matches", JSON.stringify(filteredUniversities));
+    }
+  }, [filteredUniversities]);
 
   // Fetch news when jumping to discover
   useEffect(() => {
@@ -218,6 +225,8 @@ export function Dashboard() {
       if (reply.includes("toronto")) detected.push({ name: "University of Toronto", location: "Canada", match: 88, tuition: "$45,000", ranking: "#18" });
       if (reply.includes("leeds")) detected.push({ name: "University of Leeds", location: "UK", match: 82, tuition: "£26,500", ranking: "#86" });
       if (reply.includes("berlin") || reply.includes("tu berlin")) detected.push({ name: "TU Berlin", location: "Germany", match: 90, tuition: "€320 (Fees)", ranking: "#148" });
+      if (reply.includes("aachen") || reply.includes("rwth")) detected.push({ name: "RWTH Aachen", location: "Germany", match: 92, tuition: "€300 (Fees)", ranking: "#99" });
+      if (reply.includes("warsaw") || reply.includes("poland")) detected.push({ name: "Univ. of Warsaw", location: "Poland", match: 78, tuition: "$4,000", ranking: "#262" });
       if (reply.includes("melbourne")) detected.push({ name: "University of Melbourne", location: "Australia", match: 84, tuition: "$42,000", ranking: "#14" });
       if (reply.includes("germany") || reply.includes("tum") || reply.includes("munich")) detected.push({ name: "Technical Univ. of Munich", location: "Germany", match: 95, tuition: "€250 (Fees)", ranking: "#37" });
       if (reply.includes("ntu") || reply.includes("singapore")) detected.push({ name: "Nanyang Tech University", location: "Singapore", match: 91, tuition: "$32,000", ranking: "#12" });
@@ -226,7 +235,12 @@ export function Dashboard() {
       if (reply.includes("lse") || reply.includes("london")) detected.push({ name: "LSE", location: "UK", match: 84, tuition: "£24,500", ranking: "#45" });
       
       if (detected.length > 0) {
-        setFilteredUniversities(detected);
+        setFilteredUniversities(prev => {
+          // Flatten existing matches but remove duplicates by name
+          const combined = [...detected, ...prev];
+          const unique = Array.from(new Map(combined.map(item => [item.name, item])).values());
+          return unique.slice(0, 10); // Keep top 10 for performance
+        });
       }
 
       // Award Legit XP for engagement
