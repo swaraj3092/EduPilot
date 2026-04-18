@@ -7,7 +7,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Card } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
-import { getLoanEligibility, LoanResponse } from "../../lib/api";
+import { getLoanEligibility, LoanResponse } from "@/lib/api";
 
 export function LoanEligibility() {
   const navigate = useNavigate();

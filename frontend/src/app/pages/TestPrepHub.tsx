@@ -2,12 +2,12 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 import { ArrowLeft, Target, BookOpen, Award, TrendingUp, Globe, BarChart3, Loader2, RefreshCw, Sparkles } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Progress } from "../components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
-import { getTestRequirements, analyzeTestScore, TestRequirement } from "../../lib/api";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getTestRequirements, analyzeTestScore, TestRequirement } from "@/lib/api";
 
 const FIELDS = ["Computer Science", "AI / Machine Learning", "Data Science", "Electrical Engineering", "Business", "Biotechnology"];
 const COUNTRIES = ["USA", "UK", "Canada", "Australia", "Germany", "India"];
