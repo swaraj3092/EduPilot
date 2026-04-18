@@ -192,6 +192,20 @@ export function Dashboard() {
       const response = await chatSend([...messages, userMessage], profile);
       setMessages(prev => [...prev, { role: "assistant" as const, content: response.reply }]);
       
+      // Dynamic Card Update Logic: Look for university mentions in the reply
+      const reply = response.reply.toLowerCase();
+      const detected: any[] = [];
+      
+      if (reply.includes("arkansas state")) detected.push({ name: "Arkansas State University", location: "USA", match: 92, tuition: "$14,500", ranking: "Tier 2" });
+      if (reply.includes("toronto")) detected.push({ name: "University of Toronto", location: "Canada", match: 88, tuition: "$45,000", ranking: "#18" });
+      if (reply.includes("melbourne")) detected.push({ name: "University of Melbourne", location: "Australia", match: 84, tuition: "$42,000", ranking: "#14" });
+      if (reply.includes("germany") || reply.includes("tum")) detected.push({ name: "Technical Univ. of Munich", location: "Germany", match: 95, tuition: "€0 (Public)", ranking: "#37" });
+      if (reply.includes("ntu") || reply.includes("singapore")) detected.push({ name: "Nanyang Tech University", location: "Singapore", match: 91, tuition: "$32,000", ranking: "#12" });
+      
+      if (detected.length > 0) {
+        setFilteredUniversities(detected);
+      }
+
       // Award Legit XP for engagement
       if (user_id) {
         const reward = await awardXP({ user_id, amount: 50, reason: "AI Mentorship Interaction" });
@@ -205,13 +219,6 @@ export function Dashboard() {
         const newProfile = { ...profile, xp: reward.new_xp };
         setProfile(newProfile);
         localStorage.setItem("edupilot-profile", JSON.stringify(newProfile));
-      }
-
-      if (response.reply.toLowerCase().includes("toronto") || response.reply.toLowerCase().includes("melbourne")) {
-        setFilteredUniversities([
-          { name: "U of Toronto", location: "Canada", match: 88, tuition: "$45,000 CAD", ranking: "#18" },
-          { name: "U of Melbourne", location: "Australia", match: 84, tuition: "$42,000 AUD", ranking: "#14" },
-        ]);
       }
     } catch (error: any) {
       console.error("Chat Error:", error);
@@ -613,10 +620,35 @@ export function Dashboard() {
                               <p className="text-[10px] text-foreground/30 uppercase">Tuition</p>
                               <p className="text-xs font-bold text-foreground/80">{uni.tuition}</p>
                             </div>
-                            <div className="flex gap-2">
-                               <Button size="sm" variant="ghost" className="h-7 text-[10px] px-2 hover:bg-indigo-500/10 text-indigo-400">Analysis</Button>
-                               <Button size="sm" className="h-7 text-[10px] px-3 bg-indigo-600 hover:bg-indigo-700">Track</Button>
-                            </div>
+                            <div className="mt-4 flex items-center justify-end gap-3 pt-4 border-t border-white/5">
+                            <Button 
+                              variant="ghost" 
+                              className="h-8 text-[10px] text-white/40 hover:text-indigo-400 hover:bg-transparent p-0"
+                              onClick={() => navigate("/admission-probability", { state: { university: uni.name } })}
+                            >
+                              Analysis
+                            </Button>
+                            <Button 
+                              className="h-8 bg-indigo-500 hover:bg-indigo-600 text-[10px] px-4 rounded-lg shadow-lg shadow-indigo-500/20"
+                              onClick={() => {
+                                const apps = JSON.parse(localStorage.getItem("edupilot-applications") || "[]");
+                                if (!apps.find((a: any) => a.university === uni.name)) {
+                                  const newApp = {
+                                    id: Date.now().toString(),
+                                    university: uni.name,
+                                    country: uni.location,
+                                    status: "planning",
+                                    deadline: "Jan 15, 2027",
+                                    logo: `https://logo.clearbit.com/${uni.name.toLowerCase().replace(/\s+/g, '')}.edu`
+                                  };
+                                  localStorage.setItem("edupilot-applications", JSON.stringify([...apps, newApp]));
+                                  toast.success(`Tracked ${uni.name}! Check your Tracker.`);
+                                }
+                              }}
+                            >
+                              Track
+                            </Button>
+                          </div>
                           </div>
                         </div>
                       </Card>
