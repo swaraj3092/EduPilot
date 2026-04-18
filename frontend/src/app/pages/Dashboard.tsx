@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useNavigate } from "react-router";
 import {
+  Send, Sparkles, TrendingUp, DollarSign, FileText, Award,
+  GraduationCap, Target, Calendar, BookOpen, GitCompare,
   Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map, ListTodo, PlayCircle, Info
 } from "lucide-react";
 import { Button } from "@components/ui/button";
@@ -14,7 +16,10 @@ import { GrowthFlow } from "@components/GrowthFlow";
 import { Footer } from "@components/Footer";
 import { BackToTop } from "@components/BackToTop";
 import { QuestDashboard } from "@components/QuestDashboard";
-import { getLatestNews, generateAgentBlueprint } from "@services";
+import { 
+  chatSend, getLeaderboard, completeQuest, awardXP, ChatMessage, 
+  getUserProfile, getTopUniversities, getLatestNews, generateAgentBlueprint 
+} from "@services";
 import ReactMarkdown from 'react-markdown';
 
 const MOCK_UNIVERSITIES = [
