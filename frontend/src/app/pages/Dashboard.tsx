@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import {
   Send, Sparkles, TrendingUp, DollarSign, FileText, Award,
   GraduationCap, Target, Calendar, BookOpen, GitCompare,
-  Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map, ListTodo, PlayCircle, Info
+  Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map, ListTodo, PlayCircle, Info, Loader2
 } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
