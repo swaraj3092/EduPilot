@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Flame, Zap, Trophy, Target, Star, Shield, TrendingUp, Users, Crown, ArrowRight, ExternalLink, Globe } from "lucide-react";
-import { Button } from "./ui/button";
-import { Card } from "./ui/card";
-import { getLeaderboard, completeQuest } from "../../lib/api";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { getLeaderboard, completeQuest } from "@/lib/api";
 import { useNavigate } from "react-router";
 
 interface QuestDashboardProps {

@@ -5,12 +5,12 @@ import {
   ArrowLeft, Plus, Calendar, Upload, CheckCircle2, Clock,
   AlertCircle, FileText, GraduationCap, Trash2, Loader2, Sparkles, AlertTriangle
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Progress } from "../components/ui/progress";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
-import { Input } from "../components/ui/input";
-import { generateApplicationTracker } from "../../lib/api";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { generateApplicationTracker, AppTrackerResponse } from "@/lib/api";
 
 type ApplicationStatus = "not-started" | "in-progress" | "submitted" | "decision";
 

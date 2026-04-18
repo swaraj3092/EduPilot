@@ -10,7 +10,7 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Textarea } from "./ui/textarea";
 import { Progress } from "./ui/progress";
-import { analyzeEssay, EssayAnalysisResponse } from "../../lib/api";
+import { analyzeEssay, EssayAnalysisResponse } from "@/lib/api";
 
 interface FeedbackScore {
   label: string;
