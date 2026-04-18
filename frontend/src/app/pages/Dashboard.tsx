@@ -138,6 +138,43 @@ export function Dashboard() {
     },
   ]);
 
+  // Fetch news when jumping to discover
+  useEffect(() => {
+    if (activeTab === "discover" && news.length === 0) {
+      const fetchNews = async () => {
+        setNewsLoading(true);
+        try {
+          const res = await getLatestNews(profile.target_country || "USA");
+          setNews(res.articles);
+        } finally {
+          setNewsLoading(false);
+        }
+      };
+      fetchNews();
+    }
+  }, [activeTab]);
+
+  const handleGenerateBlueprint = async () => {
+    const user = JSON.parse(localStorage.getItem("edupilot-user") || "{}").id;
+    if (!user) return;
+    
+    setIsBlueprintOpen(true);
+    setBlueprintLoading(true);
+    try {
+      const res = await generateAgentBlueprint({
+        name: userStats.name.split(' ')[0],
+        country: profile.target_country || "USA",
+        field_of_study: profile.target_field || "STEM",
+        level: profile.degree_level || "Postgraduate"
+      });
+      setBlueprint(res.blueprint);
+    } catch (err) {
+      setBlueprint("Failed to generate your master plan. Please try again.");
+    } finally {
+      setBlueprintLoading(false);
+    }
+  };
+
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
 
