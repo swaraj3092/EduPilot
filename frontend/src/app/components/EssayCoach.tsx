@@ -546,8 +546,8 @@ export function EssayCoach() {
                       transition={{ duration: 3, repeat: Infinity }}
                     />
                   </div>
-                  <p className="text-lg text-white/40 mb-2 font-medium">Paste your essay and click "Analyze with AI"</p>
-                  <Button variant="outline" className="mt-4 border-white/10 hover:bg-white/10 text-white/60 hover:text-white transition-all hover:scale-105 active:scale-95" onClick={handleLoadSample}>
+                  <p className="text-lg text-white/90 mb-2 font-medium">Paste your essay and click "Analyze with AI"</p>
+                  <Button variant="outline" className="mt-4 border-white/10 bg-white/5 hover:bg-white/10 text-white/80 hover:text-white transition-all hover:scale-105 active:scale-95" onClick={handleLoadSample}>
                     Load Sample Essay
                   </Button>
                 </motion.div>

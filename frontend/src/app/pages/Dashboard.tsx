@@ -374,7 +374,7 @@ export function Dashboard() {
                   Explore Nexus
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-[#0A0A16]/95 dark:bg-[#0A0A16]/95 light:bg-white border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] overflow-y-auto">
+              <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-[#0A0A16]/95 dark:bg-[#0A0A16]/95 light:bg-white border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] overflow-y-auto [&>button]:hidden">
                 <div className="flex items-start justify-between border-b border-white/5 pb-4 mb-6">
                   <DialogHeader>
                     <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
@@ -430,7 +430,7 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isEssayOpen} onOpenChange={setIsEssayOpen}>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0A0A16]/95 backdrop-blur-3xl border-white/5 p-0 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)]">
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0A0A16]/95 backdrop-blur-3xl border-white/5 p-0 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] [&>button]:hidden">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
                   <DialogHeader className="text-left">
                     <DialogTitle className="text-white text-xl md:text-2xl font-bold">AI Essay Coach</DialogTitle>
@@ -540,7 +540,7 @@ export function Dashboard() {
                         <span className="text-sm">Essay Coach</span>
                       </button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0A0A16]/95 backdrop-blur-2xl border-white/5 p-0 flex flex-col shadow-2xl">
+                    <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0A0A16]/95 backdrop-blur-2xl border-white/5 p-0 flex flex-col shadow-2xl [&>button]:hidden">
                       <div className="p-5 pb-3 flex items-center justify-between">
                         <DialogHeader className="text-left">
                           <DialogTitle className="text-white text-xl font-bold">AI Essay Coach</DialogTitle>
