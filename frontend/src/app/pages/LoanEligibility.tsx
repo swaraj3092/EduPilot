@@ -7,7 +7,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Card } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
-import { getLoanEligibility, LoanEligibilityResponse } from "../../lib/api";
+import { getLoanEligibility, LoanResponse } from "../../lib/api";
 
 export function LoanEligibility() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export function LoanEligibility() {
     employmentYears: "3",
   });
   const [loading, setLoading] = useState(false);
-  const [apiData, setApiData] = useState<LoanEligibilityResponse | null>(null);
+  const [apiData, setApiData] = useState<LoanResponse | null>(null);
   const [animatedScore, setAnimatedScore] = useState(0);
 
   useEffect(() => {
