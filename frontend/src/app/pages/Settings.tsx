@@ -2,11 +2,11 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router";
 import { ArrowLeft, User, Bell, Lock, Palette, Globe, Save } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@components/ui/button";
+import { Card } from "@components/ui/card";
+import { Input } from "@components/ui/input";
+import { Switch } from "@components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs";
 import { getUserProfile, updateProfile, resetPassword as resetUserPassword } from "@services";
 
 export function Settings() {
