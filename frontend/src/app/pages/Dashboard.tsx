@@ -669,16 +669,6 @@ export function Dashboard() {
         onClose={() => setIsQuestOpen(false)} 
         userStats={userStats}
       />
-      </div>
-
-      <Footer />
-      <BackToTop />
-
-      <QuestDashboard 
-        isOpen={isQuestOpen} 
-        onClose={() => setIsQuestOpen(false)} 
-        userStats={userStats}
-      />
     </div>
   );
 }
