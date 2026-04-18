@@ -375,19 +375,9 @@ export function Dashboard() {
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-[#0A0A16]/95 dark:bg-[#0A0A16]/95 light:bg-white border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] overflow-y-auto">
-                <DialogHeader className="flex flex-row items-center justify-between pb-4 border-b border-white/5 mb-6 relative">
-                  <div>
-                    <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
-                    <DialogDescription className="text-white/50 text-lg">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
-                  </div>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="rounded-full hover:bg-white/10 text-white/50 hover:text-white"
-                    onClick={() => setIsNexusOpen(false)}
-                  >
-                    <X className="w-8 h-8" />
-                  </Button>
+                <DialogHeader className="pb-4 border-b border-white/5 mb-6">
+                  <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
+                  <DialogDescription className="text-white/50 text-lg">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
                 </DialogHeader>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
@@ -438,14 +428,6 @@ export function Dashboard() {
                       Get instant AI-powered feedback on your Statement of Purpose
                     </DialogDescription>
                   </DialogHeader>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="rounded-full hover:bg-foreground/10 text-foreground/50 hover:text-foreground"
-                    onClick={() => setIsEssayOpen(false)}
-                  >
-                    <X className="w-6 h-6" />
-                  </Button>
                 </div>
                 <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
                   <EssayCoach />
