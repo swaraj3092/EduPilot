@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useNavigate } from "react-router";
 import { Bell, X, Check, Calendar, Award, FileText, TrendingUp } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -15,6 +16,7 @@ interface Notification {
 }
 
 export function NotificationCenter() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const unreadCount = useMemo(() => notifications.filter(n => !n.read).length, [notifications]);
@@ -144,7 +146,7 @@ export function NotificationCenter() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 300 }}
                 transition={{ type: "spring", damping: 25 }}
-                className="fixed right-0 top-0 bottom-0 w-full sm:w-[400px] bg-[#0D0D1A]/98 backdrop-blur-3xl border-l border-white/10 z-[200] overflow-hidden flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.5)]"
+                className="fixed right-0 top-0 bottom-0 w-full sm:w-[400px] bg-[#0A0A16] border-l border-indigo-500/30 z-[200] overflow-hidden flex flex-col shadow-[-40px_0_100px_rgba(0,0,0,0.8)]"
               >
               {/* Header */}
               <div className="p-6 border-b border-white/10">
@@ -188,20 +190,21 @@ export function NotificationCenter() {
                         transition={{ delay: i * 0.05 }}
                       >
                         <Card
-                          className={`p-4 cursor-pointer transition ${
-                            notification.read
-                              ? "bg-white/5 border-white/10"
-                              : "bg-indigo-500/10 border-indigo-500/20"
-                          }`}
-                          onClick={() => markAsRead(notification.id)}
+                          onClick={() => {
+                            setIsOpen(false);
+                            markAsRead(notification.id);
+                            if (notification.type === "deadline") navigate("/application-tracker");
+                            if (notification.type === "scholarship") navigate("/scholarships");
+                            if (notification.type === "update") navigate("/dashboard");
+                          }}
                         >
-                          <div className="flex items-start gap-3 mb-3">
+                          <div className="flex items-start gap-3 mb-3 relative z-10">
                             <div className={`w-10 h-10 rounded-full border flex items-center justify-center flex-shrink-0 ${getTypeColor(notification.type)}`}>
                               <Icon className="w-5 h-5" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between gap-2 mb-1">
-                                <h4 className="text-sm font-semibold text-foreground line-clamp-1">
+                                <h4 className="text-sm font-semibold text-white line-clamp-1">
                                   {notification.title}
                                 </h4>
                                 <button
@@ -209,21 +212,21 @@ export function NotificationCenter() {
                                     e.stopPropagation();
                                     deleteNotification(notification.id);
                                   }}
-                                  className="p-1 rounded-full hover:bg-foreground/10 transition flex-shrink-0"
+                                  className="p-1 rounded-full hover:bg-white/10 transition flex-shrink-0"
                                 >
-                                  <X className="w-3 h-3 text-foreground/50" />
+                                  <X className="w-3 h-3 text-white/50" />
                                 </button>
                               </div>
-                              <p className="text-xs text-foreground/60 mb-2 line-clamp-2">
+                              <p className="text-xs text-white/60 mb-2 line-clamp-2">
                                 {notification.message}
                               </p>
-                              <span className="text-xs text-foreground/40">
+                              <span className="text-xs text-indigo-400 font-bold">
                                 {notification.time}
                               </span>
                             </div>
                           </div>
                           {!notification.read && (
-                            <div className="w-2 h-2 bg-indigo-400 rounded-full absolute top-4 right-4" />
+                            <div className="w-2 h-2 bg-indigo-400 rounded-full absolute top-4 left-1.5" />
                           )}
                         </Card>
                       </motion.div>
