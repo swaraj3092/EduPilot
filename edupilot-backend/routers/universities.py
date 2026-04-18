@@ -54,11 +54,9 @@ async def compare_universities(req: UniversitySearchRequest):
     if cache and not is_stale(cache.get("created_at"), days=7):
         return {"universities": json.loads(cache.get("content")), "cached": True}
 
-    # 2. Generate if missing or stale
-    names_str = ", ".join(req.names)
     prompt = f"""You are a university data expert with access to the latest (2026-2027 academic cycle) data.
 
-Provide accurate, real-time data for these universities for a {req.field} {req.field} program: {names_str}
+Provide accurate, real-time data for these universities for a {req.field} program: {names_str}
 
 Respond ONLY with a valid JSON array — no markdown, no extra text.
 
@@ -67,7 +65,7 @@ Each object must exactly follow this structure:
   "id": "<number string>",
   "name": "<official university name>",
   "location": "<City, Country>",
-  "ranking": "<Latest QS World Ranking (2026/27) e.g. #1>",
+  "ranking": "<Latest QS World Ranking (2026/2027) e.g. #1>",
   "tuition": "<current annual tuition for international MS students in USD or local currency>",
   "acceptance": "<latest acceptance rate for graduate programs>",
   "avgSalary": "<latest average starting salary for {req.field} graduates in USD>",
@@ -77,7 +75,7 @@ Each object must exactly follow this structure:
   "highlights": ["<strength1>", "<strength2>", "<strength3>"]
 }}
 
-Use the most current publicly known data as of April 2026. Be precise and accurate."""
+Use the most current publicly known data as of April 2026. Be precise and accurate. Any financial data must be updated for the 2026-2027 intake cycle."""
 
     raw = generate_content(prompt)
     raw = re.sub(r"^```(?:json)?\s*", "", raw.strip())
