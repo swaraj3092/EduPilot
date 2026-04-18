@@ -20,7 +20,7 @@ export function NotificationCenter() {
   const unreadCount = useMemo(() => notifications.filter(n => !n.read).length, [notifications]);
   useEffect(() => {
     try {
-      const savedApps = localStorage.getItem("edupilot-apps");
+      const savedApps = localStorage.getItem("edupilot-applications");
       const savedProfile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
       
       let items: Notification[] = [
@@ -135,7 +135,7 @@ export function NotificationCenter() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/50 z-[140]"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[190]"
             />
 
             {/* Panel */}
@@ -144,7 +144,7 @@ export function NotificationCenter() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 300 }}
                 transition={{ type: "spring", damping: 25 }}
-                className="fixed right-0 top-0 bottom-0 w-full sm:w-[400px] bg-background border-l border-border z-[150] overflow-hidden flex flex-col shadow-2xl"
+                className="fixed right-0 top-0 bottom-0 w-full sm:w-[400px] bg-[#0D0D1A]/98 backdrop-blur-3xl border-l border-white/10 z-[200] overflow-hidden flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.5)]"
               >
               {/* Header */}
               <div className="p-6 border-b border-white/10">
