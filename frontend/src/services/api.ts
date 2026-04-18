@@ -98,16 +98,22 @@ export interface LoanResponse {
 // Helper: extract meaningful error from backend JSON
 // ─────────────────────────────────────────────────────────────────────────────
 async function handleResponse<T>(res: Response): Promise<T> {
+  const contentType = res.headers.get("content-type");
   if (!res.ok) {
     let detail = `HTTP ${res.status}`;
-    try {
-      const err = await res.json();
-      if (err?.detail) detail = err.detail;
-    } catch {
-      // ignore parse error
+    if (contentType && contentType.includes("application/json")) {
+      try {
+        const err = await res.json();
+        if (err?.detail) detail = err.detail;
+      } catch { /* ignore */ }
     }
     throw new Error(detail);
   }
+  
+  if (!contentType || !contentType.includes("application/json")) {
+    throw new Error("Invalid response from server: Expected JSON");
+  }
+
   return res.json();
 }
 

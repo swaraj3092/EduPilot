@@ -87,16 +87,21 @@ export function Dashboard() {
     const fetchStatus = async () => {
       try {
         // 1. Fetch Top Universities from DB
-        const uniRes = await getTopUniversities();
-        if (uniRes.universities) {
-            const formatted = uniRes.universities.map((u: any) => ({
-                name: u.name,
-                location: u.country,
-                match: u.match_score || 85,
-                tuition: u.tuition || "N/A",
-                ranking: u.ranking || "N/A"
-            }));
-            setFilteredUniversities(formatted);
+        try {
+          const uniRes = await getTopUniversities();
+          if (uniRes && Array.isArray(uniRes.universities)) {
+              const formatted = uniRes.universities.map((u: any) => ({
+                  name: u.name,
+                  location: u.country || u.location || "Global",
+                  match: u.match_score || 85,
+                  tuition: u.tuition || "N/A",
+                  ranking: u.ranking || "N/A"
+              }));
+              setFilteredUniversities(formatted);
+          }
+        } catch (uniError) {
+          console.warn("Top universities fetch failed, using defaults:", uniError);
+          // Stay with DEFAULT_ELITES
         }
 
         // 2. Fetch Profile Stats
