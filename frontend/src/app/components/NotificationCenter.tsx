@@ -142,11 +142,12 @@ export function NotificationCenter() {
 
             {/* Panel */}
               <motion.div
-                initial={{ opacity: 0, x: 300 }}
+                initial={{ opacity: 0, x: 400 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 300 }}
-                transition={{ type: "spring", damping: 25 }}
-                className="fixed right-0 top-0 bottom-0 w-full sm:w-[400px] bg-[#0A0A16] border-l border-indigo-500/30 z-[200] overflow-hidden flex flex-col shadow-[-40px_0_100px_rgba(0,0,0,0.8)]"
+                exit={{ opacity: 0, x: 400 }}
+                transition={{ type: "spring", damping: 30, stiffness: 200 }}
+                style={{ willChange: "transform" }}
+                className="fixed right-0 inset-y-0 w-full sm:w-[400px] h-screen bg-[#0A0A16] border-l border-indigo-500/30 z-[300] overflow-hidden flex flex-col shadow-[-40px_0_100px_rgba(0,0,0,0.8)]"
               >
               {/* Header */}
               <div className="p-6 border-b border-white/10">

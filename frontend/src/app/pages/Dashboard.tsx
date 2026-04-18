@@ -349,7 +349,7 @@ export function Dashboard() {
                   Explore Nexus
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-6xl w-[95vw] bg-background/95 backdrop-blur-3xl border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)]">
+              <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-background border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] overflow-y-auto">
                 <DialogHeader className="flex flex-row items-center justify-between">
                   <div>
                     <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
