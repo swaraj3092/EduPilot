@@ -216,10 +216,14 @@ export function Dashboard() {
       if (reply.includes("texas at arlington") || reply.includes("uta") || reply.includes("arlington")) detected.push({ name: "Univ. of Texas at Arlington", location: "USA", match: 87, tuition: "$22,000", ranking: "Tier 2" });
       if (reply.includes("georgia tech") || reply.includes("gatech")) detected.push({ name: "Georgia Institute of Tech", location: "USA", match: 94, tuition: "$31,000", ranking: "#33" });
       if (reply.includes("toronto")) detected.push({ name: "University of Toronto", location: "Canada", match: 88, tuition: "$45,000", ranking: "#18" });
+      if (reply.includes("leeds")) detected.push({ name: "University of Leeds", location: "UK", match: 82, tuition: "£26,500", ranking: "#86" });
+      if (reply.includes("berlin") || reply.includes("tu berlin")) detected.push({ name: "TU Berlin", location: "Germany", match: 90, tuition: "€320 (Fees)", ranking: "#148" });
       if (reply.includes("melbourne")) detected.push({ name: "University of Melbourne", location: "Australia", match: 84, tuition: "$42,000", ranking: "#14" });
-      if (reply.includes("germany") || reply.includes("tum") || reply.includes("munich")) detected.push({ name: "Technical Univ. of Munich", location: "Germany", match: 95, tuition: "€0 (Public)", ranking: "#37" });
+      if (reply.includes("germany") || reply.includes("tum") || reply.includes("munich")) detected.push({ name: "Technical Univ. of Munich", location: "Germany", match: 95, tuition: "€250 (Fees)", ranking: "#37" });
       if (reply.includes("ntu") || reply.includes("singapore")) detected.push({ name: "Nanyang Tech University", location: "Singapore", match: 91, tuition: "$32,000", ranking: "#12" });
       if (reply.includes("scholarship")) detected.push({ name: "Ambedkar Scholarship", location: "Global", match: 99, tuition: "Full Funded", ranking: "N/A" });
+      if (reply.includes("delft") || reply.includes("netherlands")) detected.push({ name: "TU Delft", location: "Netherlands", match: 88, tuition: "€16,000", ranking: "#61" });
+      if (reply.includes("lse") || reply.includes("london")) detected.push({ name: "LSE", location: "UK", match: 84, tuition: "£24,500", ranking: "#45" });
       
       if (detected.length > 0) {
         setFilteredUniversities(detected);
