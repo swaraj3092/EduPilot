@@ -134,11 +134,11 @@ export function Settings() {
               variant="ghost"
               size="icon"
               onClick={() => navigate('/dashboard')}
-              className="text-white/70 hover:text-white"
+              className="text-foreground/70 hover:text-foreground"
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
-            <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 bg-clip-text text-transparent">
               Settings
             </h1>
           </div>
@@ -154,8 +154,8 @@ export function Settings() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <Tabs defaultValue="profile" className="space-y-8">
-          <TabsList className="bg-white/5 border border-white/10">
-            <TabsTrigger value="profile" className="data-[state=active]:bg-white/10">
+          <TabsList className="bg-muted border border-border">
+            <TabsTrigger value="profile" className="data-[state=active]:bg-card">
               <User className="w-4 h-4 mr-2" />
               Profile
             </TabsTrigger>
@@ -180,12 +180,12 @@ export function Settings() {
               <div className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="text-sm text-white/60 mb-2 block">Full Name</label>
+                    <label className="text-sm text-foreground/60 mb-2 block">Full Name</label>
                     <Input
                       placeholder="John Doe"
                       value={profile.name}
                       onChange={e => setProfile({...profile, name: e.target.value})}
-                      className="bg-white/5 border-white/20 text-white"
+                      className="bg-card border-border text-foreground"
                     />
                   </div>
                   <div>
@@ -353,28 +353,36 @@ export function Settings() {
                   <label className="text-sm text-white/60 mb-3 block">Theme</label>
                   <div className="grid grid-cols-2 gap-4">
                     <button
-                      onClick={() => setPendingTheme("dark")}
+                      onClick={() => {
+                        setPendingTheme("dark");
+                        localStorage.setItem("edupilot-theme", "dark");
+                        window.dispatchEvent(new Event("themechange"));
+                      }}
                       className={`p-6 rounded-xl border-2 transition ${
                         pendingTheme === "dark"
-                          ? "border-indigo-500 bg-indigo-500/10"
-                          : "border-white/10 bg-white/5 hover:border-white/20"
+                          ? "border-primary bg-primary/10"
+                          : "border-border bg-card hover:border-border/50"
                       }`}
                     >
                       <div className="w-full h-20 bg-[#0D0D1A] rounded-lg mb-3 border border-white/10" />
-                      <div className="text-white font-semibold">Dark Mode</div>
-                      <div className="text-xs text-white/60 mt-1">Current theme</div>
+                      <div className="text-foreground font-semibold">Dark Mode</div>
+                      <div className="text-xs text-foreground/60 mt-1">Midnight Theme</div>
                     </button>
                     <button
-                      onClick={() => setPendingTheme("light")}
+                      onClick={() => {
+                        setPendingTheme("light");
+                        localStorage.setItem("edupilot-theme", "light");
+                        window.dispatchEvent(new Event("themechange"));
+                      }}
                       className={`p-6 rounded-xl border-2 transition ${
                         pendingTheme === "light"
-                          ? "border-indigo-500 bg-indigo-500/10"
-                          : "border-white/10 bg-white/5 hover:border-white/20"
+                          ? "border-primary bg-primary/10"
+                          : "border-border bg-card hover:border-border/50"
                       }`}
                     >
                       <div className="w-full h-20 bg-white rounded-lg mb-3 border border-gray-200" />
-                      <div className="text-white font-semibold">Morning Nature</div>
-                      <div className="text-xs text-white/60 mt-1">Natural daylight background</div>
+                      <div className="text-foreground font-semibold">Light Mode</div>
+                      <div className="text-xs text-foreground/60 mt-1">Morning Clarity</div>
                     </button>
                   </div>
                 </div>
