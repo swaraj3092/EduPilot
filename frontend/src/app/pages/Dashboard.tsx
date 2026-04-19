@@ -623,7 +623,7 @@ export function Dashboard() {
       {/* Main Content — Responsive Split Pane */}
       <div className="relative z-10 max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:h-[calc(100vh-73px)]">
         {/* Left: AI Chat */}
-        <div className={`flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 min-h-[50vh] lg:min-h-0 ${mobileWorkview === 'chat' ? 'flex' : 'hidden lg:flex'}`}>
+        <div className={`flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 h-full lg:h-auto ${mobileWorkview === 'chat' ? 'flex fixed inset-0 z-40 bg-[#0D0D1A] pt-16 pb-24' : 'hidden lg:flex'}`}>
           {/* Chat Header */}
           <div className="p-4 md:p-6 border-b border-white/10">
             <div className="flex items-center gap-3">
@@ -677,8 +677,8 @@ export function Dashboard() {
             )}
           </div>
 
-          {/* Input */}
-          <div className="p-4 md:p-6 border-t border-white/10">
+          {/* Input - Pinned for Mobile */}
+          <div className="p-4 md:p-6 border-t border-white/10 bg-background/80 backdrop-blur-xl">
             <div className="flex items-center gap-2 md:gap-3">
               <Input
                 placeholder="Ask me anything..."
