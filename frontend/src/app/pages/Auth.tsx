@@ -30,6 +30,7 @@ export function Auth() {
         const res = await loginUser({ email, password });
         localStorage.setItem("edupilot-user", JSON.stringify(res.user));
         navigate("/onboarding");
+      } else if (authMode === "login") {
         const res = await loginUser({ email, password });
         localStorage.setItem("edupilot-user", JSON.stringify(res.user));
         if (res.profile) {
