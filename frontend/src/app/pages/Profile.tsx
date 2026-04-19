@@ -72,7 +72,7 @@ export function Profile() {
     nextReward: 10,
   };
 
-  const shareCode = profile?.referral_code || (userData.name).toLowerCase().replace(/\s+/g, '');
+  const shareCode = profile?.referral_code || userData.name.toLowerCase().replace(/[^a-z0-9]/g, '');
   const referralLink = `${window.location.origin}/ref/${shareCode}`;
 
   // Dynamic Journey Progress
@@ -84,11 +84,15 @@ export function Profile() {
   ];
 
   const handleSocialShare = () => {
-    const text = `I'm leveling up my Study Abroad journey with EduPilot! Join me using my link: ${referralLink}`;
+    const text = "I'm leveling up my Study Abroad journey with EduPilot! Join me and let's unlock the future together.";
     if (navigator.share) {
-      navigator.share({ title: 'EduPilot', text, url: referralLink });
+      navigator.share({ 
+        title: 'EduPilot Navigator', 
+        text: text, 
+        url: referralLink 
+      }).catch(err => console.error("Share failed:", err));
     } else {
-      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`);
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(referralLink)}`);
     }
   };
 

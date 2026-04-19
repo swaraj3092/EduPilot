@@ -224,7 +224,7 @@ export function PublicProfile() {
                    onClick={() => navigate("/auth")}
                    className="h-16 px-10 text-lg font-bold bg-white text-[#0A0A1F] hover:bg-white/90 rounded-2xl group shadow-2xl shadow-primary/20"
                  >
-                    Get Started for Free
+                    Join {profile.full_name.split(' ')[0]}'s Crew
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                  </Button>
                  <div className="flex items-center gap-3 text-white/40">
@@ -233,7 +233,7 @@ export function PublicProfile() {
                         <div key={i} className="w-8 h-8 rounded-full bg-slate-800 border-2 border-[#0A0A1F] flex items-center justify-center text-[8px] font-bold">U{i}</div>
                       ))}
                    </div>
-                   <span className="text-xs font-medium">Joined by 10k+ students</span>
+                   <span className="text-xs font-medium">Joined by 10k+ navigators</span>
                  </div>
               </div>
 
