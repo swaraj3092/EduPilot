@@ -2,24 +2,24 @@
 
 :root {
   --font-size: 16px;
-  --background: #F0F4F8;
+  --background: #F8FAFC;
   --foreground: #0F172A;
   --card: #FFFFFF;
   --card-foreground: #0F172A;
   --popover: #FFFFFF;
   --popover-foreground: #0F172A;
-  --primary: #6366F1;
+  --primary: #4F46E5;
   --primary-foreground: #FFFFFF;
-  --secondary: #E2E8F0;
+  --secondary: #F1F5F9;
   --secondary-foreground: #1E293B;
-  --muted: #CBD5E1;
-  --muted-foreground: #475569;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
   --accent: #E2E8F0;
   --accent-foreground: #1E293B;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #CBD5E1;
-  --input: #F8FAFC;
+  --border: #E2E8F0;
+  --input: #F1F5F9;
   --input-background: #FFFFFF;
   --switch-background: #CBD5E1;
   --font-weight-medium: 500;

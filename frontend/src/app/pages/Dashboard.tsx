@@ -385,16 +385,16 @@ export function Dashboard() {
                   Explore Nexus
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-[#0A0A16]/95 dark:bg-[#0A0A16]/95 light:bg-white border-indigo-500/20 p-8 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] overflow-y-auto [&>button]:hidden">
-                <div className="flex items-start justify-between border-b border-white/5 pb-4 mb-6">
+              <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-card/95 backdrop-blur-3xl border-border p-8 flex flex-col shadow-2xl overflow-y-auto [&>button]:hidden">
+                <div className="flex items-start justify-between border-b border-border pb-4 mb-6">
                   <DialogHeader>
-                    <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
-                    <DialogDescription className="text-white/50 text-lg">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
+                    <DialogTitle className="text-3xl font-black bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent mb-2 italic tracking-tighter">Command Center</DialogTitle>
+                    <DialogDescription className="text-muted-foreground text-lg font-medium italic">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-white/50 hover:text-white hover:bg-white/10" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
                     onClick={() => setIsNexusOpen(false)}
                   >
                     <X className="w-6 h-6" />
@@ -434,8 +434,8 @@ export function Dashboard() {
                       <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-black/20`}>
                         <tool.icon className="w-6 h-6" />
                       </div>
-                      <h4 className="text-lg font-bold text-white mb-2">{tool.label}</h4>
-                      <p className="text-xs text-white/50 leading-relaxed">{tool.desc}</p>
+                      <h4 className="text-lg font-bold text-foreground mb-2">{tool.label}</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed font-medium">{tool.desc}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -443,18 +443,18 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isEssayOpen} onOpenChange={setIsEssayOpen}>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0A0A16]/95 backdrop-blur-3xl border-white/5 p-0 flex flex-col shadow-[0_0_100px_rgba(99,102,241,0.2)] [&>button]:hidden">
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-white text-xl md:text-2xl font-bold">AI Essay Coach</DialogTitle>
-                    <DialogDescription className="text-white/50">
+                    <DialogTitle className="text-foreground text-xl md:text-2xl font-black italic tracking-tighter">AI Essay Coach</DialogTitle>
+                    <DialogDescription className="text-muted-foreground font-medium italic">
                       Get instant AI-powered feedback on your Statement of Purpose
                     </DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-white/50 hover:text-white hover:bg-white/10" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
                     onClick={() => setIsEssayOpen(false)}
                   >
                     <X className="w-5 h-5" />
@@ -513,15 +513,15 @@ export function Dashboard() {
 
           {/* Mobile Nav Buttons */}
           <div className="flex lg:hidden items-center gap-3">
-            <div className="flex items-center gap-2 bg-white/5 px-2 py-1 rounded-full border border-white/10">
+            <div className="flex items-center gap-2 bg-muted px-2 py-1 rounded-full border border-border">
               <div className="flex items-center gap-1">
-                <Flame className="w-3 h-3 text-orange-400" />
-                <span className="text-[10px] font-bold text-white">{userStats.streak}</span>
+                <Flame className="w-3 h-3 text-orange-500" />
+                <span className="text-[10px] font-bold text-foreground italic">{userStats.streak}</span>
               </div>
-              <div className="w-[1px] h-3 bg-white/10" />
+              <div className="w-[1px] h-3 bg-border" />
               <div className="flex items-center gap-1">
-                <Zap className="w-3 h-3 text-purple-400" />
-                <span className="text-[10px] font-bold text-white">{(userStats.xp/1000).toFixed(1)}k</span>
+                <Zap className="w-3 h-3 text-purple-600" />
+                <span className="text-[10px] font-bold text-foreground">{(userStats.xp/1000).toFixed(1)}k</span>
               </div>
             </div>
             <NotificationCenter />
@@ -550,18 +550,18 @@ export function Dashboard() {
                 animate={{ opacity: 1, y: 0, height: "auto" }}
                 exit={{ opacity: 0, y: -10, height: 0 }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="absolute top-full left-0 right-0 z-40 bg-[#0D0D1A]/95 backdrop-blur-2xl border-b border-white/10 overflow-hidden lg:hidden"
+                className="absolute top-full left-0 right-0 z-40 bg-card/95 backdrop-blur-2xl border-b border-border overflow-hidden lg:hidden shadow-xl"
               >
                 <div className="px-4 py-4 space-y-1">
                   <button
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted transition"
                     onClick={() => {
                       setMobileMenuOpen(false);
-                      setTimeout(() => setIsEssayOpen(true), 100);
+                      setTimeout(() => setIsEssayOpen(true), 300); // Increase buffer for stable mobile mount
                     }}
                   >
-                    <FileText className="w-5 h-5 text-purple-400" />
-                    <span className="text-sm">Essay Coach</span>
+                    <FileText className="w-5 h-5 text-primary" />
+                    <span className="text-sm font-bold">Essay Coach</span>
                   </button>
 
                   {NAV_ITEMS.map((item, i) => (
@@ -594,7 +594,7 @@ export function Dashboard() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.4 }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-white/20 text-foreground/70 hover:text-foreground hover:bg-white/10 transition text-center justify-center font-bold"
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition text-center justify-center font-bold"
                       onClick={() => { navigate("/profile"); setMobileMenuOpen(false); }}
                     >
                       Profile
@@ -645,21 +645,23 @@ export function Dashboard() {
             </div>
           </div>
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
+          {/* Chat Messages */}
+          <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scroll-smooth no-scrollbar">
             {messages.map((msg, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, x: msg.role === "user" ? 20 : -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                <div className={`max-w-[85%] p-4 rounded-2xl shadow-lg border ${
-                  msg.role === "user" 
-                    ? "bg-indigo-600 border-indigo-500 text-white" 
-                    : "bg-muted/80 backdrop-blur-md border-border text-foreground"
-                }`}>
-                  <p className="whitespace-pre-line text-xs md:text-sm leading-relaxed">{msg.content}</p>
+                <div
+                  className={`max-w-[85%] md:max-w-[75%] p-4 rounded-3xl text-sm leading-relaxed shadow-sm ${
+                    msg.role === "user"
+                      ? "bg-primary text-primary-foreground rounded-tr-sm glow-indigo"
+                      : "bg-white/10 dark:bg-white/5 backdrop-blur-md text-foreground rounded-tl-sm border border-black/5 dark:border-white/10"
+                  }`}
+                >
+                  <p className="whitespace-pre-line leading-relaxed">{msg.content}</p>
                 </div>
               </motion.div>
             ))}
@@ -669,24 +671,24 @@ export function Dashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="flex justify-start"
               >
-                <div className="bg-white/5 border border-white/10 p-4 rounded-2xl flex gap-1">
-                  <motion.div className="w-1.5 h-1.5 bg-indigo-400 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity }} />
-                  <motion.div className="w-1.5 h-1.5 bg-purple-400 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.2 }} />
-                  <motion.div className="w-1.5 h-1.5 bg-pink-400 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.4 }} />
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md p-4 rounded-3xl rounded-tl-sm flex gap-2 border border-black/5 dark:border-white/10">
+                  <motion.div className="w-1.5 h-1.5 bg-primary/40 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity }} />
+                  <motion.div className="w-1.5 h-1.5 bg-primary/60 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.2 }} />
+                  <motion.div className="w-1.5 h-1.5 bg-primary/80 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.4 }} />
                 </div>
               </motion.div>
             )}
           </div>
 
           {/* Input - Pinned for Mobile */}
-          <div className="p-4 md:p-6 border-t border-white/10 bg-background/80 backdrop-blur-xl">
+          <div className="p-4 md:p-6 border-t border-border bg-background/80 backdrop-blur-xl">
             <div className="flex items-center gap-2 md:gap-3">
               <Input
-                placeholder="Ask me anything..."
-                className="flex-1 bg-white/5 border-white/20 text-foreground placeholder:text-foreground/30 text-sm"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                placeholder="Ask your mentor about admissions..."
+                className="flex-1 bg-input border-border text-foreground text-sm md:text-base focus:border-primary/50"
               />
               <Button
                 size="icon"
@@ -766,8 +768,6 @@ export function Dashboard() {
               AI Discover
             </button>
           </div>
-
-          {/* Feature Showcase Grid (REMOVED from here as requested) */}
 
           {/* Tab Content */}
           <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-4">
@@ -947,7 +947,7 @@ export function Dashboard() {
       />
       {/* Mobile Bottom Navigation Dock */}
       <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90vw] max-w-md">
-        <div className="bg-[#0A0A1F]/80 backdrop-blur-2xl border border-white/10 rounded-full p-2 flex items-center justify-around shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <div className="bg-card/80 backdrop-blur-2xl border border-border shadow-2xl rounded-full p-2 flex items-center justify-around">
           {[
             { id: "dashboard", icon: GraduationCap, label: "Home" },
             { id: "discover", icon: Compass, label: "Explore" },
@@ -974,8 +974,8 @@ export function Dashboard() {
                 (nav.id === 'dashboard' && mobileWorkview === 'home') || 
                 (nav.id === 'chat' && mobileWorkview === 'chat') ||
                 (nav.id === 'discover' && mobileWorkview === 'discover')
-                  ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20" 
-                  : "text-white/40"
+                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20" 
+                  : "text-muted-foreground"
               }`}
             >
               <nav.icon className="w-5 h-5" />

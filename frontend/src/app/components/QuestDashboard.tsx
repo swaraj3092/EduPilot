@@ -118,54 +118,54 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#06060F]/80 backdrop-blur-xl z-[100]"
+            className="fixed inset-0 bg-background/80 backdrop-blur-xl z-[100]"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
-            className={`fixed inset-0 md:inset-4 lg:inset-10 ${isExpanded ? 'lg:inset-10' : 'lg:inset-20'} bg-[#0D0D1A] md:bg-[#0D0D1A]/90 border-0 md:border md:border-white/10 rounded-none md:rounded-[40px] z-[101] overflow-hidden flex flex-col md:flex-row shadow-2xl shadow-indigo-500/10 transition-all duration-300`}
+            className={`fixed inset-0 md:inset-4 lg:inset-10 ${isExpanded ? 'lg:inset-10' : 'lg:inset-20'} bg-card md:bg-card/95 border-0 md:border md:border-border rounded-none md:rounded-[40px] z-[101] overflow-hidden flex flex-col md:flex-row shadow-2xl transition-all duration-300`}
           >
             {/* Sidebar Stats (Desktop Only) */}
-            <div className={`hidden md:flex w-full ${isExpanded ? 'md:w-64' : 'md:w-80'} bg-white/5 border-r border-white/10 p-8 flex-col transition-all overflow-y-auto`}>
+            <div className={`hidden md:flex w-full ${isExpanded ? 'md:w-64' : 'md:w-80'} bg-muted/50 border-r border-border p-8 flex-col transition-all overflow-y-auto`}>
               <div className="flex flex-col items-center text-center mb-10">
                 <div className="relative mb-4 group cursor-pointer" onClick={() => navigate('/profile')}>
-                  <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-1">
-                    <div className="w-full h-full rounded-[22px] bg-[#0D0D1A] flex items-center justify-center text-3xl text-white font-bold">
+                  <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-1 shadow-lg shadow-indigo-500/20">
+                    <div className="w-full h-full rounded-[22px] bg-card flex items-center justify-center text-3xl text-foreground font-black italic">
                       {userStats.name?.charAt(0) || "U"}
                     </div>
                   </div>
-                  <div className="absolute -bottom-2 -right-2 bg-indigo-500 text-white text-xs font-bold px-2 py-1 rounded-full border-2 border-[#0D0D1A]">
+                  <div className="absolute -bottom-2 -right-2 bg-indigo-600 text-white text-xs font-black px-2 py-1 rounded-full border-2 border-card uppercase tracking-tighter">
                     LVL {userStats.level}
                   </div>
                 </div>
-                <h2 className="text-xl font-bold text-white mb-1">{userStats.name}</h2>
-                <p className="text-white/50 text-sm">{userStats.levelTitle || "Elite Navigator"}</p>
+                <h2 className="text-xl font-black text-foreground mb-1 italic tracking-tight">{userStats.name}</h2>
+                <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest">{userStats.levelTitle || "Elite Navigator"}</p>
               </div>
 
               <div className="space-y-6 flex-1">
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div className="p-4 rounded-2xl bg-card border border-border shadow-sm">
                   <div className="flex items-center gap-3 mb-3">
-                    <Flame className="w-5 h-5 text-orange-400 fill-orange-400" />
-                    <span className="text-white font-bold">{userStats.streak} Day Pulse</span>
+                    <Flame className="w-5 h-5 text-orange-500 fill-orange-500" />
+                    <span className="text-foreground font-black italic text-sm">{userStats.streak} DAY PULSE</span>
                   </div>
                   <div className="flex gap-2">
                     {[1, 2, 3, 4, 5, 6, 7].map(d => (
-                      <div key={d} className={`h-1.5 flex-1 rounded-full ${d <= userStats.streak % 7 || userStats.streak >= 7 ? 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]' : 'bg-white/10'}`} />
+                      <div key={d} className={`h-1.5 flex-1 rounded-full ${d <= userStats.streak % 7 || userStats.streak >= 7 ? 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.3)]' : 'bg-input'}`} />
                     ))}
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div className="p-4 rounded-2xl bg-card border border-border shadow-sm">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-white/70 text-sm font-medium">XP Progress</span>
-                    <span className="text-indigo-400 text-xs font-bold">{userStats.xp.toLocaleString()} / {nextXP.toLocaleString()}</span>
+                    <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest">XP Progress</span>
+                    <span className="text-indigo-600 text-[10px] font-black">{userStats.xp.toLocaleString()} / {nextXP.toLocaleString()}</span>
                   </div>
-                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-2 bg-input rounded-full overflow-hidden">
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${progress}%` }}
-                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-500" 
+                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-600 shadow-sm shadow-indigo-500/20" 
                     />
                   </div>
                 </div>
@@ -191,25 +191,25 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                 <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-6">
                   <div className="w-full">
                     {/* Compact Mobile Header */}
-                    <div className="flex items-center gap-3 md:hidden mb-6 p-3 bg-white/5 rounded-2xl border border-white/5">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/20">{userStats.name?.charAt(0)}</div>
+                    <div className="flex items-center gap-3 md:hidden mb-6 p-3 bg-muted/50 rounded-2xl border border-border shadow-sm">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/20 italic">{userStats.name?.charAt(0)}</div>
                         <div className="flex-1">
-                          <p className="text-sm font-bold text-white">{userStats.name}</p>
-                          <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">Level {userStats.level} • {userStats.levelTitle}</p>
+                          <p className="text-sm font-black text-foreground italic tracking-tight">{userStats.name}</p>
+                          <p className="text-[10px] text-indigo-600 font-bold uppercase tracking-widest leading-none">Level {userStats.level} • {userStats.levelTitle}</p>
                         </div>
-                        <Button variant="ghost" size="icon" onClick={onClose} className="text-white/40 h-10 w-10">
+                        <Button variant="ghost" size="icon" onClick={onClose} className="text-muted-foreground h-10 w-10">
                           <X className="w-5 h-5" />
                         </Button>
                     </div>
 
                     {/* Mobile Tab Switcher */}
-                    <div className="flex md:hidden items-center p-1 bg-white/5 rounded-xl border border-white/5 mb-6 shadow-sm">
+                    <div className="flex md:hidden items-center p-1 bg-muted rounded-xl border border-border mb-6 shadow-sm">
                       {['missions', 'rankings', 'mastery'].map((tab) => (
                         <button
                           key={tab}
                           onClick={() => setMobileTab(tab as any)}
                           className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest transition-all rounded-lg ${
-                            mobileTab === tab ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20" : "text-white/30"
+                            mobileTab === tab ? "bg-card text-primary shadow-lg shadow-indigo-500/10 border border-border/50" : "text-muted-foreground/50"
                           }`}
                         >
                           {tab}
@@ -217,8 +217,8 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                       ))}
                     </div>
 
-                    <h1 className="hidden md:block text-3xl font-bold text-white mb-2">{isExpanded ? 'Global Leaderboard' : 'Quest Log'}</h1>
-                    <p className="hidden md:block text-white/50 text-sm">Level up your journey by completing mission objectives</p>
+                    <h1 className="hidden md:block text-3xl font-black text-foreground mb-1 italic tracking-tight">{isExpanded ? 'Global Leaderboard' : 'Quest Log'}</h1>
+                    <p className="hidden md:block text-muted-foreground text-sm font-medium">Level up your journey by completing mission objectives</p>
                   </div>
                 </header>
 
@@ -233,8 +233,8 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                         exit={{ opacity: 0, x: 10 }}
                         className={`space-y-4 ${mobileTab !== 'missions' && 'hidden md:block'}`}
                       >
-                         <h3 className="hidden md:flex items-center gap-2 text-white font-bold mb-4">
-                           <Target className="w-5 h-5 text-indigo-400" />
+                         <h3 className="hidden md:flex items-center gap-2 text-foreground font-black italic mb-4 uppercase text-xs tracking-widest">
+                           <Target className="w-5 h-5 text-primary" />
                            Active Missions
                          </h3>
                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
@@ -242,18 +242,18 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                               <Card 
                                 key={i} 
                                 onClick={() => handleQuestClick(q)}
-                                className={`p-4 backdrop-blur-xl border-white/10 relative overflow-hidden group transition-all cursor-pointer ${q.status === 'completed' ? 'bg-green-500/5' : 'bg-white/5 hover:bg-white/10'}`}
+                                className={`p-4 backdrop-blur-xl border-border relative overflow-hidden group transition-all cursor-pointer shadow-sm ${q.status === 'completed' ? 'bg-green-500/5' : 'bg-card hover:bg-muted/50'}`}
                               >
                                 <div className="flex items-center gap-4">
-                                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${q.status === 'completed' ? 'bg-green-400/20 text-green-400' : 'bg-indigo-500/10 text-indigo-400'}`}>
+                                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-inner ${q.status === 'completed' ? 'bg-green-500/20 text-green-600' : 'bg-primary/10 text-primary'}`}>
                                     {q.status === 'completed' ? <Shield className="w-5 h-5" /> : <Target className="w-5 h-5" />}
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <h4 className="text-white font-bold text-sm mb-0.5 truncate">{q.title}</h4>
-                                    <p className="text-white/40 text-[10px] truncate">{q.desc}</p>
+                                    <h4 className="text-foreground font-black text-sm mb-0.5 truncate tracking-tight">{q.title}</h4>
+                                    <p className="text-muted-foreground font-medium text-[10px] truncate">{q.desc}</p>
                                   </div>
-                                  <div className="flex items-center gap-1 text-purple-400 font-bold text-[10px] bg-purple-400/10 px-2 py-1 rounded-lg border border-purple-400/10">
-                                    <Zap className="w-3 h-3 fill-purple-400" />
+                                  <div className="flex items-center gap-1 text-purple-600 font-black text-[10px] bg-purple-500/10 px-2 py-1 rounded-lg border border-purple-500/20">
+                                    <Zap className="w-3 h-3 fill-purple-600" />
                                     +{q.xp}
                                   </div>
                                 </div>
@@ -272,27 +272,27 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                         exit={{ opacity: 0, x: 10 }}
                         className={`space-y-4 md:mt-12 ${mobileTab !== 'rankings' && 'hidden md:block'}`}
                       >
-                        <h3 className="flex items-center gap-2 text-white font-bold mb-4">
-                           <Crown className="w-5 h-5 text-yellow-500" />
+                        <h3 className="flex items-center gap-2 text-foreground font-black italic mb-4 uppercase text-xs tracking-widest">
+                           <Crown className="w-5 h-5 text-yellow-600" />
                            Global Rankings
                         </h3>
                         <div className="space-y-2">
                            {leaderboard.length === 0 ? (
-                             <div className="py-20 text-center text-white/20 italic">Loading navigators...</div>
+                             <div className="py-20 text-center text-muted-foreground/30 italic font-medium">Loading navigators...</div>
                            ) : (
                              leaderboard.slice(0, 10).map((u, i) => (
-                               <div key={i} className={`p-4 rounded-2xl flex items-center justify-between border ${u.full_name?.toLowerCase() === userStats.name?.toLowerCase() ? 'bg-indigo-500/20 border-indigo-500/50' : 'bg-white/5 border-white/10 shadow-sm'}`}>
+                               <div key={i} className={`p-4 rounded-2xl flex items-center justify-between border ${u.full_name?.toLowerCase() === userStats.name?.toLowerCase() ? 'bg-primary/20 border-primary/50' : 'bg-card border-border shadow-sm shadow-black/5'}`}>
                                  <div className="flex items-center gap-4">
-                                   <span className={`text-sm font-black ${i < 3 ? 'text-indigo-400' : 'text-white/20'}`}>{i + 1}</span>
-                                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white shadow-inner">{u.full_name?.charAt(0)}</div>
+                                   <span className={`text-sm font-black ${i < 3 ? 'text-primary' : 'text-muted-foreground/30'}`}>{i + 1}</span>
+                                   <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-xs font-black text-foreground shadow-inner">{u.full_name?.charAt(0)}</div>
                                    <div className="min-w-0">
-                                     <p className="text-white text-sm font-bold truncate max-w-[140px]">{u.full_name}</p>
-                                     <p className="text-[10px] text-white/40">{u.target_country || 'Worldwide'}</p>
+                                     <p className="text-foreground text-sm font-black truncate max-w-[140px] tracking-tight">{u.full_name}</p>
+                                     <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">{u.target_country || 'Worldwide'}</p>
                                    </div>
                                  </div>
                                  <div className="text-right">
-                                   <p className="text-indigo-400 font-black text-sm">{u.xp}</p>
-                                   <p className="text-[10px] text-white/30 uppercase font-black">XP</p>
+                                   <p className="text-primary font-black text-sm">{u.xp}</p>
+                                   <p className="text-[10px] text-muted-foreground font-black uppercase tracking-tighter">XP</p>
                                  </div>
                                </div>
                              ))
@@ -309,34 +309,34 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                         animate={{ opacity: 1, x: 0 }}
                         className="md:hidden space-y-6"
                       >
-                        <div className="p-8 rounded-[40px] bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-white/10 text-center shadow-xl">
-                           <div className="inline-flex p-4 rounded-3xl bg-indigo-500 text-white mb-4 shadow-lg shadow-indigo-500/30">
+                        <div className="p-8 rounded-[40px] bg-gradient-to-br from-primary/10 to-purple-500/10 border border-border text-center shadow-xl">
+                           <div className="inline-flex p-4 rounded-3xl bg-primary text-white mb-4 shadow-lg shadow-primary/30">
                               <Trophy className="w-8 h-8" />
                            </div>
-                           <h3 className="text-2xl font-black text-white mb-1">{userStats.xp.toLocaleString()} <span className="text-indigo-400">XP</span></h3>
-                           <p className="text-white/40 text-[10px] font-bold tracking-widest uppercase mb-8">Career Mission Points</p>
+                           <h3 className="text-2xl font-black text-foreground mb-1 italic tracking-tighter">{userStats.xp.toLocaleString()} <span className="text-primary">XP</span></h3>
+                           <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase mb-8">Career Mission Points</p>
                            
                            <div className="flex gap-1.5 mb-2">
                              {[1,2,3,4,5,6,7].map(d => (
-                               <div key={d} className={`h-2 flex-1 rounded-full ${d <= userStats.streak % 7 ? 'bg-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.4)]' : 'bg-white/10'}`} />
+                               <div key={d} className={`h-2 flex-1 rounded-full ${d <= userStats.streak % 7 ? 'bg-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.3)]' : 'bg-input'}`} />
                              ))}
                            </div>
-                           <div className="flex justify-between items-center text-orange-400">
+                           <div className="flex justify-between items-center text-orange-600">
                              <div className="flex items-center gap-1.5 font-black text-xs italic tracking-tighter">
-                               <Flame className="w-4 h-4 fill-orange-400" />
+                               <Flame className="w-4 h-4 fill-orange-500" />
                                {userStats.streak} DAY STREAK
                              </div>
-                             <span className="text-[10px] font-bold text-white/40">KEEP IT UP!</span>
+                             <span className="text-[10px] font-bold text-muted-foreground/40">KEEP IT UP!</span>
                            </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4 pb-10">
                            {badges.map((b, i) => (
-                             <div key={i} className="p-5 rounded-[32px] bg-white/5 border border-white/10 flex flex-col items-center shadow-sm">
-                               <div className={`p-3 rounded-2xl bg-white/5 mb-3`}>
+                             <div key={i} className="p-5 rounded-[32px] bg-card border border-border flex flex-col items-center shadow-sm">
+                               <div className={`p-3 rounded-2xl bg-muted mb-3 shadow-inner`}>
                                  <b.icon className={`w-8 h-8 ${b.color}`} />
                                </div>
-                               <p className="text-[10px] font-black text-white uppercase tracking-widest">{b.name}</p>
+                               <p className="text-[10px] font-black text-foreground uppercase tracking-widest">{b.name}</p>
                              </div>
                            ))}
                         </div>

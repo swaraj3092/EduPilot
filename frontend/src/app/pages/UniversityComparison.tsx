@@ -82,23 +82,23 @@ export function UniversityComparison() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      <nav className="relative z-10 backdrop-blur-xl bg-white/5 border-b border-white/10">
+      <nav className="relative z-10 backdrop-blur-xl bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 md:gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="text-white/70 hover:text-white">
+            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="text-muted-foreground hover:text-foreground">
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <div>
-              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 University Comparison
               </h1>
-              <p className="text-sm text-white/60">AI-powered real data · Compare up to 4 universities</p>
+              <p className="text-sm text-muted-foreground font-medium">AI-powered real data · Compare up to 4 universities</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <select value={selectedField} onChange={(e) => setSelectedField(e.target.value)}
-              className="px-3 py-2 rounded-lg bg-white/5 border border-white/20 text-white text-sm">
-              {FIELDS.map(f => <option key={f} value={f} className="bg-[#0D0D1A]">{f}</option>)}
+              className="px-3 py-2 rounded-lg bg-input border border-border text-foreground text-sm font-medium">
+              {FIELDS.map(f => <option key={f} value={f} className="bg-card text-foreground">{f}</option>)}
             </select>
             <Button onClick={loadComparison} disabled={loading || selectedNames.length < 2}
               className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600">
@@ -114,30 +114,30 @@ export function UniversityComparison() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
         {/* Personalized Welcome */}
         {!loading && universities.length === 0 && (
-          <div className="text-center mb-10 py-12 border-b border-white/5">
-            <h2 className="text-3xl font-bold text-white mb-2">
+          <div className="text-center mb-10 py-12 border-b border-border/50">
+            <h2 className="text-3xl font-bold text-foreground mb-2">
               Welcome back, {userProfile?.name?.split(' ')[0] || 'Student'}!
             </h2>
-            <p className="text-white/60">
+            <p className="text-muted-foreground font-medium italic">
               Based on your interest in **{selectedField}**, pick at least 2 universities below to see 
               the latest **2026/27** data and ROI analysis.
             </p>
           </div>
         )}
         {selectedNames.length < 4 && (
-          <Card className="p-6 bg-white/5 backdrop-blur-xl border-white/10 mb-8">
+          <Card className="p-6 bg-card backdrop-blur-xl border-border mb-8 shadow-sm">
             <div className="flex items-center gap-4 mb-4">
-              <Plus className="w-5 h-5 text-indigo-400" />
-              <h3 className="text-lg font-semibold text-white">Add University to Compare</h3>
-              <span className="text-sm text-white/40">{selectedNames.length}/4 selected</span>
+              <Plus className="w-5 h-5 text-primary" />
+              <h3 className="text-lg font-bold text-foreground">Add University to Compare</h3>
+              <span className="text-sm text-muted-foreground font-medium">{selectedNames.length}/4 selected</span>
             </div>
             <Input placeholder="Search universities..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-              className="mb-4 bg-white/5 border-white/20 text-white" />
+              className="mb-4 bg-input border-border text-foreground" />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {availableUniversities.slice(0, 8).map((name) => (
                 <button key={name} onClick={() => { addUniversity(name); setSearchQuery(""); }}
-                  className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-indigo-500/50 hover:bg-white/10 transition text-left">
-                  <div className="text-white font-semibold text-sm">{name}</div>
+                  className="p-3 rounded-xl bg-muted border border-border hover:border-primary/50 hover:bg-card transition text-left shadow-sm">
+                  <div className="text-foreground font-bold text-sm">{name}</div>
                 </button>
               ))}
               
@@ -149,11 +149,11 @@ export function UniversityComparison() {
               )}
             </div>
             {selectedNames.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/10">
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border">
                 {selectedNames.map(name => (
-                  <div key={name} className="flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30">
-                    <span className="text-indigo-300 text-sm">{name}</span>
-                    <button onClick={() => removeUniversity(name)} className="text-indigo-400 hover:text-red-400">
+                  <div key={name} className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                    <span className="text-primary font-bold text-sm">{name}</span>
+                    <button onClick={() => removeUniversity(name)} className="text-primary hover:text-red-500">
                       <X className="w-3 h-3" />
                     </button>
                   </div>
@@ -196,17 +196,17 @@ export function UniversityComparison() {
                   { label: "Total Students", icon: Users },
                   { label: "Program Duration", icon: Award },
                 ].map((cat) => (
-                  <Card key={cat.label} className="p-4 bg-white/5 backdrop-blur-xl border-white/10 h-20 flex items-center">
+                  <Card key={cat.label} className="p-4 bg-muted/50 backdrop-blur-xl border-border h-20 flex items-center shadow-sm">
                     <div className="flex items-center gap-3">
-                      <cat.icon className="w-4 h-4 text-indigo-400" />
-                      <span className="text-sm font-semibold text-white">{cat.label}</span>
+                      <cat.icon className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-bold text-foreground">{cat.label}</span>
                     </div>
                   </Card>
                 ))}
-                <Card className="p-4 bg-white/5 backdrop-blur-xl border-white/10 min-h-32 flex items-center">
+                <Card className="p-4 bg-muted/50 backdrop-blur-xl border-border min-h-32 flex items-center shadow-sm">
                   <div className="flex items-center gap-3">
-                    <Award className="w-4 h-4 text-indigo-400" />
-                    <span className="text-sm font-semibold text-white">Key Highlights</span>
+                    <Award className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-bold text-foreground">Key Highlights</span>
                   </div>
                 </Card>
               </div>
@@ -215,25 +215,25 @@ export function UniversityComparison() {
               {universities.map((uni, idx) => (
                 <motion.div key={uni.id ?? idx} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.1 }} className="space-y-4">
-                  <Card className="p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 backdrop-blur-xl border-indigo-500/20 h-32 relative">
+                  <Card className="p-6 bg-gradient-to-br from-primary/10 to-purple-500/10 backdrop-blur-xl border-primary/20 h-32 relative shadow-md">
                     <button onClick={() => removeUniversity(uni.name)}
-                      className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/10 hover:bg-red-500/20 flex items-center justify-center transition">
-                      <X className="w-3 h-3 text-white" />
+                      className="absolute top-2 right-2 w-6 h-6 rounded-full bg-foreground/5 hover:bg-red-500/20 flex items-center justify-center transition">
+                      <X className="w-3 h-3 text-foreground/40 hover:text-red-500" />
                     </button>
-                    <h3 className="text-xl font-bold text-white mb-1">{uni.name}</h3>
-                    <p className="text-sm text-white/60">{uni.location}</p>
+                    <h3 className="text-xl font-bold text-foreground mb-1">{uni.name}</h3>
+                    <p className="text-sm text-muted-foreground font-medium">{uni.location}</p>
                   </Card>
                   {[uni.location, uni.ranking, uni.tuition, uni.acceptance, uni.avgSalary, uni.roi, uni.students, uni.programDuration].map((val, vi) => (
-                    <Card key={vi} className="p-4 bg-white/5 backdrop-blur-xl border-white/10 h-20 flex items-center justify-center">
-                      <span className={`font-semibold text-center ${vi === 1 ? 'text-indigo-400 text-2xl' : vi === 4 || vi === 5 ? 'text-green-400' : 'text-white'}`}>{val}</span>
+                    <Card key={vi} className="p-4 bg-card backdrop-blur-xl border-border h-20 flex items-center justify-center shadow-sm">
+                      <span className={`font-bold text-center ${vi === 1 ? 'text-primary text-2xl' : vi === 4 || vi === 5 ? 'text-green-600' : 'text-foreground'}`}>{val}</span>
                     </Card>
                   ))}
-                  <Card className="p-4 bg-white/5 backdrop-blur-xl border-white/10 min-h-32">
+                  <Card className="p-4 bg-card backdrop-blur-xl border-border min-h-32 shadow-sm">
                     <ul className="space-y-2">
                       {(uni.highlights || []).map((h, i) => (
                         <li key={i} className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
-                          <span className="text-xs text-white/70">{h}</span>
+                          <Check className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span className="text-xs text-muted-foreground font-medium">{h}</span>
                         </li>
                       ))}
                     </ul>

@@ -92,9 +92,9 @@ export function Auth() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background elements */}
-      <div className="absolute top-0 left-0 w-full h-full -z-10 bg-[#06060F]" />
-      <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-600/10 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-pink-600/10 blur-[120px] rounded-full" />
+      <div className="absolute top-0 left-0 w-full h-full -z-10 bg-background" />
+      <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-600/10 blur-[120px] rounded-full" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -112,16 +112,16 @@ export function Auth() {
               EduPilot
             </span>
           </motion.div>
-          <p className="text-white/50 text-center">Your AI-Powered Study Abroad Journey Starts Here</p>
+          <p className="text-muted-foreground text-center">Your AI-Powered Study Abroad Journey Starts Here</p>
         </div>
 
-        <Card className="p-8 bg-white/5 backdrop-blur-2xl border-white/10 shadow-2xl relative overflow-hidden group">
+        <Card className="p-8 bg-card/60 backdrop-blur-2xl border-border shadow-2xl relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-50 group-hover:opacity-100 transition-opacity" />
           
           <Tabs defaultValue="login" className="mb-6" onValueChange={(v) => setAuthMode(v as any)}>
-            <TabsList className="grid w-full grid-cols-2 bg-white/5 mb-8">
-              <TabsTrigger value="login" className="data-[state=active]:bg-white/10">Login</TabsTrigger>
-              <TabsTrigger value="signup" className="data-[state=active]:bg-white/10">Signup</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 bg-muted/50 mb-8 border border-border/50">
+              <TabsTrigger value="login" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary">Login</TabsTrigger>
+              <TabsTrigger value="signup" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary">Signup</TabsTrigger>
             </TabsList>
 
             <AnimatePresence mode="wait">
@@ -137,7 +137,7 @@ export function Auth() {
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs text-center"
+                      className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500 text-xs text-center"
                     >
                       {error}
                     </motion.div>
@@ -146,7 +146,7 @@ export function Auth() {
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-xs text-center"
+                      className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-600 text-xs text-center"
                     >
                       {success}
                     </motion.div>
@@ -163,7 +163,7 @@ export function Auth() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="email@example.com"
-                        className="pl-10 bg-white/5 border-white/20 text-white focus:border-indigo-500/50 transition-all"
+                        className="pl-10 bg-input border-border text-foreground focus:border-primary/50 transition-all font-medium"
                       />
                     </div>
                   </div>
@@ -174,9 +174,9 @@ export function Auth() {
                         {authMode === "reset" ? "New Password" : "Password"}
                       </label>
                       {authMode === "login" ? (
-                        <button type="button" onClick={() => setAuthMode("reset")} className="text-xs text-indigo-400 hover:text-indigo-300">Forgot?</button>
+                        <button type="button" onClick={() => setAuthMode("reset")} className="text-xs text-primary hover:text-primary/70">Forgot?</button>
                       ) : authMode === "reset" ? (
-                        <button type="button" onClick={() => setAuthMode("login")} className="text-xs text-indigo-400 hover:text-indigo-300">Back to Login</button>
+                        <button type="button" onClick={() => setAuthMode("login")} className="text-xs text-primary hover:text-primary/70">Back to Login</button>
                       ) : null}
                     </div>
                     <div className="relative">
@@ -189,7 +189,7 @@ export function Auth() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="••••••••"
-                        className="pl-10 pr-10 bg-white/5 border-white/20 text-white focus:border-indigo-500/50 transition-all"
+                        className="pl-10 pr-10 bg-input border-border text-foreground focus:border-primary/50 transition-all font-medium"
                       />
                       <button
                         type="button"
@@ -227,8 +227,8 @@ export function Auth() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-white/10"></div>
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-[#0D0D1A] px-2 text-white/40">Or continue with</span>
+            <div className="relative flex justify-center text-[10px] uppercase tracking-widest font-black">
+              <span className="bg-card px-3 text-muted-foreground">Or continue with</span>
             </div>
           </div>
 
@@ -236,7 +236,7 @@ export function Auth() {
             <Button 
               variant="outline" 
               onClick={handleGoogleLogin}
-              className="border-white/20 hover:bg-white/10 text-white gap-2 py-6"
+              className="border-border hover:bg-muted text-foreground gap-2 py-6 font-bold"
             >
               <Google className="w-5 h-5 text-red-500" />
               Google
@@ -250,7 +250,7 @@ export function Auth() {
                 const top = window.screenY + (window.outerHeight - height) / 2;
                 window.open("/auth/github-mock", "GithubSignin", `width=${width},height=${height},left=${left},top=${top}`);
               }}
-              className="border-white/20 hover:bg-white/10 text-white gap-2 py-6"
+              className="border-border hover:bg-muted text-foreground gap-2 py-6 font-bold"
             >
               <Github className="w-5 h-5" />
               GitHub

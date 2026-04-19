@@ -72,7 +72,7 @@ export function ROICalculator() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <div className="relative z-10 p-6">
-        <Button variant="ghost" className="text-white/70 hover:text-white" onClick={() => navigate('/dashboard')}>
+        <Button variant="ghost" className="text-muted-foreground hover:text-foreground" onClick={() => navigate('/dashboard')}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Dashboard
         </Button>
@@ -80,34 +80,34 @@ export function ROICalculator() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pb-20">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">ROI Calculator</h1>
-          <p className="text-base md:text-xl text-white/60 mb-8">
+          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-3">ROI Calculator</h1>
+          <p className="text-base md:text-xl text-muted-foreground mb-8">
             Real 2025 financial data — tuition, salaries, and growth rates from current market
           </p>
         </motion.div>
 
         {/* Country + Field Selector */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mb-8">
-          <Card className="p-6 bg-white/5 backdrop-blur-sm border-white/10">
+          <Card className="p-6 bg-card backdrop-blur-sm border-border shadow-sm">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="text-sm text-white/60 mb-2 block">Country</label>
+                <label className="text-sm text-muted-foreground mb-2 block font-medium">Country</label>
                 <div className="grid grid-cols-3 gap-2">
                   {COUNTRIES.map(c => (
                     <button key={c} onClick={() => setSelectedCountry(c)}
-                      className={`p-3 rounded-xl border text-sm transition font-medium ${selectedCountry === c
-                        ? "bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-green-500/50 text-white"
-                        : "bg-white/5 border-white/10 hover:border-white/20 text-white/70"}`}>
+                      className={`p-3 rounded-xl border text-sm transition font-bold ${selectedCountry === c
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                        : "bg-muted border-border hover:border-primary/50 text-muted-foreground"}`}>
                       {c}
                     </button>
                   ))}
                 </div>
               </div>
               <div>
-                <label className="text-sm text-white/60 mb-2 block">Field of Study</label>
+                <label className="text-sm text-muted-foreground mb-2 block font-medium">Field of Study</label>
                 <select value={selectedField} onChange={(e) => setSelectedField(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 text-white">
-                  {FIELDS.map(f => <option key={f} value={f} className="bg-[#0D0D1A]">{f}</option>)}
+                  className="w-full px-3 py-2 rounded-lg bg-input border border-border text-foreground">
+                  {FIELDS.map(f => <option key={f} value={f} className="bg-card text-foreground">{f}</option>)}
                 </select>
               </div>
               <div className="flex items-end">
@@ -142,15 +142,15 @@ export function ROICalculator() {
             {/* Key Facts from AI */}
             {roiData.key_facts?.length > 0 && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="mb-8">
-                <Card className="p-6 bg-indigo-500/5 backdrop-blur-sm border-indigo-500/20">
+                <Card className="p-6 bg-primary/5 backdrop-blur-sm border-primary/20">
                   <div className="flex items-center gap-2 mb-3">
-                    <Info className="w-4 h-4 text-indigo-400" />
-                    <span className="text-sm font-semibold text-white">Key Market Facts · {selectedCountry} {selectedField} 2025</span>
+                    <Info className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-bold text-foreground">Key Market Facts · {selectedCountry} {selectedField} 2025</span>
                   </div>
                   <div className="grid md:grid-cols-3 gap-3">
                     {roiData.key_facts.map((fact, i) => (
-                      <div key={i} className="text-sm text-white/70 flex items-start gap-2">
-                        <span className="text-indigo-400 mt-0.5">•</span>{fact}
+                      <div key={i} className="text-sm text-muted-foreground font-medium flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>{fact}
                       </div>
                     ))}
                   </div>
@@ -167,14 +167,14 @@ export function ROICalculator() {
                 { label: "Break-Even Year", value: breakEvenYear >= 0 ? `Year ${breakEvenYear}` : "10Y+", icon: TrendingUp, color: "from-purple-500/10 to-pink-500/10 border-purple-500/20", iconColor: "text-purple-400" },
               ].map(({ label, value, icon: Icon, color, iconColor }, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.1 }}>
-                  <Card className={`p-6 bg-gradient-to-br ${color} backdrop-blur-sm`}>
+                  <Card className={`p-6 bg-gradient-to-br ${color} backdrop-blur-sm shadow-sm`}>
                     <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-full bg-white/10 flex items-center justify-center`}>
+                      <div className={`w-10 h-10 rounded-full bg-card flex items-center justify-center shadow-inner`}>
                         <Icon className={`w-5 h-5 ${iconColor}`} />
                       </div>
                       <div>
-                        <div className="text-sm text-white/60">{label}</div>
-                        <div className="text-2xl font-bold text-white">{value}</div>
+                        <div className="text-sm text-muted-foreground font-medium">{label}</div>
+                        <div className="text-2xl font-bold text-foreground">{value}</div>
                       </div>
                     </div>
                   </Card>
@@ -184,17 +184,17 @@ export function ROICalculator() {
 
             {/* Chart */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-              <Card className="p-8 bg-white/5 backdrop-blur-sm border-white/10">
+              <Card className="p-8 bg-card backdrop-blur-sm border-border shadow-sm">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Financial Time Machine</h3>
-                    <p className="text-sm text-white/60">
+                    <h3 className="text-2xl font-bold text-foreground mb-2">Financial Time Machine</h3>
+                    <p className="text-sm text-muted-foreground font-medium">
                       {timeHorizon[0]}-year projection · {selectedField} in {selectedCountry} · Avg {(roiData.average_salary_growth_rate * 100).toFixed(0)}% annual salary growth
                     </p>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm text-white/50 mb-1">Net ROI at Year {timeHorizon[0]}</div>
-                    <div className={`text-2xl font-bold ${lastPoint?.["Net ROI"] >= 0 ? "text-green-400" : "text-red-400"}`}>
+                    <div className="text-sm text-muted-foreground mb-1">Net ROI at Year {timeHorizon[0]}</div>
+                    <div className={`text-2xl font-bold ${lastPoint?.["Net ROI"] >= 0 ? "text-green-500" : "text-red-500"}`}>
                       {lastPoint ? `${lastPoint["Net ROI"] >= 0 ? "+" : ""}$${(lastPoint["Net ROI"] / 1000).toFixed(0)}K` : "—"}
                     </div>
                   </div>
@@ -202,32 +202,34 @@ export function ROICalculator() {
 
                 <ResponsiveContainer width="100%" height={400}>
                   <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                    <XAxis dataKey="year" tick={{ fill: 'rgba(255,255,255,0.6)' }} stroke="rgba(255,255,255,0.2)" />
-                    <YAxis tick={{ fill: 'rgba(255,255,255,0.6)' }} stroke="rgba(255,255,255,0.2)"
+                    <CartesianGrid strokeDasharray="3 3" stroke="currentColor" className="text-muted/10" />
+                    <XAxis dataKey="year" tick={{ fill: 'currentColor', fontSize: 12 }} stroke="currentColor" className="text-muted-foreground" />
+                    <YAxis tick={{ fill: 'currentColor', fontSize: 12 }} stroke="currentColor" className="text-muted-foreground"
                       tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`} />
-                    <Tooltip contentStyle={{ backgroundColor: 'rgba(20,20,35,0.9)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff' }}
+                    <Tooltip contentStyle={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', borderRadius: '12px' }}
+                      itemStyle={{ color: 'var(--foreground)' }}
+                      labelStyle={{ color: 'var(--muted-foreground)' }}
                       formatter={(v: any) => `$${(v / 1000).toFixed(1)}K`} />
-                    <Legend wrapperStyle={{ color: '#fff' }} />
+                    <Legend />
                     <Line type="monotone" dataKey="Total Cost" stroke="#ef4444" strokeWidth={3} dot={{ fill: '#ef4444', r: 3 }} isAnimationActive={false} />
                     <Line type="monotone" dataKey="Cumulative Salary" stroke="#10b981" strokeWidth={3} dot={{ fill: '#10b981', r: 3 }} isAnimationActive={false} />
                     <Line type="monotone" dataKey="Net ROI" stroke="#8b5cf6" strokeWidth={3} dot={{ fill: '#8b5cf6', r: 3 }} strokeDasharray="5 5" isAnimationActive={false} />
                   </LineChart>
                 </ResponsiveContainer>
 
-                <div className="mt-8">
-                  <Label className="text-white/80 mb-4 block">Drag to adjust time horizon: {timeHorizon[0]} years</Label>
+                <div className="mt-8 pt-6 border-t border-border">
+                  <Label className="text-foreground/80 mb-4 block font-bold uppercase text-[10px] tracking-widest">Time Horizon: {timeHorizon[0]} years</Label>
                   <Slider value={timeHorizon} onValueChange={setTimeHorizon} min={3} max={10} step={1} className="w-full" />
                 </div>
               </Card>
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="mt-8">
-              <Card className="p-8 bg-gradient-to-r from-amber-500/10 to-orange-500/10 backdrop-blur-sm border-amber-500/20">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Need Funding?</h3>
-                    <p className="text-white/70">Get instant loan approval up to $100,000 with competitive rates from Poonawalla Fincorp</p>
+              <Card className="p-8 bg-gradient-to-r from-amber-500/10 to-orange-500/10 backdrop-blur-sm border-amber-500/20 shadow-lg shadow-amber-500/5">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="text-center md:text-left">
+                    <h3 className="text-2xl font-bold text-foreground mb-2">Need Funding?</h3>
+                    <p className="text-muted-foreground font-medium">Get instant loan approval up to $100,000 with competitive rates from Poonawalla Fincorp</p>
                   </div>
                   <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8"
                     onClick={() => navigate('/loan-eligibility')}>

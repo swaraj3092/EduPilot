@@ -31,9 +31,9 @@ export function AnimatedWorld() {
 
   if (isMobile) {
     return (
-      <div className="fixed inset-0 overflow-hidden pointer-events-none bg-[#0D0D1A]" style={{ zIndex: 0 }}>
+      <div className="fixed inset-0 overflow-hidden pointer-events-none bg-background" style={{ zIndex: 0 }}>
         {/* Mobile-Only Lite Background: Static Image + CSS Opacity Only */}
-        <div className="absolute inset-0 z-0 bg-[#0D0D1A]">
+        <div className="absolute inset-0 z-0 bg-background">
           <img 
             src={isLight 
               ? "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&q=60&w=1200"
@@ -42,7 +42,7 @@ export function AnimatedWorld() {
             className="absolute inset-0 w-full h-full object-cover opacity-60"
             alt=""
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D1A] via-[#0D0D1A]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         </div>
 
         {/* CSS-Only Lite Auroras (No constant JS scaling) */}
@@ -76,9 +76,9 @@ export function AnimatedWorld() {
   }
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none bg-[#0D0D1A]" style={{ zIndex: 0 }}>
+    <div className="fixed inset-0 overflow-hidden pointer-events-none bg-background" style={{ zIndex: 0 }}>
       {/* High-Fidelity Desktop Background (KEPT AS IS) */}
-      <div className="absolute inset-0 z-0 bg-[#0D0D1A] overflow-hidden">
+      <div className="absolute inset-0 z-0 bg-background overflow-hidden">
         <motion.video 
           key={theme}
           autoPlay loop muted playsInline 
@@ -99,7 +99,7 @@ export function AnimatedWorld() {
             : "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-buildings-and-roads-at-night-34224-large.mp4"
           }
         />
-        <div className={`absolute inset-0 bg-gradient-to-t from-[#0D0D1A] ${isLight ? 'via-[#0D0D1A]/60' : 'via-[#0D0D1A]/10'} to-${isLight ? '[#0D0D1A]/50' : 'transparent'} opacity-90 pointer-events-none`} />
+        <div className={`absolute inset-0 bg-gradient-to-t from-background ${isLight ? 'via-background/60' : 'via-background/10'} to-${isLight ? 'background/50' : 'transparent'} opacity-90 pointer-events-none`} />
       </div>
 
       <div className="absolute inset-0 z-10 mix-blend-screen">
@@ -130,7 +130,7 @@ export function AnimatedWorld() {
         ))}
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0D0D1A] via-[#0D0D1A]/80 to-transparent z-20 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-20 pointer-events-none" />
       <style>{`
         @keyframes twinkle { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.8; } }
       `}</style>

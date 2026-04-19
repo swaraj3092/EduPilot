@@ -129,15 +129,15 @@ export function ApplicationTracker() {
   return (
     <div className="min-h-screen relative overflow-hidden pb-20">
       {/* Header */}
-      <nav className="relative z-10 backdrop-blur-xl bg-white/5 border-b border-white/10">
+      <nav className="relative z-10 backdrop-blur-xl bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="text-white/70 hover:text-white">
+            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="text-muted-foreground hover:text-foreground">
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <div>
-              <h1 className="text-xl md:text-2xl font-bold text-white">Application Tracker</h1>
-              <p className="text-sm text-white/60">Manage your university applications · AI Generated Checklists</p>
+              <h1 className="text-xl md:text-2xl font-bold text-foreground">Application Tracker</h1>
+              <p className="text-sm text-muted-foreground font-medium">Manage your university applications · AI Generated Checklists</p>
             </div>
           </div>
           
@@ -149,33 +149,33 @@ export function ApplicationTracker() {
                 <span className="sm:hidden">Add</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-[#13132B] border border-white/10 text-white">
+            <DialogContent className="bg-background/95 backdrop-blur-2xl border border-border text-foreground">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2 text-xl">
-                  <Sparkles className="w-5 h-5 text-indigo-400" />
+                  <Sparkles className="w-5 h-5 text-primary" />
                   Smart Doc Assistant
                 </DialogTitle>
-                <p className="text-white/60 text-sm mt-2">
-                  Our AI will scan the {newUni} database to fetch the exact 2026/27 requirements and auto-fill your tracker checklist.
+                <p className="text-muted-foreground text-sm mt-2">
+                  Our AI will scan the {newUni || 'University'} database to fetch the exact 2026/27 requirements and auto-fill your tracker checklist.
                 </p>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80">University Name</label>
+                  <label className="text-sm font-bold text-foreground">University Name</label>
                   <Input 
                     placeholder="e.g. MIT, IIT Bombay" 
                     value={newUni}
                     onChange={(e) => setNewUni(e.target.value)}
-                    className="bg-white/5 border-white/20 text-white"
+                    className="bg-input border-border text-foreground"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/80">Program Name</label>
+                  <label className="text-sm font-bold text-foreground">Program Name</label>
                   <Input 
                     placeholder="e.g. MS in Computer Science" 
                     value={newProgram}
                     onChange={(e) => setNewProgram(e.target.value)}
-                    className="bg-white/5 border-white/20 text-white"
+                    className="bg-input border-border text-foreground"
                   />
                 </div>
                 
@@ -206,25 +206,25 @@ export function ApplicationTracker() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-8">
         {/* Statistics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <Card className="p-6 bg-white/5 backdrop-blur-xl border-white/10">
-            <div className="text-white/60 text-sm mb-1">Total Apps</div>
-            <div className="text-3xl font-bold text-white">{applications.length}</div>
+          <Card className="p-6 bg-card backdrop-blur-xl border-border shadow-sm">
+            <div className="text-muted-foreground text-sm mb-1">Total Apps</div>
+            <div className="text-3xl font-bold text-foreground">{applications.length}</div>
           </Card>
-          <Card className="p-6 bg-white/5 backdrop-blur-xl border-white/10">
-            <div className="text-white/60 text-sm mb-1">In Progress</div>
-            <div className="text-3xl font-bold text-yellow-400">
+          <Card className="p-6 bg-card backdrop-blur-xl border-border shadow-sm">
+            <div className="text-muted-foreground text-sm mb-1">In Progress</div>
+            <div className="text-3xl font-bold text-yellow-500">
               {applications.filter(a => a.status === "in-progress").length}
             </div>
           </Card>
-          <Card className="p-6 bg-white/5 backdrop-blur-xl border-white/10">
-            <div className="text-white/60 text-sm mb-1">Submitted</div>
-            <div className="text-3xl font-bold text-blue-400">
+          <Card className="p-6 bg-card backdrop-blur-xl border-border shadow-sm">
+            <div className="text-muted-foreground text-sm mb-1">Submitted</div>
+            <div className="text-3xl font-bold text-blue-500">
               {applications.filter(a => a.status === "submitted").length}
             </div>
           </Card>
-          <Card className="p-6 bg-green-500/10 backdrop-blur-xl border-green-500/20">
-            <div className="text-green-400/80 text-sm mb-1">Decisions</div>
-            <div className="text-3xl font-bold text-green-400">
+          <Card className="p-6 bg-green-500/10 backdrop-blur-xl border-green-500/20 shadow-sm shadow-green-500/5">
+            <div className="text-green-600 text-sm mb-1">Decisions</div>
+            <div className="text-3xl font-bold text-green-500">
               {applications.filter(a => a.status === "decision").length}
             </div>
           </Card>
@@ -291,8 +291,8 @@ export function ApplicationTracker() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Card className={`p-6 backdrop-blur-xl border ${
-                    isUrgent ? 'bg-red-500/5 border-red-500/20' : 'bg-white/5 border-white/10'
+                  <Card className={`p-6 backdrop-blur-xl border shadow-sm ${
+                    isUrgent ? 'bg-red-500/5 border-red-500/20 shadow-red-500/5' : 'bg-card border-border'
                   }`}>
                     <div className="flex flex-col lg:flex-row gap-6">
                       
@@ -301,7 +301,7 @@ export function ApplicationTracker() {
                         <div className="flex justify-between items-start">
                           <div>
                             <div className="flex items-center gap-3 mb-1">
-                              <h3 className="text-2xl font-bold text-white">{app.university}</h3>
+                              <h3 className="text-2xl font-bold text-foreground">{app.university}</h3>
                               {isUrgent && (
                                 <span className="px-2 py-1 bg-red-500/20 text-red-400 text-xs font-semibold rounded-full border border-red-500/30">
                                   Urgent
@@ -322,10 +322,10 @@ export function ApplicationTracker() {
                                 "bg-green-500/20 text-green-400 border-green-500/30"
                               }`}
                             >
-                              <option value="not-started" className="bg-[#13132B] text-white">Not Started</option>
-                              <option value="in-progress" className="bg-[#13132B] text-white">In Progress</option>
-                              <option value="submitted" className="bg-[#13132B] text-white">Submitted</option>
-                              <option value="decision" className="bg-[#13132B] text-white">Decision</option>
+                              <option value="not-started" className="bg-card text-foreground">Not Started</option>
+                              <option value="in-progress" className="bg-card text-foreground">In Progress</option>
+                              <option value="submitted" className="bg-card text-foreground">Submitted</option>
+                              <option value="decision" className="bg-card text-foreground">Decision</option>
                             </select>
 
                             {deleteConfirm === app.id ? (
@@ -333,7 +333,7 @@ export function ApplicationTracker() {
                                 <Button size="sm" variant="destructive" onClick={() => deleteApplication(app.id)}>
                                   Confirm
                                 </Button>
-                                <Button size="sm" variant="ghost" className="text-white/60" onClick={() => setDeleteConfirm(null)}>
+                                <Button size="sm" variant="ghost" className="text-muted-foreground" onClick={() => setDeleteConfirm(null)}>
                                   Cancel
                                 </Button>
                               </div>
@@ -341,7 +341,7 @@ export function ApplicationTracker() {
                               <Button 
                                 variant="ghost" 
                                 size="icon" 
-                                className="text-white/40 hover:text-red-400 hover:bg-red-400/10 ml-2"
+                                className="text-muted-foreground/40 hover:text-red-400 hover:bg-red-400/10 ml-2"
                                 onClick={() => setDeleteConfirm(app.id)}
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -351,9 +351,9 @@ export function ApplicationTracker() {
                         </div>
 
                         <div className="flex items-center gap-6 text-sm">
-                          <div className="flex items-center gap-2 text-white/80">
-                            <Calendar className="w-4 h-4 text-purple-400" />
-                            <span>Deadline: <strong className="text-white">{new Date(app.deadline).toLocaleDateString()}</strong></span>
+                          <div className="flex items-center gap-2 text-foreground/80">
+                            <Calendar className="w-4 h-4 text-primary" />
+                            <span>Deadline: <strong className="text-foreground">{new Date(app.deadline).toLocaleDateString()}</strong></span>
                           </div>
                           <div className={`flex items-center gap-2 ${
                             daysLeft < 0 ? 'text-gray-400' :
@@ -370,24 +370,24 @@ export function ApplicationTracker() {
                         </div>
 
                         {app.notes && (
-                          <div className="p-3 bg-white/5 rounded-lg border border-white/10 text-sm text-white/70">
+                          <div className="p-3 bg-muted rounded-lg border border-border text-sm text-muted-foreground italic">
                             <strong>AI Note: </strong> {app.notes}
                           </div>
                         )}
                         
                         <div className="pt-2">
                           <div className="flex justify-between text-sm mb-2">
-                            <span className="text-white/60">Application Progress</span>
-                            <span className="text-white font-bold">{progress}%</span>
+                            <span className="text-muted-foreground">Application Progress</span>
+                            <span className="text-foreground font-bold">{progress}%</span>
                           </div>
-                          <Progress value={progress} className="h-2 bg-white/10" />
+                          <Progress value={progress} className="h-2" />
                         </div>
                       </div>
 
                       {/* Right Column: Document Checklist */}
-                      <div className="flex-1 lg:pl-6 lg:border-l border-white/10">
+                      <div className="flex-1 lg:pl-6 lg:border-l border-border/50">
                           <div className="flex items-center justify-between mb-4">
-                            <h4 className="text-sm font-semibold text-white/80 flex items-center gap-2">
+                            <h4 className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
                               <FileText className="w-4 h-4" />
                               Required Documents
                             </h4>
@@ -417,21 +417,21 @@ export function ApplicationTracker() {
                               onClick={() => toggleDocument(app.id, idx)}
                               className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-colors ${
                                 doc.uploaded 
-                                  ? 'bg-green-500/10 border-green-500/20' 
-                                  : 'bg-white/5 border-white/10 hover:border-white/20'
+                                  ? 'bg-green-500/10 border-green-500/20 shadow-sm shadow-green-500/5' 
+                                  : 'bg-muted/30 border-border hover:border-primary/30 hover:bg-muted font-medium'
                               }`}
                             >
                               <div className="flex items-center gap-3">
                                 <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-                                  doc.uploaded ? 'border-green-400 bg-green-400/20 text-green-400' : 'border-white/30 text-transparent'
+                                  doc.uploaded ? 'border-green-400 bg-green-400/20 text-green-400 font-bold' : 'border-border text-transparent'
                                 }`}>
                                   <CheckCircle2 className="w-3 h-3" />
                                 </div>
-                                <span className={`text-sm ${doc.uploaded ? 'text-white/60 line-through' : 'text-white'}`}>
+                                <span className={`text-sm ${doc.uploaded ? 'text-muted-foreground line-through opacity-60' : 'text-foreground'}`}>
                                   {doc.name}
                                 </span>
                               </div>
-                              <span className="text-xs font-medium px-2 py-1 rounded bg-white/5 text-white/40">
+                              <span className="text-xs font-medium px-2 py-1 rounded bg-muted text-muted-foreground/60 uppercase text-[10px] tracking-tight">
                                 {doc.uploaded ? 'Ready' : 'Pending'}
                               </span>
                             </div>

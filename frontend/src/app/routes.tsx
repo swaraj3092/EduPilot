@@ -15,7 +15,7 @@ import { Settings } from "./pages/Settings";
 import { Auth } from "./pages/Auth";
 import { GoogleMockAuth } from "./pages/GoogleMockAuth";
 import { GitHubMockAuth } from "./pages/GitHubMockAuth";
-import { ReferralRedirect } from "./pages/ReferralRedirect";
+import { PublicProfile } from "./pages/PublicProfile";
 
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "ref/:username",
-        Component: ReferralRedirect,
+        Component: PublicProfile,
       },
       {
         path: "auth/google-mock",

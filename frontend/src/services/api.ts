@@ -442,6 +442,14 @@ export async function getUserProfile(userId: string): Promise<{ status: string; 
   return handleResponse(res);
 }
 
+export async function getPublicProfile(referralCode: string): Promise<{ status: string; profile: any }> {
+  const res = await fetch(`${BASE}/api/auth/public-profile/${referralCode}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  return handleResponse(res);
+}
+
 export async function completeQuest(params: {
   user_id: string;
   quest_id: string;

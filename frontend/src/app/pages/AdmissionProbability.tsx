@@ -75,12 +75,12 @@ export function AdmissionProbability() {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden text-white bg-slate-950">
+    <div className="min-h-screen relative overflow-hidden text-foreground bg-background">
       {/* Navigation */}
       <div className="relative z-10 p-6">
         <Button
           variant="ghost"
-          className="text-white/70 hover:text-white"
+          className="text-muted-foreground hover:text-foreground"
           onClick={() => navigate('/dashboard')}
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -93,8 +93,8 @@ export function AdmissionProbability() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">Admission Probability</h1>
-          <p className="text-base md:text-xl text-white/60 mb-8 md:mb-12">
+          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-3">Admission Probability</h1>
+          <p className="text-base md:text-xl text-muted-foreground mb-8 md:mb-12">
             See your chances at top universities based on your profile
           </p>
         </motion.div>
@@ -106,39 +106,39 @@ export function AdmissionProbability() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Card className="p-6 bg-white/5 backdrop-blur-sm border-white/10">
-              <h3 className="text-lg font-semibold text-white mb-6">Your Scores</h3>
+            <Card className="p-6 bg-card backdrop-blur-sm border-border shadow-sm">
+              <h3 className="text-lg font-bold text-foreground mb-6">Your Scores</h3>
               
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label className="text-white/80">GRE Score (260-340)</Label>
+                  <Label className="text-foreground/80 font-medium">GRE Score (260-340)</Label>
                   <Input
                     type="number"
                     placeholder="325"
-                    className="bg-white/5 border-white/20 text-white"
+                    className="bg-input border-border text-foreground"
                     value={scores.gre}
                     onChange={(e: any) => setScores({ ...scores, gre: e.target.value })}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-white/80">GPA (0.0-4.0)</Label>
+                  <Label className="text-foreground/80 font-medium">GPA (0.0-4.0)</Label>
                   <Input
                     type="number"
                     step="0.1"
                     placeholder="3.8"
-                    className="bg-white/5 border-white/20 text-white"
+                    className="bg-input border-border text-foreground"
                     value={scores.gpa}
                     onChange={(e: any) => setScores({ ...scores, gpa: e.target.value })}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-white/80">TOEFL Score (0-120)</Label>
+                  <Label className="text-foreground/80 font-medium">TOEFL Score (0-120)</Label>
                   <Input
                     type="number"
                     placeholder="110"
-                    className="bg-white/5 border-white/20 text-white"
+                    className="bg-input border-border text-foreground"
                     value={scores.toefl}
                     onChange={(e: any) => setScores({ ...scores, toefl: e.target.value })}
                   />
@@ -151,11 +151,11 @@ export function AdmissionProbability() {
                   </Label>
                   <Input
                     placeholder="e.g. Harvard, NTU, Oxford"
-                    className="bg-white/10 border-indigo-500/30 text-white placeholder:text-white/20 focus:border-indigo-500"
+                    className="bg-input border-primary/30 text-foreground placeholder:text-muted-foreground/30 focus:border-primary"
                     value={targetUni}
                     onChange={(e: any) => setTargetUni(e.target.value)}
                   />
-                  <p className="text-[10px] text-white/40 mt-1 italic">We'll use AI to calculate odds for any school worldwide.</p>
+                  <p className="text-[10px] text-muted-foreground mt-1 italic">We'll use AI to calculate odds for any school worldwide.</p>
                 </div>
               </div>
 
@@ -173,14 +173,14 @@ export function AdmissionProbability() {
             </Card>
 
             {/* Radar Chart */}
-            <Card className="p-6 bg-white/5 backdrop-blur-sm border-white/10 mt-6">
-              <h3 className="text-lg font-semibold text-white mb-4">Profile Radar</h3>
+            <Card className="p-6 bg-card backdrop-blur-sm border-border mt-6 shadow-sm">
+              <h3 className="text-lg font-bold text-foreground mb-4">Profile Radar</h3>
               <div className="h-[300px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart data={radarData}>
-                    <PolarGrid stroke="rgba(255,255,255,0.1)" />
-                    <PolarAngleAxis dataKey="subject" tick={{ fill: 'rgba(255,255,255,0.6)', fontSize: 12 }} />
-                    <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: 'rgba(255,255,255,0.4)' }} />
+                    <PolarGrid stroke="currentColor" className="text-muted/20" />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: 'currentColor', fontSize: 12 }} className="text-muted-foreground" />
+                    <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: 'currentColor' }} className="text-muted-foreground/40" />
                     <Radar 
                       name="Your Profile" 
                       dataKey="A" 
@@ -201,8 +201,8 @@ export function AdmissionProbability() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Card className="p-8 bg-white/5 backdrop-blur-sm border-white/10 h-full flex flex-col items-center justify-center">
-              <h3 className="text-lg font-semibold text-white/60 mb-8">Overall Admission Strength</h3>
+            <Card className="p-8 bg-card backdrop-blur-sm border-border h-full flex flex-col items-center justify-center shadow-sm">
+              <h3 className="text-lg font-bold text-muted-foreground mb-8">Overall Admission Strength</h3>
               
               {/* Circular Gauge */}
               <div className="relative w-64 h-64 mb-8">
@@ -217,7 +217,8 @@ export function AdmissionProbability() {
                     cx="128"
                     cy="128"
                     r="110"
-                    stroke="rgba(255,255,255,0.1)"
+                    stroke="currentColor"
+                    className="text-muted/10"
                     strokeWidth="20"
                     fill="none"
                   />
@@ -245,12 +246,12 @@ export function AdmissionProbability() {
                 
                 {/* Center Text */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="text-6xl font-bold text-white mb-2">{animatedScore}</div>
-                  <div className="text-sm text-white/50">out of 100</div>
+                  <div className="text-6xl font-bold text-foreground mb-2">{animatedScore}</div>
+                  <div className="text-sm text-muted-foreground">out of 100</div>
                 </div>
               </div>
 
-              <p className="text-center text-white/70 max-w-xs min-h-[60px]">
+              <p className="text-center text-muted-foreground font-medium max-w-xs min-h-[60px]">
                 {apiData?.profile_summary ?? "Enter your scores to analyze your admission strength..."}
               </p>
             </Card>
@@ -263,7 +264,7 @@ export function AdmissionProbability() {
             transition={{ delay: 0.4 }}
             className="space-y-4 overflow-y-auto max-h-[800px] pr-2 custom-scrollbar"
           >
-            <h3 className="text-lg font-semibold text-white mb-4">University Probabilities</h3>
+            <h3 className="text-lg font-bold text-foreground mb-4">University Probabilities</h3>
             
             {(apiData?.universities ?? []).map((uni: any, i: number) => (
               <motion.div
@@ -272,9 +273,9 @@ export function AdmissionProbability() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + i * 0.05 }}
               >
-                <Card className="p-4 bg-white/5 backdrop-blur-sm border-white/10 hover:border-white/20 transition">
+                <Card className="p-4 bg-card backdrop-blur-sm border-border hover:border-primary/20 transition shadow-sm">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-white font-semibold">{uni.name}</span>
+                    <span className="text-foreground font-bold">{uni.name}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl font-bold" style={{ color: uni.color }}>
                         {uni.probability}%

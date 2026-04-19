@@ -63,53 +63,53 @@ export function ScholarshipFinder() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Header */}
-      <nav className="relative z-10 backdrop-blur-xl bg-white/5 border-b border-white/10">
+      <nav className="relative z-10 backdrop-blur-xl bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 md:gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="text-white/70 hover:text-white">
+            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="text-muted-foreground hover:text-foreground">
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <Award className="w-8 h-8 text-yellow-400" />
-              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
+              <Award className="w-8 h-8 text-yellow-500" />
+              <span className="text-xl md:text-2xl font-black bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 bg-clip-text text-transparent italic">
                 Scholarship Finder
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-xs text-white/40">
-            <span className="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse" />
-            AI-powered · Real data
+          <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">
+            <span className="w-2 h-2 rounded-full bg-green-500 inline-block animate-pulse" />
+            AI-powered · Real-time
           </div>
         </div>
       </nav>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
         {/* Filter Panel */}
-        <Card className="p-6 bg-white/5 backdrop-blur-xl border-white/10 mb-8">
+        <Card className="p-6 bg-card backdrop-blur-xl border-border mb-8 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
-            <Filter className="w-5 h-5 text-indigo-400" />
-            <h3 className="text-lg font-semibold text-white">Find Scholarships for Your Profile</h3>
+            <Filter className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-bold text-foreground">Find Scholarships for Your Profile</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <label className="text-sm text-white/60 mb-2 block">Country</label>
+              <label className="text-sm text-muted-foreground mb-2 block font-medium">Country</label>
               <select value={selectedCountry} onChange={(e) => setSelectedCountry(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 text-white">
-                {COUNTRIES.map(c => <option key={c} value={c} className="bg-[#0D0D1A]">{c}</option>)}
+                className="w-full px-3 py-2 rounded-lg bg-input border border-border text-foreground font-medium">
+                {COUNTRIES.map(c => <option key={c} value={c} className="bg-card text-foreground">{c}</option>)}
               </select>
             </div>
             <div>
-              <label className="text-sm text-white/60 mb-2 block">Field of Study</label>
+              <label className="text-sm text-muted-foreground mb-2 block font-medium">Field of Study</label>
               <select value={selectedField} onChange={(e) => setSelectedField(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 text-white">
-                {FIELDS.map(f => <option key={f} value={f} className="bg-[#0D0D1A]">{f}</option>)}
+                className="w-full px-3 py-2 rounded-lg bg-input border border-border text-foreground font-medium">
+                {FIELDS.map(f => <option key={f} value={f} className="bg-card text-foreground">{f}</option>)}
               </select>
             </div>
             <div>
-              <label className="text-sm text-white/60 mb-2 block">Degree Level</label>
+              <label className="text-sm text-muted-foreground mb-2 block font-medium">Degree Level</label>
               <select value={selectedLevel} onChange={(e) => setSelectedLevel(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 text-white">
-                {LEVELS.map(l => <option key={l} value={l} className="bg-[#0D0D1A]">{l}</option>)}
+                className="w-full px-3 py-2 rounded-lg bg-input border border-border text-foreground font-medium">
+                {LEVELS.map(l => <option key={l} value={l} className="bg-card text-foreground">{l}</option>)}
               </select>
             </div>
             <div className="flex items-end">
@@ -132,17 +132,17 @@ export function ScholarshipFinder() {
         {/* Stats */}
         {scholarships.length > 0 && !loading && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8">
-            <Card className="p-6 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 backdrop-blur-xl border-yellow-500/20">
-              <div className="text-sm text-white/60 mb-1">Total Found</div>
-              <div className="text-4xl font-bold text-white">{filteredScholarships.length}</div>
+            <Card className="p-6 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 backdrop-blur-xl border-yellow-500/20 shadow-sm">
+              <div className="text-sm text-muted-foreground font-medium mb-1">Total Found</div>
+              <div className="text-4xl font-bold text-foreground">{filteredScholarships.length}</div>
             </Card>
-            <Card className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 backdrop-blur-xl border-green-500/20">
-              <div className="text-sm text-white/60 mb-1">High Match (90+)</div>
-              <div className="text-4xl font-bold text-white">{filteredScholarships.filter(s => s.matchScore >= 90).length}</div>
+            <Card className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 backdrop-blur-xl border-green-500/20 shadow-sm">
+              <div className="text-sm text-muted-foreground font-medium mb-1">High Match (90+)</div>
+              <div className="text-4xl font-bold text-foreground">{filteredScholarships.filter(s => s.matchScore >= 90).length}</div>
             </Card>
-            <Card className="p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border-blue-500/20">
-              <div className="text-sm text-white/60 mb-1">Avg Match Score</div>
-              <div className="text-4xl font-bold text-white">
+            <Card className="p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 backdrop-blur-xl border-blue-500/20 shadow-sm">
+              <div className="text-sm text-muted-foreground font-medium mb-1">Avg Match Score</div>
+              <div className="text-4xl font-bold text-foreground">
                 {filteredScholarships.length > 0 ? Math.round(filteredScholarships.reduce((a, s) => a + s.matchScore, 0) / filteredScholarships.length) : 0}%
               </div>
             </Card>
@@ -177,20 +177,20 @@ export function ScholarshipFinder() {
               const isUrgent = daysLeft < 30 && daysLeft > 0;
               return (
                 <motion.div key={scholarship.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-                  <Card className="p-6 bg-white/5 backdrop-blur-xl border-white/10 hover:border-white/20 transition">
+                  <Card className="p-6 bg-card backdrop-blur-xl border-border hover:border-primary/20 transition shadow-sm">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-xl font-bold text-white">{scholarship.name}</h3>
-                          {isUrgent && <span className="px-2 py-1 rounded-full bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-semibold">URGENT</span>}
+                          <h3 className="text-xl font-bold text-foreground">{scholarship.name}</h3>
+                          {isUrgent && <span className="px-2 py-1 rounded-full bg-red-500/20 border border-red-500/30 text-red-500 text-[10px] font-black italic tracking-tighter">URGENT</span>}
                         </div>
-                        <p className="text-white/60">{scholarship.provider}</p>
+                        <p className="text-muted-foreground font-medium">{scholarship.provider}</p>
                       </div>
                       <div className="text-right">
-                        <div className="text-sm text-white/50 mb-1">Match Score</div>
+                        <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-1">Match Score</div>
                         <div className="flex items-center gap-2">
                           <Progress value={scholarship.matchScore} className="h-2 w-24" />
-                          <span className="text-2xl font-bold text-white">{scholarship.matchScore}%</span>
+                          <span className="text-2xl font-black text-foreground">{scholarship.matchScore}%</span>
                         </div>
                       </div>
                     </div>
@@ -199,48 +199,48 @@ export function ScholarshipFinder() {
                       <div className="flex items-center gap-2">
                         <DollarSign className="w-4 h-4 text-green-400" />
                         <div>
-                          <div className="text-xs text-white/50">Amount</div>
-                          <div className="text-sm font-semibold text-white">{scholarship.amount}</div>
+                          <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Amount</div>
+                          <div className="text-sm font-bold text-foreground">{scholarship.amount}</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <Award className="w-4 h-4 text-blue-400" />
                         <div>
-                          <div className="text-xs text-white/50">Country</div>
-                          <div className="text-sm font-semibold text-white">{scholarship.country}</div>
+                          <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Country</div>
+                          <div className="text-sm font-bold text-foreground">{scholarship.country}</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-yellow-400" />
                         <div>
-                          <div className="text-xs text-white/50">Deadline</div>
-                          <div className={`text-sm font-semibold ${isUrgent ? 'text-red-400' : 'text-white'}`}>
+                          <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Deadline</div>
+                          <div className={`text-sm font-bold ${isUrgent ? 'text-red-500' : 'text-foreground'}`}>
                             {new Date(scholarship.deadline).toLocaleDateString()}
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-xs text-white/50 mb-1">Days Left</div>
-                        <div className={`text-sm font-bold ${daysLeft < 0 ? 'text-gray-400' : isUrgent ? 'text-red-400' : 'text-green-400'}`}>
+                        <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-1">Days Left</div>
+                        <div className={`text-sm font-black ${daysLeft < 0 ? 'text-gray-400' : isUrgent ? 'text-red-500' : 'text-green-600'}`}>
                           {daysLeft < 0 ? 'Expired' : `${daysLeft} days`}
                         </div>
                       </div>
                     </div>
 
                     <div className="mb-4">
-                      <div className="text-xs text-white/50 mb-2">Eligible Fields</div>
+                      <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-2">Eligible Fields</div>
                       <div className="flex flex-wrap gap-2">
                         {scholarship.fieldOfStudy.map((field, idx) => (
-                          <span key={idx} className="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs">{field}</span>
+                          <span key={idx} className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-tight">{field}</span>
                         ))}
                       </div>
                     </div>
 
-                    <div className="mb-4">
-                      <div className="text-xs text-white/50 mb-2">Eligibility Requirements</div>
+                    <div className="mb-6">
+                      <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-2">Eligibility Requirements</div>
                       <div className="flex flex-wrap gap-2">
                         {scholarship.eligibility.map((req, idx) => (
-                          <span key={idx} className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-white/70 text-xs">{req}</span>
+                          <span key={idx} className="px-3 py-1 rounded-lg bg-muted border border-border text-muted-foreground text-[10px] font-medium">{req}</span>
                         ))}
                       </div>
                     </div>
@@ -253,7 +253,7 @@ export function ScholarshipFinder() {
                         <ExternalLink className="w-4 h-4 mr-2" />
                         Apply Now
                       </Button>
-                      <Button variant="outline" className="border-white/20 hover:bg-white/10">
+                      <Button variant="outline" className="border-border hover:bg-muted font-bold text-muted-foreground">
                         <Bell className="w-4 h-4 mr-2" />
                         Set Alert
                       </Button>

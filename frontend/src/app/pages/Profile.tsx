@@ -58,8 +58,8 @@ export function Profile() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#02020B] flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-indigo-500 animate-spin" />
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-primary animate-spin" />
       </div>
     );
   }
@@ -72,9 +72,8 @@ export function Profile() {
     nextReward: 10,
   };
 
-  const referralLink = profile?.referral_code 
-    ? `edupilot.ai/ref/${profile.referral_code}`
-    : `edupilot.ai/ref/${(userData.name).toLowerCase().replace(/\s+/g, '')}`;
+  const shareCode = profile?.referral_code || (userData.name).toLowerCase().replace(/\s+/g, '');
+  const referralLink = `${window.location.origin}/ref/${shareCode}`;
 
   // Dynamic Journey Progress
   const completedQuests = profile?.quests_completed || [];
@@ -87,7 +86,7 @@ export function Profile() {
   const handleSocialShare = () => {
     const text = `I'm leveling up my Study Abroad journey with EduPilot! Join me using my link: ${referralLink}`;
     if (navigator.share) {
-      navigator.share({ title: 'EduPilot', text, url: `https://${referralLink}` });
+      navigator.share({ title: 'EduPilot', text, url: referralLink });
     } else {
       window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`);
     }
@@ -130,8 +129,8 @@ export function Profile() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">Your Profile</h1>
-          <p className="text-base md:text-xl text-white/60 mb-8 md:mb-12">
+          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-3">Your Profile</h1>
+          <p className="text-base md:text-xl text-muted-foreground mb-8 md:mb-12">
             Track your progress and unlock rewards
           </p>
         </motion.div>
@@ -160,12 +159,12 @@ export function Profile() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Card className="p-6 bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-sm border-purple-500/20 relative overflow-hidden">
+            <Card className="p-6 bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-sm border-purple-500/20 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl" />
               <div className="relative">
                 <Zap className="w-8 h-8 text-purple-400 mb-3" />
-                <div className="text-4xl font-bold text-white mb-1">{userData.points}</div>
-                <div className="text-sm text-white/60">Total Points</div>
+                <div className="text-4xl font-bold text-foreground mb-1">{userData.points}</div>
+                <div className="text-sm text-muted-foreground">Total Points</div>
               </div>
             </Card>
           </motion.div>
@@ -192,14 +191,14 @@ export function Profile() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Card className="p-6 bg-gradient-to-br from-indigo-500/10 to-blue-500/10 backdrop-blur-sm border-indigo-500/20 relative overflow-hidden">
+            <Card className="p-6 bg-gradient-to-br from-indigo-500/10 to-blue-500/10 backdrop-blur-sm border-indigo-500/20 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl" />
               <div className="relative">
                 <Trophy className="w-8 h-8 text-indigo-400 mb-3" />
-                <div className="text-4xl font-bold text-white mb-1">
-                  {BADGES.filter(b => b.unlocked).length}/{BADGES.length}
+                <div className="text-4xl font-bold text-foreground mb-1">
+                  {badges.filter(b => b.unlocked).length}/{BADGES.length}
                 </div>
-                <div className="text-sm text-white/60">Badges Earned</div>
+                <div className="text-sm text-muted-foreground">Badges Earned</div>
               </div>
             </Card>
           </motion.div>
@@ -214,8 +213,8 @@ export function Profile() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              <Card className="p-8 bg-white/5 backdrop-blur-sm border-white/10">
-                <h3 className="text-2xl font-bold text-white mb-6">Your Journey Progress</h3>
+              <Card className="p-8 bg-card backdrop-blur-sm border-border shadow-sm">
+                <h3 className="text-2xl font-bold text-foreground mb-6">Your Journey Progress</h3>
                 
                 <div className="grid grid-cols-3 gap-4 md:gap-8">
                   {journeyProgress.map((item, i) => (
@@ -249,11 +248,11 @@ export function Profile() {
                           />
                         </svg>
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <item.icon className="w-6 h-6 text-white/60 mb-1" />
-                          <div className="text-2xl font-bold text-white">{item.value}%</div>
+                          <item.icon className="w-6 h-6 text-muted-foreground mb-1" />
+                          <div className="text-2xl font-bold text-foreground">{item.value}%</div>
                         </div>
                       </div>
-                      <div className="text-sm text-white/70">{item.label}</div>
+                      <div className="text-sm text-muted-foreground font-medium">{item.label}</div>
                     </div>
                   ))}
                 </div>
@@ -303,13 +302,13 @@ export function Profile() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.7 }}
           >
-            <Card className="p-8 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 backdrop-blur-sm border-indigo-500/20 sticky top-6">
+            <Card className="p-8 bg-card backdrop-blur-sm border-border shadow-lg sticky top-6">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-purple-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary/20">
                   <Share2 className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Referral Growth Loop</h3>
-                <p className="text-sm text-white/60">
+                <h3 className="text-2xl font-bold text-foreground mb-2">Referral Growth Loop</h3>
+                <p className="text-sm text-muted-foreground font-medium">
                   Invite friends and unlock premium features together
                 </p>
               </div>

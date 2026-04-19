@@ -127,18 +127,18 @@ export function Settings() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Header */}
-      <nav className="relative z-10 backdrop-blur-xl bg-white/5 border-b border-white/10">
+      <nav className="relative z-10 backdrop-blur-xl bg-card border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 md:gap-4">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => navigate('/dashboard')}
-              className="text-foreground/70 hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground"
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
-            <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 bg-clip-text text-transparent">
+            <h1 className="text-xl md:text-2xl font-black bg-gradient-to-r from-primary via-purple-600 to-pink-500 bg-clip-text text-transparent italic tracking-tight">
               Settings
             </h1>
           </div>
@@ -155,28 +155,28 @@ export function Settings() {
       <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <Tabs defaultValue="profile" className="space-y-8">
           <TabsList className="bg-muted border border-border">
-            <TabsTrigger value="profile" className="data-[state=active]:bg-card">
+            <TabsTrigger value="profile" className="data-[state=active]:bg-card data-[state=active]:text-primary font-bold">
               <User className="w-4 h-4 mr-2" />
               Profile
             </TabsTrigger>
-            <TabsTrigger value="notifications" className="data-[state=active]:bg-white/10">
+            <TabsTrigger value="notifications" className="data-[state=active]:bg-card data-[state=active]:text-primary font-bold">
               <Bell className="w-4 h-4 mr-2" />
               Notifications
             </TabsTrigger>
-            <TabsTrigger value="privacy" className="data-[state=active]:bg-white/10">
+            <TabsTrigger value="privacy" className="data-[state=active]:bg-card data-[state=active]:text-primary font-bold">
               <Lock className="w-4 h-4 mr-2" />
               Privacy
             </TabsTrigger>
-            <TabsTrigger value="appearance" className="data-[state=active]:bg-white/10">
+            <TabsTrigger value="appearance" className="data-[state=active]:bg-card data-[state=active]:text-primary font-bold">
               <Palette className="w-4 h-4 mr-2" />
-              Appearance
+              Theme
             </TabsTrigger>
           </TabsList>
 
           {/* Profile Tab */}
           <TabsContent value="profile">
-            <Card className="p-8 bg-white/5 backdrop-blur-xl border-white/10">
-              <h3 className="text-xl font-bold text-white mb-6">Profile Information</h3>
+            <Card className="p-8 bg-card backdrop-blur-xl border-border shadow-sm">
+              <h3 className="text-xl font-bold text-foreground mb-6">Profile Information</h3>
               <div className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -189,58 +189,58 @@ export function Settings() {
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-white/60 mb-2 block">Email</label>
+                    <label className="text-sm text-muted-foreground mb-2 block font-medium">Email Address</label>
                     <Input
                       type="email"
                       placeholder="email@example.com"
                       value={profile.email}
                       onChange={e => setProfile({...profile, email: e.target.value})}
-                      className="bg-white/5 border-white/20 text-white"
+                      className="bg-input border-border text-foreground"
                     />
                   </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="text-sm text-white/60 mb-2 block">Phone Number</label>
+                    <label className="text-sm text-muted-foreground mb-2 block font-medium">Phone Number</label>
                     <Input
                       placeholder="+1 (555) 000-0000"
                       value={profile.phone}
                       onChange={e => setProfile({...profile, phone: e.target.value})}
-                      className="bg-white/5 border-white/20 text-white"
+                      className="bg-input border-border text-foreground"
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-white/60 mb-2 block">Country</label>
+                    <label className="text-sm text-muted-foreground mb-2 block font-medium">Country</label>
                     <select 
                       value={profile.country}
                       onChange={e => setProfile({...profile, country: e.target.value})}
-                      className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 text-white"
+                      className="w-full px-3 py-2 rounded-lg bg-input border border-border text-foreground font-medium"
                     >
-                      <option value="india" className="bg-[#0D0D1A]">India</option>
-                      <option value="usa" className="bg-[#0D0D1A]">USA</option>
-                      <option value="uk" className="bg-[#0D0D1A]">UK</option>
+                      <option value="india" className="bg-card">India</option>
+                      <option value="usa" className="bg-card">USA</option>
+                      <option value="uk" className="bg-card">UK</option>
                     </select>
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm text-white/60 mb-2 block">Current Education Level</label>
+                  <label className="text-sm text-muted-foreground mb-2 block font-medium">Current Education Level</label>
                   <select 
                     value={profile.level}
                     onChange={e => setProfile({...profile, level: e.target.value})}
-                    className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 text-white"
+                    className="w-full px-3 py-2 rounded-lg bg-input border border-border text-foreground font-medium"
                   >
-                    <option value="bachelor" className="bg-[#0D0D1A]">Bachelor's Degree</option>
-                    <option value="master" className="bg-[#0D0D1A]">Master's Degree</option>
-                    <option value="phd" className="bg-[#0D0D1A]">PhD</option>
+                    <option value="bachelor" className="bg-card">Bachelor's Degree</option>
+                    <option value="master" className="bg-card">Master's Degree</option>
+                    <option value="phd" className="bg-card">PhD</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-sm text-white/60 mb-2 block">Field of Study</label>
+                  <label className="text-sm text-muted-foreground mb-2 block font-medium">Field of Study</label>
                   <Input
                     placeholder="Computer Science"
                     value={profile.field}
                     onChange={e => setProfile({...profile, field: e.target.value})}
-                    className="bg-white/5 border-white/20 text-white"
+                    className="bg-input border-border text-foreground"
                   />
                 </div>
               </div>
@@ -249,9 +249,9 @@ export function Settings() {
 
           {/* Notifications Tab */}
           <TabsContent value="notifications">
-            <Card className="p-8 bg-white/5 backdrop-blur-xl border-white/10">
-              <h3 className="text-xl font-bold text-white mb-6">Notification Preferences</h3>
-              <div className="space-y-6">
+            <Card className="p-8 bg-card backdrop-blur-xl border-border shadow-sm">
+              <h3 className="text-xl font-bold text-foreground mb-6">Notification Preferences</h3>
+              <div className="space-y-4">
                 {[
                   { key: "email", label: "Email Notifications", desc: "Receive updates via email" },
                   { key: "push", label: "Push Notifications", desc: "Browser push notifications" },
@@ -259,10 +259,10 @@ export function Settings() {
                   { key: "scholarships", label: "Scholarship Alerts", desc: "Notify me about new scholarship opportunities" },
                   { key: "updates", label: "Product Updates", desc: "News about new features and improvements" },
                 ].map((item) => (
-                  <div key={item.key} className="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/10">
+                  <div key={item.key} className="flex items-center justify-between p-4 rounded-xl bg-muted/50 border border-border">
                     <div>
-                      <div className="font-semibold text-white mb-1">{item.label}</div>
-                      <div className="text-sm text-white/60">{item.desc}</div>
+                      <div className="font-bold text-foreground mb-1">{item.label}</div>
+                      <div className="text-xs text-muted-foreground font-medium">{item.desc}</div>
                     </div>
                     <Switch
                       checked={notifications[item.key as keyof typeof notifications]}
@@ -276,37 +276,37 @@ export function Settings() {
 
           {/* Privacy Tab */}
           <TabsContent value="privacy">
-            <Card className="p-8 bg-white/5 backdrop-blur-xl border-white/10">
-              <h3 className="text-xl font-bold text-white mb-6">Privacy & Security</h3>
+            <Card className="p-8 bg-card backdrop-blur-xl border-border shadow-sm">
+              <h3 className="text-xl font-bold text-foreground mb-6">Privacy & Security</h3>
               <div className="space-y-6">
                 <div>
-                  <label className="text-sm text-white/60 mb-2 block">Current Password</label>
+                  <label className="text-sm text-muted-foreground mb-2 block font-medium">Current Password</label>
                   <Input
                     type="password"
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     placeholder="Enter current password"
-                    className="bg-white/5 border-white/20 text-white"
+                    className="bg-input border-border text-foreground"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-white/60 mb-2 block">New Password</label>
+                  <label className="text-sm text-muted-foreground mb-2 block font-medium">New Password</label>
                   <Input
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="Enter new password"
-                    className="bg-white/5 border-white/20 text-white"
+                    className="bg-input border-border text-foreground"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-white/60 mb-2 block">Confirm New Password</label>
+                  <label className="text-sm text-muted-foreground mb-2 block font-medium">Confirm New Password</label>
                   <Input
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm new password"
-                    className="bg-white/5 border-white/20 text-white"
+                    className="bg-input border-border text-foreground"
                   />
                 </div>
                 <Button 
@@ -315,23 +315,23 @@ export function Settings() {
                 >
                   {passwordStatus}
                 </Button>
-                <div className="border-t border-white/10 pt-6 mt-6">
-                  <h4 className="text-white font-semibold mb-4">Data Privacy</h4>
+                <div className="border-t border-border pt-6 mt-6">
+                  <h4 className="text-foreground font-bold mb-4 uppercase text-[10px] tracking-widest">Data Privacy</h4>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/10">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-muted/50 border border-border">
                       <div>
-                        <div className="font-semibold text-white mb-1">Profile Visibility</div>
-                        <div className="text-sm text-white/60">Make profile visible to other users</div>
+                        <div className="font-bold text-foreground mb-1">Profile Visibility</div>
+                        <div className="text-xs text-muted-foreground font-medium">Make profile visible to other users</div>
                       </div>
                       <Switch 
                         checked={privacy.visibility}
                         onCheckedChange={(checked) => setPrivacy({...privacy, visibility: checked})}
                       />
                     </div>
-                    <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/10">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-muted/50 border border-border">
                       <div>
-                        <div className="font-semibold text-white mb-1">Data Sharing</div>
-                        <div className="text-sm text-white/60">Share anonymized data for research</div>
+                        <div className="font-bold text-foreground mb-1">Data Sharing</div>
+                        <div className="text-xs text-muted-foreground font-medium">Share anonymized data for research</div>
                       </div>
                       <Switch 
                         checked={privacy.dataSharing}
@@ -346,11 +346,11 @@ export function Settings() {
 
           {/* Appearance Tab */}
           <TabsContent value="appearance">
-            <Card className="p-8 bg-white/5 backdrop-blur-xl border-white/10">
-              <h3 className="text-xl font-bold text-white mb-6">Appearance Settings</h3>
+            <Card className="p-8 bg-card backdrop-blur-xl border-border shadow-sm">
+              <h3 className="text-xl font-bold text-foreground mb-6">Appearance Settings</h3>
               <div className="space-y-6">
                 <div>
-                  <label className="text-sm text-white/60 mb-3 block">Theme</label>
+                  <label className="text-sm text-muted-foreground mb-3 block font-medium">Theme</label>
                   <div className="grid grid-cols-2 gap-4">
                     <button
                       onClick={() => {

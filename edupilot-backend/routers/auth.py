@@ -215,3 +215,32 @@ async def complete_quest(data: QuestComplete):
         return {"status": "success", "message": "Quest completed!", "new_xp": new_xp}
     
     return {"status": "already_completed", "message": "Quest already finished"}
+    
+@router.get("/public-profile/{referral_code}")
+async def get_public_profile(referral_code: str):
+    if not supabase:
+        raise HTTPException(status_code=500, detail="Database not connected")
+    
+    # Try searching by referral_code
+    res = supabase.table("profiles").select("*").eq("referral_code", referral_code).execute()
+    
+    if not res.data:
+        # Fallback: maybe the code is actually a UI-generated name-based code
+        # We search for it in full_name transformed or something, but better to match exactly
+        raise HTTPException(status_code=404, detail="Public profile not found")
+        
+    p = res.data[0]
+    # Return redacted profile for public view
+    return {
+        "status": "success",
+        "profile": {
+            "full_name": p.get("full_name", "Explorer"),
+            "xp": p.get("xp", 0),
+            "streak": p.get("streak", 0),
+            "referrals_count": p.get("referrals_count", 0),
+            "quests_completed": p.get("quests_completed", []),
+            "badges": p.get("badges", []),
+            "target_country": p.get("target_country"),
+            "target_field": p.get("target_field")
+        }
+    }
