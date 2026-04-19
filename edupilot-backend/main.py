@@ -52,6 +52,13 @@ app.include_router(auth.router,         prefix="/api/auth",         tags=["Authe
 app.include_router(news.router,         prefix="/api/news",         tags=["News"])
 
 
+@app.get("/api/status")
+def api_status():
+    return {
+        "status": "EduPilot API Gateway is active 🛰️",
+        "prefixes": ["/api/chat", "/api/auth", "/api/universities", "/api/essay"]
+    }
+
 @app.get("/")
 def root():
     return {"status": "EduPilot API is running 🚀", "model": "gemini-2.5-flash"}
