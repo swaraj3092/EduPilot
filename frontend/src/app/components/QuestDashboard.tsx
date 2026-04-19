@@ -25,6 +25,15 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [mobileTab, setMobileTab] = useState<"missions" | "rankings" | "mastery">("missions");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   // Real Level Calculation Logic
   const levelThresholds = [0, 1000, 2500, 5000, 10000, 15000, 25000];
@@ -83,9 +92,6 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
            const updated = { ...profile, xp: res.new_xp, quests_completed: [...(profile.quests_completed || []), quest.id] };
            localStorage.setItem("edupilot-profile", JSON.stringify(updated));
            setCompletedQuests(updated.quests_completed);
-           
-           // Force page refresh or state sync if needed, 
-           // but for now we navigate away which usually triggers context update
         }
       }
     } catch (e) {
@@ -120,16 +126,9 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
             className={`fixed inset-0 md:inset-4 lg:inset-10 ${isExpanded ? 'lg:inset-10' : 'lg:inset-20'} bg-[#0D0D1A] md:bg-[#0D0D1A]/90 border-0 md:border md:border-white/10 rounded-none md:rounded-[40px] z-[101] overflow-hidden flex flex-col md:flex-row shadow-2xl shadow-indigo-500/10 transition-all duration-300`}
           >
-            {/* Sidebar Stats */}
-            <div className={`w-full ${isExpanded ? 'md:w-64' : 'md:w-80'} bg-white/5 border-r border-white/10 p-8 flex flex-col transition-all overflow-y-auto`}>
-              <div className="flex justify-between items-start mb-8 md:hidden">
-                <div className="text-2xl font-bold text-white">Quest Log</div>
-                <Button variant="ghost" size="icon" onClick={onClose} className="text-white/50">
-                  <X className="w-6 h-6" />
-                </Button>
-              </div>
-
-              <div className="hidden md:flex flex-col items-center text-center mb-10">
+            {/* Sidebar Stats (Desktop Only) */}
+            <div className={`hidden md:flex w-full ${isExpanded ? 'md:w-64' : 'md:w-80'} bg-white/5 border-r border-white/10 p-8 flex-col transition-all overflow-y-auto`}>
+              <div className="flex flex-col items-center text-center mb-10">
                 <div className="relative mb-4 group cursor-pointer" onClick={() => navigate('/profile')}>
                   <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-1">
                     <div className="w-full h-full rounded-[22px] bg-[#0D0D1A] flex items-center justify-center text-3xl text-white font-bold">
@@ -144,7 +143,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                 <p className="text-white/50 text-sm">{userStats.levelTitle || "Elite Navigator"}</p>
               </div>
 
-              <div className="hidden md:flex flex-col space-y-6 flex-1">
+              <div className="space-y-6 flex-1">
                 <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
                   <div className="flex items-center gap-3 mb-3">
                     <Flame className="w-5 h-5 text-orange-400 fill-orange-400" />
@@ -171,19 +170,17 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                   </div>
                 </div>
 
-                {!isExpanded && (
-                  <div className="grid grid-cols-2 gap-3">
-                     {badges.map((b, i) => (
-                       <div key={i} className="flex flex-col items-center p-3 rounded-xl bg-white/5 border border-white/10">
-                         <b.icon className={`w-6 h-6 mb-1 ${b.color}`} />
-                         <span className="text-[10px] text-white/50 uppercase font-bold tracking-wider">{b.name}</span>
-                       </div>
-                     ))}
-                  </div>
-                )}
+                <div className="grid grid-cols-2 gap-3">
+                   {badges.map((b, i) => (
+                     <div key={i} className="flex flex-col items-center p-3 rounded-xl bg-white/5 border border-white/10">
+                       <b.icon className={`w-6 h-6 mb-1 ${b.color}`} />
+                       <span className="text-[10px] text-white/50 uppercase font-bold tracking-wider">{b.name}</span>
+                     </div>
+                   ))}
+                </div>
               </div>
 
-              <Button onClick={onClose} variant="outline" className="mt-8 border-white/10 hover:bg-white/5 text-white/70 hidden md:flex">
+              <Button onClick={onClose} variant="outline" className="mt-8 border-white/10 hover:bg-white/5 text-white/70">
                 Back to Dashboard
               </Button>
             </div>
@@ -191,186 +188,168 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
             {/* Main Content */}
             <div className="flex-1 overflow-y-auto p-6 md:p-10 bg-gradient-to-br from-indigo-500/5 via-transparent to-pink-500/5">
               <div className="max-w-6xl mx-auto">
-                <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
-                  <div>
-                    <div className="flex items-center gap-3 md:hidden mb-4 p-2 bg-white/5 rounded-2xl border border-white/5">
-                        <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-white font-bold">{userStats.name?.charAt(0)}</div>
-                        <div>
-                          <p className="text-xs font-bold text-white">{userStats.name}</p>
-                          <p className="text-[10px] text-indigo-400">Level {userStats.level} Explorer</p>
+                <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-6">
+                  <div className="w-full">
+                    {/* Compact Mobile Header */}
+                    <div className="flex items-center gap-3 md:hidden mb-6 p-3 bg-white/5 rounded-2xl border border-white/5">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/20">{userStats.name?.charAt(0)}</div>
+                        <div className="flex-1">
+                          <p className="text-sm font-bold text-white">{userStats.name}</p>
+                          <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">Level {userStats.level} • {userStats.levelTitle}</p>
                         </div>
-                        <div className="flex-1" />
-                        <div className="flex items-center gap-2 bg-orange-500/10 px-2 py-1 rounded-lg border border-orange-500/10">
-                          <Flame className="w-3 h-3 text-orange-400" />
-                          <span className="text-[10px] font-bold text-orange-400">{userStats.streak}</span>
-                        </div>
+                        <Button variant="ghost" size="icon" onClick={onClose} className="text-white/40 h-10 w-10">
+                          <X className="w-5 h-5" />
+                        </Button>
                     </div>
-                    <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">{isExpanded ? 'Global Leaderboard' : 'Quest Center'}</h1>
-                    <p className="text-white/50 text-xs md:text-sm">{isExpanded ? 'See how you stack up against the best' : 'Level up your journey by completing missions'}</p>
-                  </div>
-                  <div className="flex items-center gap-4 w-full md:w-auto">
-                    {isExpanded && (
-                      <Button variant="ghost" onClick={() => setIsExpanded(false)} className="text-white/60 text-xs">
-                        Back to Quests
-                      </Button>
-                    )}
-                    <Button variant="ghost" size="icon" onClick={onClose} className="text-white/50 hidden md:flex">
-                      <X className="w-6 h-6" />
-                    </Button>
+
+                    {/* Mobile Tab Switcher */}
+                    <div className="flex md:hidden items-center p-1 bg-white/5 rounded-xl border border-white/5 mb-6 shadow-sm">
+                      {['missions', 'rankings', 'mastery'].map((tab) => (
+                        <button
+                          key={tab}
+                          onClick={() => setMobileTab(tab as any)}
+                          className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest transition-all rounded-lg ${
+                            mobileTab === tab ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20" : "text-white/30"
+                          }`}
+                        >
+                          {tab}
+                        </button>
+                      ))}
+                    </div>
+
+                    <h1 className="hidden md:block text-3xl font-bold text-white mb-2">{isExpanded ? 'Global Leaderboard' : 'Quest Log'}</h1>
+                    <p className="hidden md:block text-white/50 text-sm">Level up your journey by completing mission objectives</p>
                   </div>
                 </header>
 
-                {!isExpanded ? (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* Current Quests */}
-                    <section>
-                      <div className="flex items-center gap-2 mb-6 text-white font-bold">
-                        <Target className="w-5 h-5 text-indigo-400" />
-                        Active Missions
-                      </div>
-                      <div className="space-y-4">
-                        {quests.map((q, i) => (
-                          <Card 
-                            key={i} 
-                            onClick={() => handleQuestClick(q)}
-                            className={`p-5 backdrop-blur-xl border-white/10 relative overflow-hidden group transition-all cursor-pointer ${q.status === 'completed' ? 'bg-green-500/5' : 'bg-white/5 hover:bg-white/10 hover:border-indigo-500/30'}`}
-                          >
-                            <div className="absolute top-4 right-4 text-white/0 group-hover:text-white/30 transition-all">
-                               <ArrowRight className="w-4 h-4" />
-                            </div>
-                            {q.status === 'completed' && (
-                              <div className="absolute top-2 right-2 bg-green-500/20 text-green-400 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Completed</div>
-                            )}
-                            <div className="flex justify-between items-start mb-2">
-                               <div>
-                                 <h4 className="text-white font-bold mb-1">{q.title}</h4>
-                                 <p className="text-white/50 text-xs">{q.desc}</p>
-                               </div>
-                               <div className="flex items-center gap-1 text-purple-400 font-bold text-sm pr-6">
-                                 <Zap className="w-3 h-3 fill-purple-400" />
-                                 +{q.xp}
-                               </div>
-                            </div>
-                            {q.status === 'in-progress' && q.current && q.total && (
-                              <div className="mt-4">
-                                <div className="flex justify-between text-[10px] text-white/40 mb-1">
-                                  <span>Progress</span>
-                                  <span>{q.current}/{q.total}</span>
+                <div className="w-full">
+                  <AnimatePresence mode="wait">
+                    {/* Missions View */}
+                    {(mobileTab === "missions" || !isMobile) && (
+                      <motion.div
+                        key="missions"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 10 }}
+                        className={`space-y-4 ${mobileTab !== 'missions' && 'hidden md:block'}`}
+                      >
+                         <h3 className="hidden md:flex items-center gap-2 text-white font-bold mb-4">
+                           <Target className="w-5 h-5 text-indigo-400" />
+                           Active Missions
+                         </h3>
+                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
+                            {quests.map((q, i) => (
+                              <Card 
+                                key={i} 
+                                onClick={() => handleQuestClick(q)}
+                                className={`p-4 backdrop-blur-xl border-white/10 relative overflow-hidden group transition-all cursor-pointer ${q.status === 'completed' ? 'bg-green-500/5' : 'bg-white/5 hover:bg-white/10'}`}
+                              >
+                                <div className="flex items-center gap-4">
+                                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${q.status === 'completed' ? 'bg-green-400/20 text-green-400' : 'bg-indigo-500/10 text-indigo-400'}`}>
+                                    {q.status === 'completed' ? <Shield className="w-5 h-5" /> : <Target className="w-5 h-5" />}
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <h4 className="text-white font-bold text-sm mb-0.5 truncate">{q.title}</h4>
+                                    <p className="text-white/40 text-[10px] truncate">{q.desc}</p>
+                                  </div>
+                                  <div className="flex items-center gap-1 text-purple-400 font-bold text-[10px] bg-purple-400/10 px-2 py-1 rounded-lg border border-purple-400/10">
+                                    <Zap className="w-3 h-3 fill-purple-400" />
+                                    +{q.xp}
+                                  </div>
                                 </div>
-                                <div className="h-1 bg-white/5 rounded-full overflow-hidden">
-                                  <div className="h-full bg-indigo-500" style={{ width: `${(q.current/q.total)*100}%` }} />
-                                </div>
-                              </div>
-                            )}
-                          </Card>
-                        ))}
-                      </div>
-                    </section>
+                              </Card>
+                            ))}
+                         </div>
+                      </motion.div>
+                    )}
 
-                    {/* Mini Leaderboard */}
-                    <section>
-                      <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-2 text-white font-bold">
-                          <Crown className="w-5 h-5 text-yellow-500" />
-                          Top Navigators
-                        </div>
-                        <Button 
-                          variant="link" 
-                          onClick={() => setIsExpanded(true)}
-                          className="text-indigo-400 text-xs font-bold hover:text-indigo-300"
-                        >
-                          View Full Rankings
-                        </Button>
-                      </div>
-                      <Card className="bg-white/5 border-white/10 divide-y divide-white/10">
-                        {isLoading ? (
-                           <div className="p-8 text-center text-white/30 italic">Calculating rankings...</div>
-                        ) : (
-                          <>
-                           {leaderboard.length === 0 && !isLoading && (
-                             <div className="py-10 text-center text-white/30 italic text-sm">
-                               No explorers found yet. Be the first to reach the top!
-                             </div>
-                           )}
-                           {leaderboard.slice(0, 5).map((u, i) => (
-                             <motion.div
-                               key={i}
-                               initial={{ opacity: 0, x: -20 }}
-                               animate={{ opacity: 1, x: 0 }}
-                               transition={{ delay: 0.2 + i * 0.05 }}
-                               className={`p-3 rounded-xl flex items-center justify-between border ${
-                                 u.full_name?.trim().toLowerCase() === userStats.name?.trim().toLowerCase()
-                                   ? "bg-indigo-500/20 border-indigo-500/50" 
-                                   : "bg-white/5 border-white/10"
-                               }`}
-                             >
-                               <div className="flex items-center gap-3">
-                                 <div className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-[10px] font-bold">
-                                   {i + 1}
+                    {/* Rankings View */}
+                    {(mobileTab === "rankings" || !isMobile) && (
+                      <motion.div
+                        key="rankings"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 10 }}
+                        className={`space-y-4 md:mt-12 ${mobileTab !== 'rankings' && 'hidden md:block'}`}
+                      >
+                        <h3 className="flex items-center gap-2 text-white font-bold mb-4">
+                           <Crown className="w-5 h-5 text-yellow-500" />
+                           Global Rankings
+                        </h3>
+                        <div className="space-y-2">
+                           {leaderboard.length === 0 ? (
+                             <div className="py-20 text-center text-white/20 italic">Loading navigators...</div>
+                           ) : (
+                             leaderboard.slice(0, 10).map((u, i) => (
+                               <div key={i} className={`p-4 rounded-2xl flex items-center justify-between border ${u.full_name?.toLowerCase() === userStats.name?.toLowerCase() ? 'bg-indigo-500/20 border-indigo-500/50' : 'bg-white/5 border-white/10 shadow-sm'}`}>
+                                 <div className="flex items-center gap-4">
+                                   <span className={`text-sm font-black ${i < 3 ? 'text-indigo-400' : 'text-white/20'}`}>{i + 1}</span>
+                                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white shadow-inner">{u.full_name?.charAt(0)}</div>
+                                   <div className="min-w-0">
+                                     <p className="text-white text-sm font-bold truncate max-w-[140px]">{u.full_name}</p>
+                                     <p className="text-[10px] text-white/40">{u.target_country || 'Worldwide'}</p>
+                                   </div>
                                  </div>
-                                 <div>
-                                   <div className="text-white font-bold text-sm flex items-center gap-2">
-                                     {u.full_name}
-                                     {u.full_name?.trim().toLowerCase() === userStats.name?.trim().toLowerCase() && <span className="text-[10px] bg-indigo-500/30 text-indigo-400 px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">You</span>}
-                                   </div>
-                                   <div className="text-[10px] text-white/50 uppercase flex items-center gap-1">
-                                      <Globe className="w-3 h-3" />
-                                      {u.target_country || "Global Citizen"}
-                                   </div>
-                                </div>
-                              </div>
-                              <div className="text-white font-bold text-sm">
-                                {(u.xp || 0).toLocaleString()} <span className="text-[10px] text-white/30">XP</span>
-                              </div>
-                            </motion.div>
-                          ))}
-                          </>
-                        )}
-                      </Card>
-                    </section>
-                  </div>
-                ) : (
-                  /* Expanded Leaderboard View */
-                  <div className="space-y-6">
-                    <Card className="bg-white/5 border-white/10 overflow-hidden">
-                       <table className="w-full text-left">
-                         <thead className="bg-white/5 border-b border-white/10">
-                            <tr>
-                              <th className="p-4 md:p-6 text-white/50 text-xs font-bold uppercase">Rank</th>
-                              <th className="p-4 md:p-6 text-white/50 text-xs font-bold uppercase">User</th>
-                              <th className="p-4 md:p-6 text-white/50 text-xs font-bold uppercase">Destination</th>
-                              <th className="p-4 md:p-6 text-white/50 text-xs font-bold uppercase text-right">XP Points</th>
-                            </tr>
-                         </thead>
-                         <tbody className="divide-y divide-white/10 text-white">
-                           {leaderboard.map((u, i) => (
-                              <tr key={i} className={`hover:bg-white/5 transition-colors ${u.full_name === userStats.name ? 'bg-indigo-500/5' : ''}`}>
-                                <td className="p-4 md:p-6">
-                                   <div className="flex items-center gap-3">
-                                      {i < 3 && <Trophy className={`w-4 h-4 ${i === 0 ? 'text-yellow-500' : i === 1 ? 'text-gray-300' : 'text-amber-700'}`} />}
-                                      <span className={`font-bold ${i < 3 ? 'text-white' : 'text-white/30'}`}>{i + 1}</span>
-                                   </div>
-                                </td>
-                                <td className="p-4 md:p-6 font-bold flex items-center gap-3">
-                                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                                      {u.full_name?.charAt(0) || "U"}
-                                   </div>
-                                   <div>
-                                      <span>{u.full_name}</span>
-                                      {u.full_name === userStats.name && <span className="ml-2 text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full uppercase">You</span>}
-                                   </div>
-                                </td>
-                                <td className="p-4 md:p-6 text-white/60">{u.target_country || "Global"}</td>
-                                <td className="p-4 md:p-6 text-right font-black text-indigo-400">
-                                   {(u.xp || 0).toLocaleString()}
-                                </td>
-                              </tr>
+                                 <div className="text-right">
+                                   <p className="text-indigo-400 font-black text-sm">{u.xp}</p>
+                                   <p className="text-[10px] text-white/30 uppercase font-black">XP</p>
+                                 </div>
+                               </div>
+                             ))
+                           )}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Mastery View */}
+                    {(mobileTab === "mastery") && (
+                      <motion.div
+                        key="mastery"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="md:hidden space-y-6"
+                      >
+                        <div className="p-8 rounded-[40px] bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-white/10 text-center shadow-xl">
+                           <div className="inline-flex p-4 rounded-3xl bg-indigo-500 text-white mb-4 shadow-lg shadow-indigo-500/30">
+                              <Trophy className="w-8 h-8" />
+                           </div>
+                           <h3 className="text-2xl font-black text-white mb-1">{userStats.xp.toLocaleString()} <span className="text-indigo-400">XP</span></h3>
+                           <p className="text-white/40 text-[10px] font-bold tracking-widest uppercase mb-8">Career Mission Points</p>
+                           
+                           <div className="flex gap-1.5 mb-2">
+                             {[1,2,3,4,5,6,7].map(d => (
+                               <div key={d} className={`h-2 flex-1 rounded-full ${d <= userStats.streak % 7 ? 'bg-orange-500 shadow-[0_0_15px_rgba(249,115,22,0.4)]' : 'bg-white/10'}`} />
+                             ))}
+                           </div>
+                           <div className="flex justify-between items-center text-orange-400">
+                             <div className="flex items-center gap-1.5 font-black text-xs italic tracking-tighter">
+                               <Flame className="w-4 h-4 fill-orange-400" />
+                               {userStats.streak} DAY STREAK
+                             </div>
+                             <span className="text-[10px] font-bold text-white/40">KEEP IT UP!</span>
+                           </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 pb-10">
+                           {badges.map((b, i) => (
+                             <div key={i} className="p-5 rounded-[32px] bg-white/5 border border-white/10 flex flex-col items-center shadow-sm">
+                               <div className={`p-3 rounded-2xl bg-white/5 mb-3`}>
+                                 <b.icon className={`w-8 h-8 ${b.color}`} />
+                               </div>
+                               <p className="text-[10px] font-black text-white uppercase tracking-widest">{b.name}</p>
+                             </div>
                            ))}
-                         </tbody>
-                       </table>
-                    </Card>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div className="mt-8 md:hidden">
+                      <Button onClick={onClose} className="w-full h-14 rounded-2xl bg-indigo-500 hover:bg-indigo-600 text-white font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-transform">
+                          Back to Dashboard
+                      </Button>
                   </div>
-                )}
+                </div>
               </div>
             </div>
           </motion.div>
