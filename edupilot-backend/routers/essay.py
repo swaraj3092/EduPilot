@@ -9,7 +9,6 @@ import re
 
 from gemini_client import generate_content
 
-from routers.auth import get_supabase_client
 from supabase_client import supabase
 
 router = APIRouter()
