@@ -16,14 +16,15 @@ interface QuestDashboardProps {
     levelTitle: string;
     name: string;
   };
+  completedQuests: string[];
+  setCompletedQuests: (quests: string[]) => void;
 }
 
-export function QuestDashboard({ isOpen, onClose, userStats }: QuestDashboardProps) {
+export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, setCompletedQuests }: QuestDashboardProps) {
   const navigate = useNavigate();
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [completedQuests, setCompletedQuests] = useState<string[]>([]);
 
   // Real Level Calculation Logic
   const levelThresholds = [0, 1000, 2500, 5000, 10000, 15000, 25000];
@@ -39,9 +40,6 @@ export function QuestDashboard({ isOpen, onClose, userStats }: QuestDashboardPro
         try {
           const res = await getLeaderboard();
           setLeaderboard(res.leaderboard);
-          
-          const profile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
-          setCompletedQuests(profile.quests_completed || []);
         } catch (e) {
           console.error("Failed to fetch leaderboard");
         } finally {

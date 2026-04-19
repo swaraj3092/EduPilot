@@ -61,6 +61,7 @@ export function Dashboard() {
   const [profile, setProfile] = useState(initialProfile);
   const [isNexusOpen, setIsNexusOpen] = useState(false);
   const [isEssayOpen, setIsEssayOpen] = useState(false);
+  const [completedQuests, setCompletedQuests] = useState<string[]>(initialProfile.quests_completed || []);
   const savedUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
   const calculateLevel = (xp: number) => {
     if (xp < 1000) return 1;
@@ -106,6 +107,7 @@ export function Dashboard() {
             streak: db.streak || 1,
             last_login_date: db.last_login_date || currentProfile.last_login_date
           };
+          setCompletedQuests(db.quests_completed || []);
         }
 
         // 2. Streak & Daily Check Logic (Using DB-synced value and LOCAL time)
@@ -925,6 +927,8 @@ export function Dashboard() {
         isOpen={isQuestOpen} 
         onClose={() => setIsQuestOpen(false)} 
         userStats={userStats}
+        completedQuests={completedQuests}
+        setCompletedQuests={setCompletedQuests}
       />
       {/* Mobile Bottom Navigation Dock */}
       <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90vw] max-w-md">
