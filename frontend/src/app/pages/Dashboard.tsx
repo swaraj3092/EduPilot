@@ -107,8 +107,8 @@ export function Dashboard() {
           };
         }
 
-        // 2. Streak & Daily Check Logic (Using DB-synced value)
-        const today = new Date().toISOString().split('T')[0];
+        // 2. Streak & Daily Check Logic (Using DB-synced value and LOCAL time)
+        const today = new Date().toLocaleDateString('sv-SE');
         const lastLogin = currentProfile.last_login_date;
 
         if (lastLogin !== today) {
@@ -126,10 +126,17 @@ export function Dashboard() {
               toast.info("Streak reset to 1. Stay consistent!");
            }
 
-           currentProfile.streak = newStreak;
-           currentProfile.last_login_date = today;
-           localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
-        }
+            currentProfile.streak = newStreak;
+            currentProfile.last_login_date = today;
+            localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+
+            // 5. SYNC TO DB: Make the streak official in the database
+            await updateProfile({
+              user_id: userId,
+              full_name: currentProfile.name || currentProfile.full_name,
+              streak: newStreak
+            });
+         }
 
         // 3. Update Global States
         setProfile(currentProfile);
@@ -248,6 +255,7 @@ export function Dashboard() {
       
       // UNIVERSAL ENTITY EXTRACTOR (Endless Possibilities)
       // This regex looks for patterns like **University Name** or mentions in lists
+      let detected: any[] = [];
       const nameRegex = /\*\*([^*]+)\*\*/g;
       let match;
       while ((match = nameRegex.exec(response.reply)) !== null) {
