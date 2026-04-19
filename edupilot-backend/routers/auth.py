@@ -237,26 +237,27 @@ async def get_public_profile(referral_code: str):
         print(f"DEBUG: No direct match. Trying fuzzy slug match...")
         search_slug = "".join(filter(str.isalnum, referral_code.lower()))
         
-        # Scan up to 2000 profiles to ensure we find old users
-        all_profiles = supabase.table("profiles").select("user_id, full_name, referral_code").limit(2000).execute()
+        # Use get() for everyone to handle missing columns gracefully
+        all_profiles = supabase.table("profiles").select("*").limit(2000).execute()
         target_id = None
         
-        for p in all_profiles.data:
-            name = (p.get("full_name") or "").lower()
-            ref = (p.get("referral_code") or "").lower()
-            
-            # Match against names without spaces
-            name_no_space = name.replace(" ", "")
-            ref_no_space = ref.replace(" ", "")
-            
-            # Simple alphanumeric cleaning for deep slugs
-            name_clean = "".join(filter(str.isalnum, name))
-            ref_clean = "".join(filter(str.isalnum, ref))
-            
-            if search_slug in [name_no_space, ref_no_space, name_clean, ref_clean]:
-                print(f"DEBUG: PROFILE MATCH FOUND! ID: {p['user_id']} for name: {name}")
-                target_id = p["user_id"]
-                break
+        if all_profiles.data:
+            for p in all_profiles.data:
+                name = (p.get("full_name") or "").lower()
+                ref = (p.get("referral_code") or "").lower()
+                
+                # Match against names without spaces
+                name_no_space = name.replace(" ", "")
+                ref_no_space = ref.replace(" ", "")
+                
+                # Deep cleaning
+                name_clean = "".join(filter(str.isalnum, name))
+                ref_clean = "".join(filter(str.isalnum, ref))
+                
+                if search_slug in [name_no_space, ref_no_space, name_clean, ref_clean]:
+                    print(f"DEBUG: MATCH IN LIST! Name: {name}, Slug: {search_slug}")
+                    target_id = p.get("user_id")
+                    break
         
         if target_id:
             res = supabase.table("profiles").select("*").eq("user_id", target_id).execute()
