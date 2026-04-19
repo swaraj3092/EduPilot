@@ -29,6 +29,7 @@ class ProfileUpdate(BaseModel):
     streak: Optional[int] = None
     referral_code: Optional[str] = None
     referrals_count: Optional[int] = None
+    profile_picture: Optional[str] = None
 
 @router.post("/register")
 async def register(auth: UserAuth):
@@ -110,6 +111,8 @@ async def update_profile(profile: ProfileUpdate):
             update_data["referral_code"] = profile.referral_code
         if profile.referrals_count is not None:
             update_data["referrals_count"] = profile.referrals_count
+        if profile.profile_picture is not None:
+            update_data["profile_picture"] = profile.profile_picture
             
         res = supabase.table("profiles").update(update_data).eq("user_id", profile.user_id).execute()
         
@@ -225,9 +228,19 @@ async def get_public_profile(referral_code: str):
     res = supabase.table("profiles").select("*").eq("referral_code", referral_code).execute()
     
     if not res.data:
-        # Fallback: maybe the code is actually a UI-generated name-based code
-        # We search for it in full_name transformed or something, but better to match exactly
-        raise HTTPException(status_code=404, detail="Public profile not found")
+        # Fallback: Search by sluggified full_name (lowercase, no spaces)
+        # We fetch a few profiles and find the match in Python to be safe and flexible
+        all_profiles = supabase.table("profiles").select("user_id, full_name").execute()
+        target_id = None
+        for p in all_profiles.data:
+            if p.get("full_name") and p.get("full_name").replace(" ", "").lower() == referral_code.lower():
+                target_id = p["user_id"]
+                break
+        
+        if target_id:
+            res = supabase.table("profiles").select("*").eq("user_id", target_id).execute()
+        else:
+            raise HTTPException(status_code=404, detail="Public profile not found")
         
     p = res.data[0]
     # Return redacted profile for public view
@@ -241,6 +254,7 @@ async def get_public_profile(referral_code: str):
             "quests_completed": p.get("quests_completed", []),
             "badges": p.get("badges", []),
             "target_country": p.get("target_country"),
-            "target_field": p.get("target_field")
+            "target_field": p.get("target_field"),
+            "profile_picture": p.get("profile_picture")
         }
     }

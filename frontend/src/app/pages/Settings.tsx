@@ -38,7 +38,9 @@ export function Settings() {
       phone: profileData.phone || "",
       country: profileData.country || "india",
       level: profileData.level || "master",
-      field: profileData.field || ""
+      field: profileData.field || "",
+      profile_picture: profileData.profile_picture || null,
+      referral_code: profileData.referral_code || ""
     };
   });
 
@@ -64,14 +66,20 @@ export function Settings() {
       const authUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
       
       // 1. Save to Database
+      const refCode = profile.name.toLowerCase().replace(/\s+/g, '');
       await updateProfile({
         user_id: authUser.id,
         full_name: profile.name,
         phone: profile.phone,
         target_country: profile.country,
         target_field: profile.field,
-        degree_level: profile.level
+        degree_level: profile.level,
+        profile_picture: profile.profile_picture,
+        referral_code: refCode
       });
+      
+      const updatedProfile = { ...profile, referral_code: refCode };
+      setProfile(updatedProfile);
 
       // 2. Local Storage Sync
       localStorage.setItem("edupilot-profile", JSON.stringify(profile));
@@ -176,6 +184,45 @@ export function Settings() {
           {/* Profile Tab */}
           <TabsContent value="profile">
             <Card className="p-8 bg-card backdrop-blur-xl border-border shadow-sm">
+              <div className="flex flex-col md:flex-row items-center gap-8 mb-8 pb-8 border-b border-border">
+                <div className="relative group">
+                  <div className="w-32 h-32 rounded-3xl bg-gradient-to-br from-primary via-purple-500 to-pink-500 p-1 shadow-2xl overflow-hidden">
+                    <div className="w-full h-full rounded-[22px] bg-card flex items-center justify-center overflow-hidden">
+                      {profile.profile_picture ? (
+                        <img src={profile.profile_picture} alt="Profile" className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-4xl font-black text-muted-foreground/30 italic">{profile.name?.charAt(0) || "U"}</div>
+                      )}
+                    </div>
+                  </div>
+                  <label className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-3xl">
+                    <Input 
+                      type="file" 
+                      className="hidden" 
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setProfile({ ...profile, profile_picture: reader.result as string });
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                    <div className="text-white text-xs font-bold uppercase tracking-widest">Change Photo</div>
+                  </label>
+                </div>
+                <div className="text-center md:text-left">
+                  <h3 className="text-2xl font-black text-foreground italic tracking-tight mb-1">{profile.name || "Elevated User"}</h3>
+                  <p className="text-sm text-muted-foreground font-medium mb-4">{profile.email}</p>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 text-[10px] font-bold text-primary uppercase tracking-widest">
+                    Verified Navigator
+                  </div>
+                </div>
+              </div>
+
               <h3 className="text-xl font-bold text-foreground mb-6">Profile Information</h3>
               <div className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">

@@ -125,15 +125,21 @@ export function Profile() {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 pb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-3">Your Profile</h1>
-          <p className="text-base md:text-xl text-muted-foreground mb-8 md:mb-12">
-            Track your progress and unlock rewards
-          </p>
-        </motion.div>
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-8 md:mb-12">
+          <div className="w-24 h-24 md:w-32 md:h-32 rounded-[40px] bg-gradient-to-br from-primary via-purple-500 to-pink-500 p-1 shadow-2xl overflow-hidden">
+            <div className="w-full h-full rounded-[36px] bg-card flex items-center justify-center overflow-hidden">
+               {profile?.profile_picture ? (
+                 <img src={profile.profile_picture} alt="Profile" className="w-full h-full object-cover" />
+               ) : (
+                 <div className="text-4xl md:text-5xl font-black text-primary/30 italic">{userData.name.charAt(0)}</div>
+               )}
+            </div>
+          </div>
+          <div className="text-center md:text-left">
+            <h1 className="text-3xl md:text-5xl font-black text-foreground mb-1 italic tracking-tight">{userData.name}</h1>
+            <p className="text-sm md:text-lg text-muted-foreground font-medium uppercase tracking-widest">{profile?.degree_level || "Master"} Navigator</p>
+          </div>
+        </div>
 
         {/* Top Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-8">

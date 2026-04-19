@@ -24,9 +24,28 @@ export function PublicProfile() {
       try {
         const res = await getPublicProfile(username);
         if (res.status === "success") {
-          setProfile(res.profile);
+          const p = res.profile;
+          setProfile(p);
           // Save for tracking credit if they sign up later
           localStorage.setItem("edupilot-referrer", username);
+
+          // 🛠️ Dynamic Meta Tags Injection (Cloud Symphony Magic)
+          document.title = `${p.full_name}'s Achievement Card | EduPilot`;
+          
+          const setMeta = (property: string, content: string) => {
+            let el = document.querySelector(`meta[property="${property}"]`);
+            if (!el) {
+              el = document.createElement('meta');
+              el.setAttribute('property', property);
+              document.head.appendChild(el);
+            }
+            el.setAttribute('content', content);
+          };
+
+          setMeta('og:title', `${p.full_name}'s Elite Study Profile`);
+          setMeta('og:description', `Joined the 1% of students using AI to master admissions. Check out ${p.full_name}'s stats!`);
+          setMeta('og:image', p.profile_picture || 'https://edupilot.vercel.app/og-preview.png');
+          setMeta('twitter:card', 'summary_large_image');
         } else {
           setError(true);
         }
@@ -103,9 +122,15 @@ export function PublicProfile() {
               {/* Header */}
               <div className="flex items-center gap-4 mb-8">
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-primary to-purple-500 p-0.5 shadow-2xl">
-                    <div className="w-full h-full rounded-[14px] bg-[#0A0A1F] flex items-center justify-center text-white text-3xl font-bold">
-                      {profile.full_name[0]}
+                  <div className="w-24 h-24 rounded-3xl bg-gradient-to-tr from-primary via-purple-500 to-pink-500 p-1 shadow-2xl overflow-hidden group-hover:scale-105 transition-transform">
+                    <div className="w-full h-full rounded-[20px] bg-card flex items-center justify-center overflow-hidden">
+                      {profile.profile_picture ? (
+                        <img src={profile.profile_picture} alt={profile.full_name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-4xl font-black text-primary/30 italic">
+                          {profile.full_name[0]}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <motion.div 
