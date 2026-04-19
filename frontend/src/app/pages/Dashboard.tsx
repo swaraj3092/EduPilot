@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import {
   Send, Sparkles, TrendingUp, DollarSign, FileText, Award,
   GraduationCap, Target, Calendar, BookOpen, GitCompare,
-  Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map as GlobeMap, ListTodo, PlayCircle, Info, Loader2
+  MessageSquareCode, Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map as GlobeMap, ListTodo, PlayCircle, Info, Loader2
 } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
@@ -507,11 +507,22 @@ export function Dashboard() {
           </div>
 
           {/* Mobile Nav Buttons */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-3">
+            <div className="flex items-center gap-2 bg-white/5 px-2 py-1 rounded-full border border-white/10">
+              <div className="flex items-center gap-1">
+                <Flame className="w-3 h-3 text-orange-400" />
+                <span className="text-[10px] font-bold text-white">{userStats.streak}</span>
+              </div>
+              <div className="w-[1px] h-3 bg-white/10" />
+              <div className="flex items-center gap-1">
+                <Zap className="w-3 h-3 text-purple-400" />
+                <span className="text-[10px] font-bold text-white">{(userStats.xp/1000).toFixed(1)}k</span>
+              </div>
+            </div>
             <NotificationCenter />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg hover:bg-white/10 transition text-foreground/70"
+              className="p-1.5 rounded-lg hover:bg-white/10 transition text-foreground/70"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -770,7 +781,7 @@ export function Dashboard() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="space-y-4"
+                  className="flex lg:flex-col overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 gap-4 lg:space-y-4 no-scrollbar -mx-4 px-4 lg:mx-0 lg:px-0"
                 >
                   {filteredUniversities.length === 0 ? (
                     <div className="flex flex-col items-center justify-center p-12 text-center bg-card rounded-3xl border border-dashed border-border/20 mt-10">
@@ -779,7 +790,7 @@ export function Dashboard() {
                     </div>
                   ) : (
                     filteredUniversities.map((uni, i) => (
-                      <Card key={i} className="p-4 bg-card border-border/10 hover:border-indigo-500/30 transition-all group overflow-hidden relative">
+                      <Card key={i} className="w-[280px] lg:w-full flex-shrink-0 lg:flex-shrink p-4 bg-card border-border/10 hover:border-indigo-500/30 transition-all group overflow-hidden relative">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 blur-3xl -mr-12 -mt-12 group-hover:bg-indigo-500/10 transition-colors" />
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between mb-1">
@@ -935,6 +946,37 @@ export function Dashboard() {
         onClose={() => setIsQuestOpen(false)} 
         userStats={userStats}
       />
+      {/* Mobile Bottom Navigation Dock */}
+      <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90vw] max-w-md">
+        <div className="bg-[#0A0A1F]/80 backdrop-blur-2xl border border-white/10 rounded-full p-2 flex items-center justify-around shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+          {[
+            { id: "dashboard", icon: GraduationCap, label: "Home" },
+            { id: "discover", icon: Compass, label: "Explore" },
+            { id: "chat", icon: MessageSquareCode, label: "AI Mentor" },
+            { id: "quests", icon: Target, label: "Quests" },
+          ].map((nav) => (
+            <motion.button
+              key={nav.id}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => {
+                if (nav.id === "chat") {
+                  setActiveTab("chat"); // Focus chat
+                } else if (nav.id === "quests") {
+                  setIsQuestOpen(true);
+                } else {
+                  setActiveTab(nav.id as any);
+                }
+              }}
+              className={`flex flex-col items-center justify-center p-3 rounded-full transition-all ${
+                activeTab === nav.id ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20" : "text-white/40"
+              }`}
+            >
+              <nav.icon className="w-5 h-5" />
+              <span className="text-[10px] mt-1 font-medium">{nav.label}</span>
+            </motion.button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

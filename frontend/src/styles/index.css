@@ -63,3 +63,14 @@
 .glow-pink {
   box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
 }
+
+/* Scrollbar concealment for carousels */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
