@@ -278,21 +278,34 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                         </h3>
                         <div className="space-y-2">
                            {leaderboard.length === 0 ? (
-                             <div className="py-20 text-center text-muted-foreground/30 italic font-medium">Loading navigators...</div>
+                             <div className="py-20 text-center text-muted-foreground/30 font-medium">Loading navigators...</div>
                            ) : (
                              leaderboard.slice(0, 10).map((u, i) => (
-                               <div key={i} className={`p-4 rounded-2xl flex items-center justify-between border ${u.full_name?.toLowerCase() === userStats.name?.toLowerCase() ? 'bg-primary/20 border-primary/50' : 'bg-card border-border shadow-sm shadow-black/5'}`}>
+                               <div 
+                                 key={i} 
+                                 onClick={() => {
+                                   const ref = u.referral_code || u.full_name?.toLowerCase().replace(/\s+/g, '');
+                                   if (ref) { navigate(`/ref/${ref}`); onClose(); }
+                                 }}
+                                 className={`p-4 rounded-2xl flex items-center justify-between border cursor-pointer transition-all hover:scale-[1.02] active:scale-95 ${u.full_name?.toLowerCase() === userStats.name?.toLowerCase() ? 'bg-primary/20 border-primary/50' : 'bg-card border-border shadow-sm shadow-black/5 hover:border-primary/30'}`}
+                               >
                                  <div className="flex items-center gap-4">
                                    <span className={`text-sm font-bold ${i < 3 ? 'text-primary' : 'text-muted-foreground/30'}`}>{i + 1}</span>
-                                   <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-foreground shadow-inner">{u.full_name?.charAt(0)}</div>
+                                   <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-foreground overflow-hidden shadow-inner">
+                                     {u.profile_picture ? (
+                                       <img src={u.profile_picture} alt={u.full_name} className="w-full h-full object-cover" />
+                                     ) : (
+                                       u.full_name?.charAt(0)
+                                     )}
+                                   </div>
                                    <div className="min-w-0">
                                      <p className="text-foreground text-sm font-bold truncate max-w-[140px] tracking-tight">{u.full_name}</p>
                                      <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tight">{u.target_country || 'Worldwide'}</p>
                                    </div>
                                  </div>
                                  <div className="text-right">
-                                   <p className="text-primary font-black text-sm">{u.xp}</p>
-                                   <p className="text-[10px] text-muted-foreground font-black uppercase tracking-tighter">XP</p>
+                                   <p className="text-primary font-bold text-sm">{u.xp}</p>
+                                   <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">XP</p>
                                  </div>
                                </div>
                              ))

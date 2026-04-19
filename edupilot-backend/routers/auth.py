@@ -179,7 +179,7 @@ async def get_leaderboard():
     
     try:
         # Get all real users
-        res = supabase.table("profiles").select("full_name, xp, target_country").order("xp", desc=True).limit(50).execute()
+        res = supabase.table("profiles").select("full_name, xp, target_country, profile_picture, referral_code").order("xp", desc=True).limit(50).execute()
         users = res.data or []
         return {"status": "success", "leaderboard": users}
     except Exception as e:

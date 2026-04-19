@@ -392,6 +392,8 @@ export async function updateProfile(params: {
   degree_level?: string;
   xp?: number;
   streak?: number;
+  profile_picture?: string;
+  referral_code?: string;
 }): Promise<{ status: string; profile: any }> {
   const res = await fetch(`${BASE}/api/auth/update-profile`, {
     method: "POST",
