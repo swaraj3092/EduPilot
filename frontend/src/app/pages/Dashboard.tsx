@@ -388,8 +388,8 @@ export function Dashboard() {
               <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-card/95 backdrop-blur-3xl border-border p-8 flex flex-col shadow-2xl overflow-y-auto [&>button]:hidden">
                 <div className="flex items-start justify-between border-b border-border pb-4 mb-6">
                   <DialogHeader>
-                    <DialogTitle className="text-3xl font-black bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent mb-2 italic tracking-tighter">Command Center</DialogTitle>
-                    <DialogDescription className="text-muted-foreground text-lg font-medium italic">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
+                    <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent mb-2 tracking-tight">Command Center</DialogTitle>
+                    <DialogDescription className="text-muted-foreground text-lg font-medium">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
@@ -446,8 +446,8 @@ export function Dashboard() {
               <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-xl md:text-2xl font-black italic tracking-tighter">AI Essay Coach</DialogTitle>
-                    <DialogDescription className="text-muted-foreground font-medium italic">
+                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold tracking-tight">AI Essay Coach</DialogTitle>
+                    <DialogDescription className="text-muted-foreground font-medium">
                       Get instant AI-powered feedback on your Statement of Purpose
                     </DialogDescription>
                   </DialogHeader>
@@ -516,7 +516,7 @@ export function Dashboard() {
             <div className="flex items-center gap-2 bg-muted px-2 py-1 rounded-full border border-border">
               <div className="flex items-center gap-1">
                 <Flame className="w-3 h-3 text-orange-500" />
-                <span className="text-[10px] font-bold text-foreground italic">{userStats.streak}</span>
+                <span className="text-[10px] font-bold text-foreground">{userStats.streak}</span>
               </div>
               <div className="w-[1px] h-3 bg-border" />
               <div className="flex items-center gap-1">

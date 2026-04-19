@@ -127,7 +127,7 @@ export function PublicProfile() {
                       {profile.profile_picture ? (
                         <img src={profile.profile_picture} alt={profile.full_name} className="w-full h-full object-cover" />
                       ) : (
-                        <div className="text-4xl font-black text-primary/30 italic">
+                        <div className="text-4xl font-bold text-primary/30">
                           {profile.full_name[0]}
                         </div>
                       )}
@@ -193,7 +193,7 @@ export function PublicProfile() {
 
               {/* Join Badge */}
               <div className="absolute top-4 right-4 rotate-12">
-                 <div className="px-2 py-1 bg-white text-[#0A0A1F] text-[8px] font-black uppercase tracking-tighter shadow-lg"> Verified Pilot </div>
+                 <div className="px-2 py-1 bg-white text-[#0A0A1F] text-[8px] font-bold uppercase tracking-wide shadow-lg"> Verified Pilot </div>
               </div>
             </Card>
           </motion.div>
@@ -210,7 +210,7 @@ export function PublicProfile() {
                  <Rocket className="w-4 h-4" />
                  LEVEL {Math.floor(profile.xp / 1000) + 1} PILOT ENTRANCE
               </div>
-              <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
+              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
                 Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-400 to-indigo-500">{profile.full_name.split(' ')[0]}'s</span> Study Abroad Crew.
               </h1>
               <p className="text-lg text-white/60 mb-10 max-w-lg mx-auto lg:mx-0">

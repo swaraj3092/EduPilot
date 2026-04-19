@@ -131,23 +131,23 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
               <div className="flex flex-col items-center text-center mb-10">
                 <div className="relative mb-4 group cursor-pointer" onClick={() => navigate('/profile')}>
                   <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-1 shadow-lg shadow-indigo-500/20">
-                    <div className="w-full h-full rounded-[22px] bg-card flex items-center justify-center text-3xl text-foreground font-black italic">
+                    <div className="w-full h-full rounded-[22px] bg-card flex items-center justify-center text-3xl text-foreground font-bold">
                       {userStats.name?.charAt(0) || "U"}
                     </div>
                   </div>
-                  <div className="absolute -bottom-2 -right-2 bg-indigo-600 text-white text-xs font-black px-2 py-1 rounded-full border-2 border-card uppercase tracking-tighter">
+                  <div className="absolute -bottom-2 -right-2 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded-full border-2 border-card uppercase tracking-wide">
                     LVL {userStats.level}
                   </div>
                 </div>
-                <h2 className="text-xl font-black text-foreground mb-1 italic tracking-tight">{userStats.name}</h2>
-                <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest">{userStats.levelTitle || "Elite Navigator"}</p>
+                <h2 className="text-xl font-bold text-foreground mb-1 tracking-tight">{userStats.name}</h2>
+                <p className="text-muted-foreground text-xs font-medium uppercase tracking-widest">{userStats.levelTitle || "Elite Navigator"}</p>
               </div>
 
               <div className="space-y-6 flex-1">
                 <div className="p-4 rounded-2xl bg-card border border-border shadow-sm">
                   <div className="flex items-center gap-3 mb-3">
                     <Flame className="w-5 h-5 text-orange-500 fill-orange-500" />
-                    <span className="text-foreground font-black italic text-sm">{userStats.streak} DAY PULSE</span>
+                    <span className="text-foreground font-bold text-sm tracking-wide">{userStats.streak} DAY PULSE</span>
                   </div>
                   <div className="flex gap-2">
                     {[1, 2, 3, 4, 5, 6, 7].map(d => (
@@ -159,7 +159,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                 <div className="p-4 rounded-2xl bg-card border border-border shadow-sm">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest">XP Progress</span>
-                    <span className="text-indigo-600 text-[10px] font-black">{userStats.xp.toLocaleString()} / {nextXP.toLocaleString()}</span>
+                    <span className="text-indigo-600 text-[10px] font-bold">{userStats.xp.toLocaleString()} / {nextXP.toLocaleString()}</span>
                   </div>
                   <div className="h-2 bg-input rounded-full overflow-hidden">
                     <motion.div 
@@ -192,9 +192,9 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                   <div className="w-full">
                     {/* Compact Mobile Header */}
                     <div className="flex items-center gap-3 md:hidden mb-6 p-3 bg-muted/50 rounded-2xl border border-border shadow-sm">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/20 italic">{userStats.name?.charAt(0)}</div>
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/20">{userStats.name?.charAt(0)}</div>
                         <div className="flex-1">
-                          <p className="text-sm font-black text-foreground italic tracking-tight">{userStats.name}</p>
+                          <p className="text-sm font-bold text-foreground tracking-tight">{userStats.name}</p>
                           <p className="text-[10px] text-indigo-600 font-bold uppercase tracking-widest leading-none">Level {userStats.level} • {userStats.levelTitle}</p>
                         </div>
                         <Button variant="ghost" size="icon" onClick={onClose} className="text-muted-foreground h-10 w-10">
@@ -208,7 +208,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                         <button
                           key={tab}
                           onClick={() => setMobileTab(tab as any)}
-                          className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest transition-all rounded-lg ${
+                          className={`flex-1 py-3 text-[10px] font-bold uppercase tracking-widest transition-all rounded-lg ${
                             mobileTab === tab ? "bg-card text-primary shadow-lg shadow-indigo-500/10 border border-border/50" : "text-muted-foreground/50"
                           }`}
                         >
@@ -217,7 +217,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                       ))}
                     </div>
 
-                    <h1 className="hidden md:block text-3xl font-black text-foreground mb-1 italic tracking-tight">{isExpanded ? 'Global Leaderboard' : 'Quest Log'}</h1>
+                    <h1 className="hidden md:block text-3xl font-bold text-foreground mb-1 tracking-tight">{isExpanded ? 'Global Leaderboard' : 'Quest Log'}</h1>
                     <p className="hidden md:block text-muted-foreground text-sm font-medium">Level up your journey by completing mission objectives</p>
                   </div>
                 </header>
@@ -226,40 +226,40 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                   <AnimatePresence mode="wait">
                     {/* Missions View */}
                     {(mobileTab === "missions" || !isMobile) && (
-                      <motion.div
-                        key="missions"
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 10 }}
-                        className={`space-y-4 ${mobileTab !== 'missions' && 'hidden md:block'}`}
-                      >
-                         <h3 className="hidden md:flex items-center gap-2 text-foreground font-black italic mb-4 uppercase text-xs tracking-widest">
-                           <Target className="w-5 h-5 text-primary" />
-                           Active Missions
-                         </h3>
-                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
+                        <motion.div
+                          key="missions"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 10 }}
+                          className={`space-y-4 ${mobileTab !== 'missions' && 'hidden md:block'}`}
+                        >
+                          <h3 className="hidden md:flex items-center gap-2 text-foreground font-bold mb-4 uppercase text-xs tracking-widest">
+                            <Target className="w-5 h-5 text-primary" />
+                            Active Missions
+                          </h3>
+                          <div className="grid grid-cols-1 gap-3 md:gap-4 max-w-2xl mx-auto">
                             {quests.map((q, i) => (
                               <Card 
                                 key={i} 
                                 onClick={() => handleQuestClick(q)}
-                                className={`p-4 backdrop-blur-xl border-border relative overflow-hidden group transition-all cursor-pointer shadow-sm ${q.status === 'completed' ? 'bg-green-500/5' : 'bg-card hover:bg-muted/50'}`}
+                                className={`p-5 backdrop-blur-xl border-border relative overflow-hidden group transition-all cursor-pointer shadow-md rounded-[24px] ${q.status === 'completed' ? 'bg-green-500/5' : 'bg-card hover:border-primary/30'}`}
                               >
-                                <div className="flex items-center gap-4">
-                                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-inner ${q.status === 'completed' ? 'bg-green-500/20 text-green-600' : 'bg-primary/10 text-primary'}`}>
-                                    {q.status === 'completed' ? <Shield className="w-5 h-5" /> : <Target className="w-5 h-5" />}
+                                <div className="flex items-center gap-6">
+                                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-inner ${q.status === 'completed' ? 'bg-green-500/20 text-green-600' : 'bg-primary/10 text-primary'}`}>
+                                    {q.status === 'completed' ? <Shield className="w-6 h-6" /> : <Target className="w-6 h-6" />}
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <h4 className="text-foreground font-black text-sm mb-0.5 truncate tracking-tight">{q.title}</h4>
-                                    <p className="text-muted-foreground font-medium text-[10px] truncate">{q.desc}</p>
+                                    <h4 className="text-foreground font-bold text-base mb-1 truncate tracking-tight">{q.title}</h4>
+                                    <p className="text-muted-foreground font-medium text-xs truncate leading-none">{q.desc}</p>
                                   </div>
-                                  <div className="flex items-center gap-1 text-purple-600 font-black text-[10px] bg-purple-500/10 px-2 py-1 rounded-lg border border-purple-500/20">
-                                    <Zap className="w-3 h-3 fill-purple-600" />
+                                  <div className="flex items-center gap-1.5 text-purple-600 font-bold text-xs bg-purple-500/10 px-3 py-1.5 rounded-xl border border-purple-500/20">
+                                    <Zap className="w-4 h-4 fill-purple-600" />
                                     +{q.xp}
                                   </div>
                                 </div>
                               </Card>
                             ))}
-                         </div>
+                          </div>
                       </motion.div>
                     )}
 
@@ -272,7 +272,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                         exit={{ opacity: 0, x: 10 }}
                         className={`space-y-4 md:mt-12 ${mobileTab !== 'rankings' && 'hidden md:block'}`}
                       >
-                        <h3 className="flex items-center gap-2 text-foreground font-black italic mb-4 uppercase text-xs tracking-widest">
+                        <h3 className="flex items-center gap-2 text-foreground font-bold mb-4 uppercase text-xs tracking-widest">
                            <Crown className="w-5 h-5 text-yellow-600" />
                            Global Rankings
                         </h3>
@@ -283,11 +283,11 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                              leaderboard.slice(0, 10).map((u, i) => (
                                <div key={i} className={`p-4 rounded-2xl flex items-center justify-between border ${u.full_name?.toLowerCase() === userStats.name?.toLowerCase() ? 'bg-primary/20 border-primary/50' : 'bg-card border-border shadow-sm shadow-black/5'}`}>
                                  <div className="flex items-center gap-4">
-                                   <span className={`text-sm font-black ${i < 3 ? 'text-primary' : 'text-muted-foreground/30'}`}>{i + 1}</span>
-                                   <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-xs font-black text-foreground shadow-inner">{u.full_name?.charAt(0)}</div>
+                                   <span className={`text-sm font-bold ${i < 3 ? 'text-primary' : 'text-muted-foreground/30'}`}>{i + 1}</span>
+                                   <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-foreground shadow-inner">{u.full_name?.charAt(0)}</div>
                                    <div className="min-w-0">
-                                     <p className="text-foreground text-sm font-black truncate max-w-[140px] tracking-tight">{u.full_name}</p>
-                                     <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">{u.target_country || 'Worldwide'}</p>
+                                     <p className="text-foreground text-sm font-bold truncate max-w-[140px] tracking-tight">{u.full_name}</p>
+                                     <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tight">{u.target_country || 'Worldwide'}</p>
                                    </div>
                                  </div>
                                  <div className="text-right">
@@ -313,7 +313,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                            <div className="inline-flex p-4 rounded-3xl bg-primary text-white mb-4 shadow-lg shadow-primary/30">
                               <Trophy className="w-8 h-8" />
                            </div>
-                           <h3 className="text-2xl font-black text-foreground mb-1 italic tracking-tighter">{userStats.xp.toLocaleString()} <span className="text-primary">XP</span></h3>
+                           <h3 className="text-2xl font-bold text-foreground mb-1 tracking-tight">{userStats.xp.toLocaleString()} <span className="text-primary">XP</span></h3>
                            <p className="text-muted-foreground text-[10px] font-bold tracking-widest uppercase mb-8">Career Mission Points</p>
                            
                            <div className="flex gap-1.5 mb-2">
@@ -322,7 +322,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                              ))}
                            </div>
                            <div className="flex justify-between items-center text-orange-600">
-                             <div className="flex items-center gap-1.5 font-black text-xs italic tracking-tighter">
+                             <div className="flex items-center gap-1.5 font-bold text-xs tracking-tight">
                                <Flame className="w-4 h-4 fill-orange-500" />
                                {userStats.streak} DAY STREAK
                              </div>
@@ -336,7 +336,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                                <div className={`p-3 rounded-2xl bg-muted mb-3 shadow-inner`}>
                                  <b.icon className={`w-8 h-8 ${b.color}`} />
                                </div>
-                               <p className="text-[10px] font-black text-foreground uppercase tracking-widest">{b.name}</p>
+                               <p className="text-[10px] font-bold text-foreground uppercase tracking-widest">{b.name}</p>
                              </div>
                            ))}
                         </div>
@@ -345,7 +345,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                   </AnimatePresence>
 
                   <div className="mt-8 md:hidden">
-                      <Button onClick={onClose} className="w-full h-14 rounded-2xl bg-indigo-500 hover:bg-indigo-600 text-white font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-transform">
+                      <Button onClick={onClose} className="w-full h-14 rounded-2xl bg-indigo-500 hover:bg-indigo-600 text-white font-bold uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-transform">
                           Back to Dashboard
                       </Button>
                   </div>
