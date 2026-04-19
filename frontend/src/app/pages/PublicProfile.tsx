@@ -298,7 +298,7 @@ export function PublicProfile() {
               <div className="space-y-4">
                  <h2 className="text-7xl font-black text-white leading-[0.9] tracking-tight">
                    Welcome back, <br/> 
-                   <span className="text-primary italic px-2">{profile.full_name.split(' ')[0]}!</span>
+                   <span className="text-primary italic px-2">{viewerName}!</span>
                  </h2>
                  <p className="text-xl text-white/50 font-medium max-w-lg">
                    You're already part of the mission. Ready to continue your journey to <span className="text-white">{profile.target_country}</span>?
