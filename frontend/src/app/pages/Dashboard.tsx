@@ -105,6 +105,8 @@ export function Dashboard() {
             name: db.full_name,
             xp: db.xp,
             streak: db.streak || 1,
+            profile_picture: db.profile_picture || currentProfile.profile_picture,
+            referral_code: db.referral_code || currentProfile.referral_code,
             last_login_date: db.last_login_date || currentProfile.last_login_date
           };
           setCompletedQuests(db.quests_completed || []);
