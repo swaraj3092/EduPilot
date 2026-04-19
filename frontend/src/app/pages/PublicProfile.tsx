@@ -152,15 +152,15 @@ export function PublicProfile() {
 
               {/* Stats Row */}
               <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
-                  <Zap className="w-6 h-6 text-primary mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-white">{profile.xp}</div>
-                  <div className="text-[10px] text-white/40 uppercase font-bold tracking-widest">Mastery XP</div>
+                <div className="p-4 rounded-2xl bg-white/10 border border-white/20 text-center group/stat hover:bg-white/15 transition-all">
+                  <Zap className="w-8 h-8 text-primary mx-auto mb-2 group-hover/stat:scale-110 transition-transform" />
+                  <div className="text-3xl font-bold text-white tracking-tighter">{profile.xp.toLocaleString()}</div>
+                  <div className="text-[10px] text-white/40 uppercase font-black tracking-widest">Mastery XP</div>
                 </div>
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
-                  <Flame className="w-6 h-6 text-orange-500 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-white">{profile.streak}</div>
-                  <div className="text-[10px] text-white/40 uppercase font-bold tracking-widest">Day Streak</div>
+                <div className="p-4 rounded-2xl bg-white/10 border border-white/20 text-center group/stat hover:bg-white/15 transition-all">
+                  <Flame className="w-8 h-8 text-orange-500 mx-auto mb-2 group-hover/stat:scale-110 transition-transform" />
+                  <div className="text-3xl font-bold text-white tracking-tighter">{profile.streak}</div>
+                  <div className="text-[10px] text-white/40 uppercase font-black tracking-widest">Day Pulse</div>
                 </div>
               </div>
 
@@ -183,13 +183,15 @@ export function PublicProfile() {
                 </div>
               </div>
 
-              {/* Target Goal */}
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-primary/10 to-transparent border-l-4 border-primary">
-                 <div className="text-[10px] text-white/40 font-bold uppercase mb-1">Target Mission</div>
-                 <div className="text-sm text-white font-medium">
-                    Applying to study {profile.target_field || "Global Technology"} in {profile.target_country || "USA"}
+              {/* Target Goal - "The Mission" */}
+              <Card className="p-5 bg-gradient-to-r from-primary/20 via-primary/5 to-transparent border-none shadow-none relative overflow-hidden group/mission">
+                 <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
+                 <div className="text-[10px] text-white/40 font-black uppercase mb-1.5 tracking-widest">Mission Objective</div>
+                 <div className="text-sm text-white font-bold leading-relaxed">
+                    Mastering <span className="text-primary italic">{profile.target_field || "Global Technology"}</span> admissions for <span className="text-primary italic">{profile.target_country || "top global universities"}</span>.
                  </div>
-              </div>
+                 <Sparkles className="absolute bottom-2 right-2 w-4 h-4 text-white/10 group-hover/mission:text-primary/40 transition-colors" />
+              </Card>
 
               {/* Join Badge */}
               <div className="absolute top-4 right-4 rotate-12">

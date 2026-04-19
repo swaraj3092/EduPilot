@@ -224,18 +224,22 @@ async def get_public_profile(referral_code: str):
     if not supabase:
         raise HTTPException(status_code=500, detail="Database not connected")
     
-    # Try searching by referral_code
-    res = supabase.table("profiles").select("*").eq("referral_code", referral_code).execute()
+    # Try searching by referral_code (Case Insensitive)
+    res = supabase.table("profiles").select("*").ilike("referral_code", referral_code).execute()
     
     if not res.data:
-        # Fallback: Search by sluggified full_name (lowercase, no spaces)
-        # We fetch a few profiles and find the match in Python to be safe and flexible
+        # Fallback: Search by sluggified full_name
         all_profiles = supabase.table("profiles").select("user_id, full_name").execute()
         target_id = None
+        # Standardize the search code
+        search_code = "".join(filter(str.isalnum, referral_code.lower()))
+        
         for p in all_profiles.data:
-            if p.get("full_name") and p.get("full_name").replace(" ", "").lower() == referral_code.lower():
-                target_id = p["user_id"]
-                break
+            if p.get("full_name"):
+                slug = "".join(filter(str.isalnum, p["full_name"].lower()))
+                if slug == search_code:
+                    target_id = p["user_id"]
+                    break
         
         if target_id:
             res = supabase.table("profiles").select("*").eq("user_id", target_id).execute()

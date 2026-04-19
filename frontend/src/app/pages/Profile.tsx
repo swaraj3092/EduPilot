@@ -132,10 +132,10 @@ export function Profile() {
         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-8 md:mb-12">
           <div className="w-24 h-24 md:w-32 md:h-32 rounded-[40px] bg-gradient-to-br from-primary via-purple-500 to-pink-500 p-1 shadow-2xl overflow-hidden">
             <div className="w-full h-full rounded-[36px] bg-card flex items-center justify-center overflow-hidden">
-               {profile?.profile_picture ? (
-                 <img src={profile.profile_picture} alt="Profile" className="w-full h-full object-cover" />
+               {profile?.profile_picture || JSON.parse(localStorage.getItem("edupilot-profile") || "{}").profile_picture ? (
+                 <img src={profile?.profile_picture || JSON.parse(localStorage.getItem("edupilot-profile") || "{}").profile_picture} alt="Profile" className="w-full h-full object-cover" />
                ) : (
-                 <div className="text-4xl md:text-5xl font-black text-primary/30 italic">{userData.name.charAt(0)}</div>
+                 <div className="text-4xl md:text-5xl font-bold text-primary/30">{userData.name.charAt(0)}</div>
                )}
             </div>
           </div>

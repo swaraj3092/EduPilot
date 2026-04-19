@@ -500,9 +500,18 @@ export function Dashboard() {
             <Button variant="ghost" size="icon" className="text-foreground/70 hover:text-foreground" onClick={() => navigate("/settings")}>
               <SettingsIcon className="w-5 h-5" />
             </Button>
-            <Button variant="outline" className="border-white/20 hover:bg-white/10" onClick={() => navigate("/profile")}>
-              Profile
-            </Button>
+            <div 
+              className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-purple-500 to-pink-500 p-0.5 shadow-lg shadow-indigo-500/20 cursor-pointer hover:scale-105 transition-transform"
+              onClick={() => navigate("/profile")}
+            >
+              <div className="w-full h-full rounded-[9px] bg-card flex items-center justify-center overflow-hidden">
+                {profile.profile_picture ? (
+                  <img src={profile.profile_picture} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="text-[10px] font-bold text-primary">{userStats.name.charAt(0)}</div>
+                )}
+              </div>
+            </div>
             <Button variant="ghost" className="text-red-400 hover:text-red-300 hover:bg-red-400/10" onClick={() => {
               localStorage.removeItem("edupilot-user");
               navigate("/");

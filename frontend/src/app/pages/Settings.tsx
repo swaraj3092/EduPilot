@@ -64,10 +64,9 @@ export function Settings() {
     
     try {
       const authUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
+      const refCode = profile.name.toLowerCase().replace(/[^a-z0-9]/g, '');
       
-      // 1. Save to Database
-      const refCode = profile.name.toLowerCase().replace(/\s+/g, '');
-      await updateProfile({
+      const payload = {
         user_id: authUser.id,
         full_name: profile.name,
         phone: profile.phone,
@@ -76,13 +75,22 @@ export function Settings() {
         degree_level: profile.level,
         profile_picture: profile.profile_picture,
         referral_code: refCode
-      });
-      
-      const updatedProfile = { ...profile, referral_code: refCode };
-      setProfile(updatedProfile);
+      };
 
-      // 2. Local Storage Sync
-      localStorage.setItem("edupilot-profile", JSON.stringify(profile));
+      // 1. Save to Database
+      await updateProfile(payload);
+      
+      const completeProfile = { 
+        ...profile, 
+        profile_picture: payload.profile_picture, // Ensure we use the latest one
+        referral_code: refCode,
+        full_name: profile.name // Standardize keys
+      };
+      
+      setProfile(completeProfile);
+
+      // 2. Local Storage Sync (Using the local variable to avoid stale state)
+      localStorage.setItem("edupilot-profile", JSON.stringify(completeProfile));
       localStorage.setItem("edupilot-notifications", JSON.stringify(notifications));
       localStorage.setItem("edupilot-privacy", JSON.stringify(privacy));
       localStorage.setItem("edupilot-theme", pendingTheme);
@@ -102,7 +110,8 @@ export function Settings() {
       }
     } catch (err) {
       console.error("Database sync failed", err);
-      // Even if DB fails, local storage (theme/lang) is updated
+      // Fallback: save to local storage anyway
+      localStorage.setItem("edupilot-profile", JSON.stringify(profile));
       setSaveStatus("Saved Locally!");
       setTimeout(() => setSaveStatus("Save Changes"), 2000);
     } finally {
