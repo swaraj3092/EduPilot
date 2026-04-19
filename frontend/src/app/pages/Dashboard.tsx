@@ -416,13 +416,15 @@ export function Dashboard() {
                       whileTap={{ scale: 0.98 }}
                       onClick={() => {
                         setIsNexusOpen(false);
-                        if (tool.label === "Essay Coach") {
-                           setIsEssayOpen(true);
-                        } else if (tool.label === "Global Roadmap") {
-                           handleGenerateBlueprint();
-                        } else {
-                           navigate(tool.path);
-                        }
+                        setTimeout(() => {
+                          if (tool.label === "Essay Coach") {
+                             setIsEssayOpen(true);
+                          } else if (tool.label === "Global Roadmap") {
+                             handleGenerateBlueprint();
+                          } else {
+                             navigate(tool.path);
+                          }
+                        }, 100);
                       }}
                       className="group cursor-pointer p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-all relative overflow-hidden"
                     >
@@ -549,39 +551,16 @@ export function Dashboard() {
                 className="absolute top-full left-0 right-0 z-40 bg-[#0D0D1A]/95 backdrop-blur-2xl border-b border-white/10 overflow-hidden lg:hidden"
               >
                 <div className="px-4 py-4 space-y-1">
-                  {/* Essay Coach as a button in mobile */}
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <button
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <FileText className="w-5 h-5 text-purple-400" />
-                        <span className="text-sm">Essay Coach</span>
-                      </button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0A0A16]/95 backdrop-blur-2xl border-white/5 p-0 flex flex-col shadow-2xl [&>button]:hidden">
-                      <div className="p-5 pb-3 flex items-center justify-between">
-                        <DialogHeader className="text-left">
-                          <DialogTitle className="text-white text-xl font-bold">AI Essay Coach</DialogTitle>
-                          <DialogDescription className="text-white/50">
-                            Get instant AI-powered feedback on your SOP
-                          </DialogDescription>
-                        </DialogHeader>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          className="text-white/50 hover:text-white" 
-                          onClick={() => setIsEssayOpen(false)}
-                        >
-                          <X className="w-5 h-5" />
-                        </Button>
-                      </div>
-                      <div className="flex-1 overflow-y-auto px-5 pb-5">
-                        <EssayCoach />
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <button
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setTimeout(() => setIsEssayOpen(true), 100);
+                    }}
+                  >
+                    <FileText className="w-5 h-5 text-purple-400" />
+                    <span className="text-sm">Essay Coach</span>
+                  </button>
 
                   {NAV_ITEMS.map((item, i) => (
                     <motion.button
