@@ -224,15 +224,16 @@ export function PublicProfile() {
 
         {/* Right Side: Join EduPilot CTA */}
         <div className="flex-1 text-center lg:text-left">
-           <motion.div
-             initial={{ opacity: 0, x: 20 }}
-             animate={{ opacity: 1, x: 0 }}
-             transition={{ delay: 0.6 }}
-           >
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-bold mb-6">
-                 <Rocket className="w-4 h-4" />
-                 LEVEL {Math.floor(profile.xp / 1000) + 1} PILOT ENTRANCE
-              </div>
+           {!isLoggedIn ? (
+             <motion.div
+               initial={{ opacity: 0, x: 20 }}
+               animate={{ opacity: 1, x: 0 }}
+               transition={{ delay: 0.6 }}
+             >
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-bold mb-6">
+                   <Rocket className="w-4 h-4" />
+                   LEVEL {Math.floor(profile.xp / 1000) + 1} PILOT ENTRANCE
+                </div>
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
                 Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-400 to-indigo-500">{profile.full_name.split(' ')[0]}'s</span> Study Abroad Crew.
               </h1>
@@ -282,6 +283,44 @@ export function PublicProfile() {
                  </div>
               </div>
            </motion.div>
+         ) : (
+           <motion.div
+             animate={{ opacity: 1, y: 0 }}
+             initial={{ opacity: 0, y: 20 }}
+             className="space-y-12"
+           >
+              <div className="space-y-4">
+                 <h2 className="text-7xl font-black text-white leading-[0.9] tracking-tight">
+                   Welcome back, <br/> 
+                   <span className="text-primary italic px-2">{profile.full_name.split(' ')[0]}!</span>
+                 </h2>
+                 <p className="text-xl text-white/50 font-medium max-w-lg">
+                   You're already part of the mission. Ready to continue your journey to <span className="text-white">{profile.target_country}</span>?
+                 </p>
+              </div>
+
+              <div className="flex flex-col gap-6">
+                 <Button 
+                   onClick={() => navigate('/dashboard')}
+                   className="h-20 px-12 rounded-[30px] bg-primary text-white hover:bg-primary/90 transition-all flex items-center gap-4 text-2xl font-bold shadow-2xl shadow-primary/30 w-fit"
+                 >
+                   Back to Dashboard
+                   <ArrowRight className="w-6 h-6" />
+                 </Button>
+                 
+                 <div className="pt-8 border-t border-white/10 max-w-sm">
+                    <p className="text-xs font-bold text-white/30 uppercase tracking-widest mb-4">Your Social Impact</p>
+                    <div className="flex items-center gap-4">
+                       <div className="px-4 py-2 rounded-xl bg-white/5 border border-white/10">
+                          <div className="text-xl font-bold text-white leading-none">{profile.referrals_count || 0}</div>
+                          <div className="text-[10px] text-white/40 uppercase font-black">Crew Members</div>
+                       </div>
+                       <p className="text-sm text-white/40 font-medium italic">"Every explorer needs a solid crew."</p>
+                    </div>
+                 </div>
+              </div>
+           </motion.div>
+         )}
         </div>
       </div>
 
