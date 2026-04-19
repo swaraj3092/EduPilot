@@ -53,6 +53,7 @@ export function Dashboard() {
   const [isBlueprintOpen, setIsBlueprintOpen] = useState(false);
   const [blueprint, setBlueprint] = useState("");
   const [blueprintLoading, setBlueprintLoading] = useState(false);
+  const [mobileWorkview, setMobileWorkview] = useState<"home" | "chat" | "discover">("home");
 
   const savedProfile = localStorage.getItem("edupilot-profile");
   const initialProfile = savedProfile ? JSON.parse(savedProfile) : { name: "Explorer", xp: 0, streak: 1 };
@@ -627,7 +628,7 @@ export function Dashboard() {
       {/* Main Content — Responsive Split Pane */}
       <div className="relative z-10 max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:h-[calc(100vh-73px)]">
         {/* Left: AI Chat */}
-        <div className="flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 min-h-[50vh] lg:min-h-0">
+        <div className={`flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 min-h-[50vh] lg:min-h-0 ${mobileWorkview === 'chat' ? 'flex' : 'hidden lg:flex'}`}>
           {/* Chat Header */}
           <div className="p-4 md:p-6 border-b border-white/10">
             <div className="flex items-center gap-3">
@@ -707,7 +708,7 @@ export function Dashboard() {
         </div>
 
         {/* Right: Live University Cards & Discover Hub */}
-        <div className="w-full lg:w-[420px] xl:w-[500px] flex flex-col h-full bg-foreground/[0.02] border-l border-border/10 overflow-hidden">
+        <div className={`w-full lg:w-[420px] xl:w-[500px] flex flex-col h-full bg-foreground/[0.02] border-l border-border/10 overflow-hidden ${mobileWorkview !== 'chat' ? 'flex' : 'hidden lg:flex'}`}>
           
           {/* Action Center - Prioritized AI Nudges */}
           <div className="p-4 border-b border-border/10 bg-indigo-500/[0.03]">
@@ -960,15 +961,23 @@ export function Dashboard() {
               whileTap={{ scale: 0.9 }}
               onClick={() => {
                 if (nav.id === "chat") {
-                  setActiveTab("chat"); // Focus chat
+                  setMobileWorkview("chat");
                 } else if (nav.id === "quests") {
                   setIsQuestOpen(true);
+                } else if (nav.id === "discover") {
+                  setMobileWorkview("discover");
+                  setActiveTab("discover");
                 } else {
-                  setActiveTab(nav.id as any);
+                  setMobileWorkview("home");
+                  setActiveTab("matches");
                 }
               }}
               className={`flex flex-col items-center justify-center p-3 rounded-full transition-all ${
-                activeTab === nav.id ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20" : "text-white/40"
+                (nav.id === 'dashboard' && mobileWorkview === 'home') || 
+                (nav.id === 'chat' && mobileWorkview === 'chat') ||
+                (nav.id === 'discover' && mobileWorkview === 'discover')
+                  ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20" 
+                  : "text-white/40"
               }`}
             >
               <nav.icon className="w-5 h-5" />
