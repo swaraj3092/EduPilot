@@ -224,45 +224,44 @@ async def get_public_profile(referral_code: str):
     if not supabase:
         raise HTTPException(status_code=500, detail="Database not connected")
     
-    print(f"DEBUG: get_public_profile called with code: '{referral_code}'")
+    print(f"DEBUG: get_public_profile looking for '{referral_code}'")
     
-    # Strategy 1: Direct referral_code match (Case Insensitive)
+    # 1. Direct referral_code match (Case Insensitive)
     res = supabase.table("profiles").select("*").ilike("referral_code", referral_code.strip()).execute()
     
     if not res.data:
-        print(f"DEBUG: No direct match for '{referral_code}', trying slugs...")
-        # Strategy 2: Clean Alphanumeric Slug Match
+        print(f"DEBUG: No direct match. Trying fuzzy slug match...")
         search_slug = "".join(filter(str.isalnum, referral_code.lower()))
-        print(f"DEBUG: Search slug generated: '{search_slug}'")
         
-        # We fetch profiles that have any name set - increase limit to 1000
-        all_profiles = supabase.table("profiles").select("user_id, full_name, referral_code").limit(1000).execute()
+        # Scan up to 2000 profiles to ensure we find old users
+        all_profiles = supabase.table("profiles").select("user_id, full_name, referral_code").limit(2000).execute()
         target_id = None
         
         for p in all_profiles.data:
-            name = p.get("full_name") or ""
-            ref = p.get("referral_code") or ""
+            name = (p.get("full_name") or "").lower()
+            ref = (p.get("referral_code") or "").lower()
             
-            # Check if cleaned name matches search_slug
-            name_slug = "".join(filter(str.isalnum, name.lower()))
-            ref_slug = "".join(filter(str.isalnum, ref.lower()))
+            # Match against names without spaces
+            name_no_space = name.replace(" ", "")
+            ref_no_space = ref.replace(" ", "")
             
-            if (name_slug and name_slug == search_slug) or (ref_slug and ref_slug == search_slug):
-                print(f"DEBUG: Match found! User: {name}, Slug: {name_slug}")
+            # Simple alphanumeric cleaning for deep slugs
+            name_clean = "".join(filter(str.isalnum, name))
+            ref_clean = "".join(filter(str.isalnum, ref))
+            
+            if search_slug in [name_no_space, ref_no_space, name_clean, ref_clean]:
+                print(f"DEBUG: PROFILE MATCH FOUND! ID: {p['user_id']} for name: {name}")
                 target_id = p["user_id"]
                 break
         
         if target_id:
             res = supabase.table("profiles").select("*").eq("user_id", target_id).execute()
         else:
-            print(f"DEBUG: No slug match, trying exact name match...")
-            # Final attempt: Exact name match without symbols
-            name_query = referral_code.replace("-", " ").replace("_", " ")
-            res = supabase.table("profiles").select("*").ilike("full_name", name_query).execute()
+            # 3. Last ditch: try sub-string ilike search for name
+            res = supabase.table("profiles").select("*").ilike("full_name", f"%{referral_code}%").execute()
             
         if not res.data:
-            print(f"DEBUG: FAILED to find profile for '{referral_code}'")
-            raise HTTPException(status_code=404, detail=f"Profile '{referral_code}' not found")
+             raise HTTPException(status_code=404, detail=f"Navigator '{referral_code}' not found in the manifest.")
         
     p = res.data[0]
     # Return redacted profile for public view

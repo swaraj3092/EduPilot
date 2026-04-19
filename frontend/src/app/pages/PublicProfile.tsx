@@ -16,6 +16,8 @@ export function PublicProfile() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [errorHeader, setErrorHeader] = useState("Profile Not Found");
+  const [errorMessage, setErrorMessage] = useState("This referral link might have expired or been moved.");
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -26,11 +28,11 @@ export function PublicProfile() {
         const res = await getPublicProfile(username);
         console.log("DEBUG: PublicProfile response:", res);
         
-        console.log("DEBUG: getPublicProfile response:", res);
         if (res.status === "success" && res.profile) {
           const p = res.profile;
           console.log("DEBUG: Target profile found:", p);
           setProfile(p);
+          
           // Save for tracking credit if they sign up later
           localStorage.setItem("edupilot-referrer", username);
 
@@ -52,11 +54,15 @@ export function PublicProfile() {
           setMeta('og:image', p.profile_picture || 'https://edupilot.vercel.app/og-preview.png');
           setMeta('twitter:card', 'summary_large_image');
         } else {
-          console.warn("DEBUG: Profile not found in response");
+          console.warn("DEBUG: Profile search failed in response:", res);
+          setErrorHeader("Navigator Not Found");
+          setErrorMessage(res.detail || "This explorer's manifest could not be retrieved. They may still be in transit.");
           setError(true);
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error("DEBUG: Public Profile Fetch Error:", err);
+        setErrorHeader("Navigation Jammed");
+        setErrorMessage(err.message || "The navigation frequency is jammed. Please try again soon.");
         setError(true);
       } finally {
         setLoading(false);
@@ -79,14 +85,17 @@ export function PublicProfile() {
 
   if (error || !profile) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 bg-[#060610]">
-        <AnimatedWorld />
-        <Card className="relative z-10 p-8 max-w-md text-center bg-card/80 backdrop-blur-xl border-border">
-          <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-foreground mb-4">Profile Not Found</h2>
-          <p className="text-muted-foreground mb-8">This referral link might have expired or been moved.</p>
-          <Button onClick={() => navigate("/auth")} className="w-full bg-primary text-white">Join EduPilot Anyway</Button>
-        </Card>
+      <div className="min-h-screen bg-[#0D0D1A] flex flex-col items-center justify-center p-6 -mt-20">
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="max-w-md w-full bg-card/40 backdrop-blur-2xl border border-border p-12 rounded-[40px] text-center shadow-2xl">
+          <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-red-500/20">
+             <AlertCircle className="w-10 h-10 text-red-500" />
+          </div>
+          <h2 className="text-3xl font-black text-white mb-4 tracking-tight">{errorHeader}</h2>
+          <p className="text-muted-foreground mb-8 font-medium leading-relaxed">{errorMessage}</p>
+          <Button onClick={() => navigate('/')} className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-lg shadow-lg shadow-primary/20">
+            Join EduPilot Anyway
+          </Button>
+        </motion.div>
       </div>
     );
   }
