@@ -219,6 +219,10 @@ async def complete_quest(data: QuestComplete):
     
     return {"status": "already_completed", "message": "Quest already finished"}
     
+@router.get("/health")
+async def auth_health():
+    return {"status": "Auth router is live and synchronized 🔐"}
+
 @router.get("/public-profile/{referral_code}")
 async def get_public_profile(referral_code: str):
     if not supabase:
