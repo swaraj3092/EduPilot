@@ -102,14 +102,19 @@ export function Dashboard() {
           const db = res.profile;
           currentProfile = {
             ...currentProfile,
-            name: db.full_name,
+            name: db.full_name || currentProfile.name,
             xp: db.xp,
             streak: db.streak || 1,
             profile_picture: db.profile_picture || currentProfile.profile_picture,
             referral_code: db.referral_code || currentProfile.referral_code,
-            last_login_date: db.last_login_date || currentProfile.last_login_date
+            last_login_date: db.last_login_date || currentProfile.last_login_date,
+            full_name: db.full_name,
+            country: db.target_country || currentProfile.country,
+            field: db.target_field || currentProfile.field,
+            level: db.degree_level || currentProfile.level
           };
           setCompletedQuests(db.quests_completed || []);
+          localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
         }
 
         // 2. Streak & Daily Check Logic (Using DB-synced value and LOCAL time)

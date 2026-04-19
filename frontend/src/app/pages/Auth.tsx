@@ -30,15 +30,12 @@ export function Auth() {
         const res = await loginUser({ email, password });
         localStorage.setItem("edupilot-user", JSON.stringify(res.user));
         navigate("/onboarding");
-      } else if (authMode === "login") {
         const res = await loginUser({ email, password });
         localStorage.setItem("edupilot-user", JSON.stringify(res.user));
-        if (res.profile && res.profile.full_name) {
+        if (res.profile) {
           localStorage.setItem("edupilot-profile", JSON.stringify(res.profile));
-          navigate("/dashboard");
-        } else {
-          navigate("/onboarding");
         }
+        navigate("/dashboard");
       } else if (authMode === "reset") {
         await resetPassword({ email, password });
         setSuccess("Password reset successfully! You can now login.");
@@ -57,18 +54,24 @@ export function Auth() {
         const user = event.data.user;
         localStorage.setItem("edupilot-user", JSON.stringify(user));
         
-        // Mock data for social login
-        const profile = {
-          name: user.name,
-          email: user.email,
-          phone: "+91 98765 43210",
-          country: "india",
-          level: "master",
-          field: "Computer Science"
-        };
-        localStorage.setItem("edupilot-profile", JSON.stringify(profile));
+        // If social login returns a profile, use it; otherwise fallback
+        if (event.data.profile) {
+          localStorage.setItem("edupilot-profile", JSON.stringify(event.data.profile));
+        } else {
+          const profile = {
+            full_name: user.name,
+            email: user.email,
+            phone: "+91 98765 43210",
+            country: "india",
+            level: "master",
+            field: "Computer Science",
+            xp: 0,
+            streak: 1
+          };
+          localStorage.setItem("edupilot-profile", JSON.stringify(profile));
+        }
         
-        navigate("/onboarding");
+        navigate("/dashboard");
       }
     };
 

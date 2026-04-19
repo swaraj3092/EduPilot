@@ -19,6 +19,12 @@ export function PublicProfile() {
   const [errorHeader, setErrorHeader] = useState("Profile Not Found");
   const [errorMessage, setErrorMessage] = useState("This referral link might have expired or been moved.");
   const [error, setError] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if current viewer is already a navigator
+    setIsLoggedIn(!!localStorage.getItem("edupilot-user"));
+  }, []);
 
   useEffect(() => {
     async function fetchProfile() {
