@@ -118,7 +118,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
             initial={{ opacity: 0, scale: 0.9, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
-            className={`fixed inset-4 md:inset-10 ${isExpanded ? 'lg:inset-10' : 'lg:inset-20'} bg-[#0D0D1A]/90 border border-white/10 rounded-[40px] z-[101] overflow-hidden flex flex-col md:flex-row shadow-2xl shadow-indigo-500/10 transition-all duration-300`}
+            className={`fixed inset-0 md:inset-4 lg:inset-10 ${isExpanded ? 'lg:inset-10' : 'lg:inset-20'} bg-[#0D0D1A] md:bg-[#0D0D1A]/90 border-0 md:border md:border-white/10 rounded-none md:rounded-[40px] z-[101] overflow-hidden flex flex-col md:flex-row shadow-2xl shadow-indigo-500/10 transition-all duration-300`}
           >
             {/* Sidebar Stats */}
             <div className={`w-full ${isExpanded ? 'md:w-64' : 'md:w-80'} bg-white/5 border-r border-white/10 p-8 flex flex-col transition-all overflow-y-auto`}>
@@ -129,7 +129,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                 </Button>
               </div>
 
-              <div className="flex flex-col items-center text-center mb-10">
+              <div className="hidden md:flex flex-col items-center text-center mb-10">
                 <div className="relative mb-4 group cursor-pointer" onClick={() => navigate('/profile')}>
                   <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-1">
                     <div className="w-full h-full rounded-[22px] bg-[#0D0D1A] flex items-center justify-center text-3xl text-white font-bold">
@@ -144,7 +144,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                 <p className="text-white/50 text-sm">{userStats.levelTitle || "Elite Navigator"}</p>
               </div>
 
-              <div className="space-y-6 flex-1">
+              <div className="hidden md:flex flex-col space-y-6 flex-1">
                 <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
                   <div className="flex items-center gap-3 mb-3">
                     <Flame className="w-5 h-5 text-orange-400 fill-orange-400" />
@@ -191,14 +191,26 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
             {/* Main Content */}
             <div className="flex-1 overflow-y-auto p-6 md:p-10 bg-gradient-to-br from-indigo-500/5 via-transparent to-pink-500/5">
               <div className="max-w-6xl mx-auto">
-                <header className="flex justify-between items-center mb-10">
+                <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
                   <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">{isExpanded ? 'Global Leaderboard' : 'Quest Center'}</h1>
-                    <p className="text-white/50">{isExpanded ? 'See how you stack up against the best' : 'Level up your journey by completing missions'}</p>
+                    <div className="flex items-center gap-3 md:hidden mb-4 p-2 bg-white/5 rounded-2xl border border-white/5">
+                        <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-white font-bold">{userStats.name?.charAt(0)}</div>
+                        <div>
+                          <p className="text-xs font-bold text-white">{userStats.name}</p>
+                          <p className="text-[10px] text-indigo-400">Level {userStats.level} Explorer</p>
+                        </div>
+                        <div className="flex-1" />
+                        <div className="flex items-center gap-2 bg-orange-500/10 px-2 py-1 rounded-lg border border-orange-500/10">
+                          <Flame className="w-3 h-3 text-orange-400" />
+                          <span className="text-[10px] font-bold text-orange-400">{userStats.streak}</span>
+                        </div>
+                    </div>
+                    <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">{isExpanded ? 'Global Leaderboard' : 'Quest Center'}</h1>
+                    <p className="text-white/50 text-xs md:text-sm">{isExpanded ? 'See how you stack up against the best' : 'Level up your journey by completing missions'}</p>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 w-full md:w-auto">
                     {isExpanded && (
-                      <Button variant="ghost" onClick={() => setIsExpanded(false)} className="text-white/60">
+                      <Button variant="ghost" onClick={() => setIsExpanded(false)} className="text-white/60 text-xs">
                         Back to Quests
                       </Button>
                     )}

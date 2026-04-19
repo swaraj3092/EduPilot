@@ -587,18 +587,32 @@ export function Dashboard() {
                       onClick={() => { navigate("/settings"); setMobileMenuOpen(false); }}
                     >
                       <SettingsIcon className="w-5 h-5" />
-                      <span className="text-sm">Settings</span>
-                    </motion.button>
-                    <motion.button
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.35 }}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-white/20 text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
-                      onClick={() => { navigate("/profile"); setMobileMenuOpen(false); }}
-                    >
-                      <span className="text-sm">Profile</span>
-                    </motion.button>
-                  </div>
+                  <div className="border-t border-white/10 mt-2 pt-4 flex flex-col gap-2">
+                     <motion.button
+                       initial={{ opacity: 0 }}
+                       animate={{ opacity: 1 }}
+                       transition={{ delay: 0.4 }}
+                       className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-white/20 text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
+                       onClick={() => { navigate("/profile"); setMobileMenuOpen(false); }}
+                     >
+                       <span className="text-sm">Profile</span>
+                     </motion.button>
+                     
+                     <motion.button
+                       initial={{ opacity: 0 }}
+                       animate={{ opacity: 1 }}
+                       transition={{ delay: 0.5 }}
+                       className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition"
+                       onClick={() => {
+                         localStorage.removeItem("edupilot-user");
+                         navigate("/");
+                         setMobileMenuOpen(false);
+                       }}
+                     >
+                       <span className="text-sm">Log Out</span>
+                     </motion.button>
+                   </div>
+              </div>
                 </div>
               </motion.div>
             </>
