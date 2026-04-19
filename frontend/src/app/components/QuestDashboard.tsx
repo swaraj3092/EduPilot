@@ -101,6 +101,12 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
       onClose();
     }
   };
+  const navigateToProfile = (u: any) => {
+    // Generate slug for fallback if referral_code is missing
+    const shareCode = u.referral_code || (u.full_name || "explorer").toLowerCase().replace(/[^a-z0-9]/g, '');
+    navigate(`/ref/${shareCode}`);
+    onClose();
+  };
 
   const badges = [
     { icon: Target, name: "Deadshot", color: "text-red-400" },
@@ -281,14 +287,11 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                              <div className="py-20 text-center text-muted-foreground/30 font-medium">Loading navigators...</div>
                            ) : (
                              leaderboard.slice(0, 10).map((u, i) => (
-                               <div 
-                                 key={i} 
-                                 onClick={() => {
-                                   const ref = u.referral_code || u.full_name?.toLowerCase().replace(/\s+/g, '');
-                                   if (ref) { navigate(`/ref/${ref}`); onClose(); }
-                                 }}
-                                 className={`p-4 rounded-2xl flex items-center justify-between border cursor-pointer transition-all hover:scale-[1.02] active:scale-95 ${u.full_name?.toLowerCase() === userStats.name?.toLowerCase() ? 'bg-primary/20 border-primary/50' : 'bg-card border-border shadow-sm shadow-black/5 hover:border-primary/30'}`}
-                               >
+                                <div 
+                                  key={i} 
+                                  onClick={() => navigateToProfile(u)}
+                                  className={`p-4 rounded-2xl flex items-center justify-between border cursor-pointer transition-all hover:scale-[1.02] active:scale-95 ${u.full_name?.toLowerCase() === userStats.name?.toLowerCase() ? 'bg-primary/20 border-primary/50' : 'bg-card border-border shadow-sm shadow-black/5 hover:border-primary/30'}`}
+                                >
                                  <div className="flex items-center gap-4">
                                    <span className={`text-sm font-bold ${i < 3 ? 'text-primary' : 'text-muted-foreground/30'}`}>{i + 1}</span>
                                    <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-foreground overflow-hidden shadow-inner">

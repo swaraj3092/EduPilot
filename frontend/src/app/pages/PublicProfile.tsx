@@ -20,11 +20,16 @@ export function PublicProfile() {
 
   useEffect(() => {
     async function fetchProfile() {
+      console.log("DEBUG: PublicProfile fetching for:", username);
       if (!username) return;
       try {
         const res = await getPublicProfile(username);
-        if (res.status === "success") {
+        console.log("DEBUG: PublicProfile response:", res);
+        
+        console.log("DEBUG: getPublicProfile response:", res);
+        if (res.status === "success" && res.profile) {
           const p = res.profile;
+          console.log("DEBUG: Target profile found:", p);
           setProfile(p);
           // Save for tracking credit if they sign up later
           localStorage.setItem("edupilot-referrer", username);
@@ -47,10 +52,11 @@ export function PublicProfile() {
           setMeta('og:image', p.profile_picture || 'https://edupilot.vercel.app/og-preview.png');
           setMeta('twitter:card', 'summary_large_image');
         } else {
+          console.warn("DEBUG: Profile not found in response");
           setError(true);
         }
       } catch (err) {
-        console.error("Public Profile Error:", err);
+        console.error("DEBUG: Public Profile Fetch Error:", err);
         setError(true);
       } finally {
         setLoading(false);
