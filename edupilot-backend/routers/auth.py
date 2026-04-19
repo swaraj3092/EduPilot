@@ -17,6 +17,7 @@ def verify_password(password: str, hashed: str) -> bool:
 class UserAuth(BaseModel):
     email: str # Can be email or phone based on UI
     password: str
+    referrer_code: Optional[str] = None
 
 class ProfileUpdate(BaseModel):
     user_id: str
@@ -56,6 +57,32 @@ async def register(auth: UserAuth):
     # Create empty profile
     supabase.table("profiles").insert({"user_id": user_id}).execute()
     
+    # Handle Referral Logic
+    if auth.referrer_code:
+        # 1. Try to find the referrer
+        # We check referral_code first, then full_name slugs
+        referrer_ref = supabase.table("profiles").select("*").eq("referral_code", auth.referrer_code).execute()
+        
+        if not referrer_ref.data:
+            # Fallback: Check if it's a sluggified name match
+            all_profiles = supabase.table("profiles").select("user_id, full_name, referrals_count, xp").execute()
+            for p in all_profiles.data:
+                slug = p["full_name"].lower().replace(' ', '') if p.get("full_name") else ""
+                if slug == auth.referrer_code:
+                    referrer_ref.data = [p]
+                    break
+        
+        if referrer_ref.data:
+            ref = referrer_ref.data[0]
+            new_count = (ref.get("referrals_count") or 0) + 1
+            new_xp = (ref.get("xp") or 0) + 100 # Reward referrer with 100 XP
+            
+            supabase.table("profiles").update({
+                "referrals_count": new_count,
+                "xp": new_xp
+            }).eq("user_id", ref["user_id"]).execute()
+            print(f"SUCCESS: Incremented referrals for {ref['user_id']} to {new_count}")
+
     return {"status": "success", "user_id": user_id, "message": "Account created successfully"}
 
 @router.post("/login")

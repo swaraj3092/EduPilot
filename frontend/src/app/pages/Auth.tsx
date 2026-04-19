@@ -26,7 +26,8 @@ export function Auth() {
     
     try {
       if (authMode === "signup") {
-        await registerUser({ email, password });
+        const referrer = localStorage.getItem("edupilot-referrer");
+        await registerUser({ email, password, referrer_code: referrer || undefined });
         const res = await loginUser({ email, password });
         localStorage.setItem("edupilot-user", JSON.stringify(res.user));
         navigate("/onboarding");

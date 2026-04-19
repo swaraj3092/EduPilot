@@ -362,6 +362,7 @@ export async function generateAgentBlueprint(params: {
 export async function registerUser(params: {
   email: string;
   password: string;
+  referrer_code?: string;
 }): Promise<{ status: string; user_id: string }> {
   const res = await fetch(`${BASE}/api/auth/register`, {
     method: "POST",

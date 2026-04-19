@@ -20,10 +20,16 @@ export function PublicProfile() {
   const [errorMessage, setErrorMessage] = useState("This referral link might have expired or been moved.");
   const [error, setError] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [viewerName, setViewerName] = useState("Navigator");
 
   useEffect(() => {
     // Check if current viewer is already a navigator
-    setIsLoggedIn(!!localStorage.getItem("edupilot-user"));
+    const savedProfile = localStorage.getItem("edupilot-profile");
+    if (savedProfile) {
+       const p = JSON.parse(savedProfile);
+       setIsLoggedIn(true);
+       setViewerName(p.full_name?.split(' ')[0] || p.name?.split(' ')[0] || "Navigator");
+    }
   }, []);
 
   useEffect(() => {
