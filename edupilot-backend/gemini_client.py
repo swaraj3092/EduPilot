@@ -16,11 +16,12 @@ if not api_key:
 
 genai.configure(api_key=api_key)
 
-# Prioritize fastest lightweight models first
+# Verified production model names for 2026 intake cycle
 FALLBACK_MODELS = [
     "gemini-2.0-flash",
     "gemini-1.5-flash",
-    "gemini-pro"
+    "gemini-2.0-flash-lite-preview-02-05",  # High-speed experimental
+    "gemini-1.5-pro"
 ]
 
 def generate_content(prompt: str) -> str:
@@ -55,7 +56,8 @@ def generate_content(prompt: str) -> str:
         except Exception as e:
             error_msg = str(e)
             last_error = error_msg
-            if "404" in error_msg and "is not found" in error_msg:
+            if "404" in error_msg:
+                print(f"[Gemini] Model {model_name} skipped (Not found/Unsupported)")
                 continue
             print(f"[Gemini] API Error with {model_name}: {error_msg}")
 
