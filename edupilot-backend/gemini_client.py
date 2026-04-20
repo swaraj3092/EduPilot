@@ -16,12 +16,12 @@ if not api_key:
 
 genai.configure(api_key=api_key)
 
-# Verified production model names for 2026 intake cycle
+# Verified production model aliases
 FALLBACK_MODELS = [
-    "gemini-2.0-flash",
-    "gemini-1.5-flash",
-    "gemini-2.0-flash-lite-preview-02-05",  # High-speed experimental
-    "gemini-1.5-pro"
+    "gemini-1.5-flash-latest",
+    "gemini-1.5-pro-latest",
+    "gemini-2.0-flash-exp",
+    "gemini-1.5-flash"
 ]
 
 def generate_content(prompt: str) -> str:
