@@ -49,6 +49,7 @@ def generate_content(prompt: str) -> str:
             response = model.generate_content(prompt)
             
             if response and hasattr(response, "text") and response.text:
+                print(f"\n🚀 [MISSION SUCCESS] AI response generated using: {model_name}\n")
                 return response.text.strip()
         except Exception as e:
             msg = str(e)
