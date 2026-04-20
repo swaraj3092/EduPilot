@@ -125,16 +125,16 @@ export function Dashboard() {
         if (lastLogin !== today) {
            const yesterday = new Date();
            yesterday.setDate(yesterday.getDate() - 1);
-           const yesterdayStr = yesterday.toISOString().split('T')[0];
+           const yesterdayStr = yesterday.toLocaleDateString('sv-SE');
 
-           let newStreak = currentProfile.streak;
+           let newStreak = currentProfile.streak || 1;
            if (lastLogin === yesterdayStr) {
-              newStreak += 1;
-              toast.success(`🔥 Streak Level Up: ${newStreak} Days! +50 XP granted.`);
-              await awardXP({ user_id: userId, amount: 50, reason: "Daily Return Bonus" });
+               newStreak += 1;
+               toast.success(`🔥 Streak Level Up: ${newStreak} Days! +50 XP granted.`);
+               await awardXP({ user_id: userId, amount: 50, reason: "Daily Return Bonus" });
            } else if (lastLogin) {
-              newStreak = 1;
-              toast.info("Streak reset to 1. Stay consistent!");
+               newStreak = 1;
+               toast.info("Streak reset to 1. Stay consistent!");
            }
 
             currentProfile.streak = newStreak;
@@ -643,7 +643,7 @@ export function Dashboard() {
         {/* Left: AI Chat */}
         <div className={`flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 h-full lg:h-auto ${
           mobileWorkview === 'chat' 
-            ? 'flex fixed inset-0 z-40 bg-background pt-0 pb-20' 
+            ? 'flex fixed inset-0 z-50 bg-background pt-0 pb-20' 
             : 'hidden lg:flex'
         }`}>
           {/* Chat Header - Mobile Optimized */}
@@ -984,7 +984,7 @@ export function Dashboard() {
         </DialogContent>
       </Dialog>
 
-      <Footer />
+      {mobileWorkview !== 'chat' && <Footer />}
       <BackToTop />
 
       <QuestDashboard 
