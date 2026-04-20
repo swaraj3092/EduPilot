@@ -80,8 +80,23 @@ npm run dev
 
 ---
 
-## 🏆 Hackathon Credits
-Developed by the EduPilot Team for the **TenzorX Hackathon**. Dedicated to making global education accessible to everyone.
+## 🏆 Meets the Crew
+
+Developed with ❤️ by the EduPilot Team for the **TenzorX Hackathon**:
+
+- **Swaraj** — *Lead Full-Stack Architect & AI Specialist*
+  - Engineered the core AI Agent architecture and multi-model fallback systems.
+  - Implemented the gamified dashboard logic and database synchronization.
+
+- **Yagnish Anupam** — *Lead Systems Architect & Core Integration Specialist*
+  - Designed the robust backend routing and secure authentication handshakes.
+  - Optimized the university comparison engine for real-time high-fidelity data retrieval.
+
+- **Prajakta Kuila** — *Head of UI/UX Design & Brand Identity Lead*
+  - Crafted the premium "Glassmorphism" aesthetic and interactive design system.
+  - Optimized the mobile AI Mentor experience for seamless on-the-go navigation.
+
+Dedicated to making global education accessible and gamified for everyone.
 
 ---
 
