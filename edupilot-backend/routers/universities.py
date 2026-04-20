@@ -54,6 +54,7 @@ async def compare_universities(req: UniversitySearchRequest):
     if cache and not is_stale(cache.get("created_at"), days=7):
         return {"universities": json.loads(cache.get("content")), "cached": True}
 
+    names_str = ", ".join(req.names)
     prompt = f"""You are a university data expert with access to the latest (2026-2027 academic cycle) data.
 
 Provide accurate, real-time data for these universities for a {req.field} program: {names_str}

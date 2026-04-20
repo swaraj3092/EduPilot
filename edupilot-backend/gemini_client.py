@@ -16,11 +16,8 @@ if not api_key:
 
 genai.configure(api_key=api_key)
 
-# Prioritize fastest lightweight models first to maximize speed, then fall back to standard flash
+# Prioritize fastest lightweight models first
 FALLBACK_MODELS = [
-    "gemini-2.5-flash",
-    "gemini-2.0-flash-lite",
-    "gemini-3.1-flash-lite-preview",
     "gemini-2.0-flash",
     "gemini-1.5-flash",
     "gemini-pro"
