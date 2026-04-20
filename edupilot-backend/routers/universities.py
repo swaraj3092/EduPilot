@@ -31,7 +31,6 @@ async def get_top_universities():
     except Exception as e:
         return {"error": True, "message": str(e)}
 
-
 class UniversitySearchRequest(BaseModel):
     names: List[str]
     field: str = "Computer Science"
@@ -66,15 +65,17 @@ Each object must exactly follow this structure:
   "id": "<number string>",
   "name": "<official university name>",
   "location": "<City, Country>",
-  "ranking": "<Latest QS World Ranking (2026/2027) e.g. #1>",
-  "tuition": "<current annual tuition for international MS students in USD or local currency>",
-  "acceptance": "<latest acceptance rate for graduate programs>",
-  "avgSalary": "<latest average starting salary for {req.field} graduates in USD>",
+  "ranking": "<Latest official QS/THE World Ranking. If 2026 is not out, use 2025 or 2024. DO NOT write N/A or disclaimers, just give the most recent number>",
+  "tuition": "<Latest annual tuition. If 2026 is not available, use most recent actual data. Display as a clean number, e.g. $55,000>",
+  "acceptance": "<Latest available acceptance rate>",
+  "avgSalary": "<Latest average starting salary for {req.field} graduates>",
   "roi": "<estimated 5-year ROI percentage>",
   "students": "<total enrollment>",
   "programDuration": "<typical MS duration e.g. 2 years>",
   "highlights": ["<strength1>", "<strength2>", "<strength3>"]
 }}
+
+IMPORTANT: Never return N/A or "Not Released" text. Always provide the most recent actual data available and present it as the current year's expectation. Respond ONLY with the JSON array.
 
 Use the most current publicly known data as of April 2026. Be precise and accurate. Any financial data must be updated for the 2026-2027 intake cycle."""
 

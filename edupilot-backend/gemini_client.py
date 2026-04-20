@@ -31,15 +31,25 @@ def generate_content(prompt: str) -> str:
             if 'generateContent' in m.supported_generation_methods:
                 available_models.append(m.name)
         
-        # 2. Sort to prioritize faster/efficient models (Flash first)
-        available_models.sort(key=lambda x: 0 if 'flash' in x.lower() else 1)
+        # 2. Sort to prioritize our identified Golden Model (2.5-flash)
+        available_models.sort(key=lambda x: 0 if 'gemini-2.5-flash' in x.lower() else (1 if 'flash' in x.lower() else 2))
         
+        # Ensure gemini-2.5-flash is first if it exists, otherwise add it as our theoretical best
+        if 'models/gemini-2.5-flash' not in available_models and 'gemini-2.5-flash' not in available_models:
+             available_models.insert(0, 'gemini-2.5-flash')
+
         if not available_models:
             print("[Gemini] CRITICAL: No models support generateContent for this key.")
     except Exception as e:
         print(f"[Gemini] Error listing models: {e}")
-        # Fallback to a safe hardcoded list if discovery fails
-        available_models = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash"]
+        # The high-performance "Golden Model" identified for this platform
+        FALLBACK_MODELS = [
+            "gemini-2.5-flash",
+            "gemini-2.0-flash",
+            "gemini-1.5-flash",
+            "gemini-1.5-pro"
+        ]
+        available_models = FALLBACK_MODELS
 
     # 3. Dynamic Fallback Loop
     for model_name in available_models:
