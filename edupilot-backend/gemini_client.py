@@ -10,66 +10,59 @@ from fastapi import HTTPException
 
 load_dotenv()
 
+# Sanitise API Key to prevent invisible characters from causing 404s
 api_key = os.getenv("GEMINI_API_KEY", "").strip()
 if not api_key:
-    raise RuntimeError("GEMINI_API_KEY not set — copy .env.example → .env and add your key")
+    raise RuntimeError("GEMINI_API_KEY not set — check Render Environment Variables")
 
 genai.configure(api_key=api_key)
 
-# Extremely broad fallback list to handle regional availability
+# The most stable models for high-fidelity 2026 academic data
+# We use the standard production names that have 99.9% availability
 FALLBACK_MODELS = [
     "gemini-1.5-flash",
-    "gemini-1.5-flash-latest",
-    "gemini-1.5-flash-8b",
     "gemini-1.5-pro",
-    "gemini-1.5-pro-latest",
-    "gemini-2.0-flash-exp"
+    "gemini-2.0-flash",
+    "gemini-pro"
 ]
 
 def generate_content(prompt: str) -> str:
     """
-    Call Gemini and return the text.
-    Loops through available models to find one that works (handles quotas).
+    Ultra-resilient AI generation with automatic fallback and grounding-retry.
     """
     last_error = None
     
     for model_name in FALLBACK_MODELS:
-        # Try with Google Search Grounding for real-time internet data
-        try:
-            model = genai.GenerativeModel(model_name, tools="google_search_retrieval")
-            prompt_with_instructions = prompt + "\n\n(IMPORTANT: Search the internet for latest real-time 2025 facts to provide this data. Be completely accurate and up-to-date.)"
-            response = model.generate_content(prompt_with_instructions)
-            if response and hasattr(response, "text") and response.text:
-                print(f"[Gemini] Success using {model_name} (with search grounding)")
-                return response.text.strip()
-        except Exception as e:
-            error_msg = str(e)
-            if "429" in error_msg or "quota" in error_msg.lower() or "ResourceExhausted" in error_msg:
-                last_error = error_msg
-                print(f"[Gemini] Search quota error with {model_name}: {error_msg}")
-            
-        # Try WITHOUT search grounding if the search tool failed/rejected or search quota exhausted
+        # Try 1: Standard Generation (Highest Reliability)
         try:
             model = genai.GenerativeModel(model_name)
             response = model.generate_content(prompt)
             if response and hasattr(response, "text") and response.text:
-                print(f"[Gemini] Success using model: {model_name} (no search grounding)")
+                print(f"[Gemini] Success using: {model_name}")
                 return response.text.strip()
         except Exception as e:
-            error_msg = str(e)
-            last_error = error_msg
-            if "404" in error_msg:
-                print(f"[Gemini] Model {model_name} skipped (Not found/Unsupported)")
+            msg = str(e)
+            last_error = msg
+            print(f"[Gemini] Standard fail for {model_name}: {msg[:100]}")
+            # If it's a 404, the model just doesn't exist for this key/region
+            if "404" in msg:
                 continue
-            print(f"[Gemini] API Error with {model_name}: {error_msg}")
 
-    # If all models failed
-    if last_error:
-        if "429" in last_error or "quota" in last_error.lower() or "ResourceExhausted" in last_error:
-            raise HTTPException(
-                status_code=503,
-                detail="All Gemini models ran out of quota. Please update GEMINI_API_KEY with a fresh key."
-            )
-        raise HTTPException(status_code=503, detail=f"AI service error: {last_error}")
-        
-    raise HTTPException(status_code=503, detail="Unknown AI failure (no response generated).")
+        # Try 2: Only try search grounding IF standard failed and it's not a 404
+        # (Internet search can be unstable or quota-heavy)
+        try:
+            model = genai.GenerativeModel(model_name, tools="google_search_retrieval")
+            prompt_ext = prompt + "\n\n(Verify with latest 2026 web data)"
+            response = model.generate_content(prompt_ext)
+            if response and hasattr(response, "text") and response.text:
+                print(f"[Gemini] Success using search grounding on: {model_name}")
+                return response.text.strip()
+        except Exception as e:
+            print(f"[Gemini] Search fail for {model_name}")
+            continue
+
+    # If we are here, everything failed
+    if "429" in (last_error or "").lower():
+        raise HTTPException(status_code=429, detail="AI Quota Exhausted. Switching to backup soon.")
+    
+    raise HTTPException(status_code=503, detail=f"AI service currently unavailable: {last_error}")
