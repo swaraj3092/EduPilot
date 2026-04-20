@@ -1,5 +1,7 @@
 # ✈️ EduPilot: Your AI-Powered Study Abroad Navigator
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-EduPilot-blueviolet?style=for-the-badge&logo=vercel)](https://edu-pilot-tau.vercel.app/)
+
 **EduPilot** is a gamified, AI-driven platform designed to simplify the complex journey of studying abroad. From university selection and AI-based admission probability to ROI calculation and financial planning, EduPilot acts as a personal mentor for aspiring global scholars.
 
 Built for the **TenzorX Hackathon**, the platform combines high-end design with robust AI agents and a real-time gamification engine.
