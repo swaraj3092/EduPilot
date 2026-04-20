@@ -740,7 +740,7 @@ export function Dashboard() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 placeholder="Ask anything..."
-                className="flex-1 bg-muted/30 border-border text-sm h-11 rounded-xl focus:ring-1 focus:ring-primary/20"
+                className="flex-1 bg-muted/30 border-border text-foreground text-sm h-11 rounded-xl focus:ring-1 focus:ring-primary/20 placeholder:text-muted-foreground/50"
               />
               <Button
                 size="icon"
