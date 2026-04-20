@@ -10,18 +10,20 @@ from fastapi import HTTPException
 
 load_dotenv()
 
-api_key = os.getenv("GEMINI_API_KEY")
+api_key = os.getenv("GEMINI_API_KEY", "").strip()
 if not api_key:
     raise RuntimeError("GEMINI_API_KEY not set — copy .env.example → .env and add your key")
 
 genai.configure(api_key=api_key)
 
-# Verified production model aliases
+# Extremely broad fallback list to handle regional availability
 FALLBACK_MODELS = [
+    "gemini-1.5-flash",
     "gemini-1.5-flash-latest",
+    "gemini-1.5-flash-8b",
+    "gemini-1.5-pro",
     "gemini-1.5-pro-latest",
-    "gemini-2.0-flash-exp",
-    "gemini-1.5-flash"
+    "gemini-2.0-flash-exp"
 ]
 
 def generate_content(prompt: str) -> str:
