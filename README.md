@@ -85,10 +85,10 @@ npm run dev
 Developed with ❤️ by the EduPilot Team for the **TenzorX Hackathon**:
 
 - **Swaraj** — *Founder & Lead Full-Stack Architect*
-  - **(Most Influential Contribution)**: Architected and engineered the entire EduPilot ecosystem from zero to production-grade.
-  - Lead developer for the core AI Agent dual-engine (Generative + Grounded Search).
+  - **Primary Architect**: Engineered the entire EduPilot ecosystem from concept to production.
+  - Developed the core AI Agent dual-engine (Generative + Grounded Search).
   - Designed the end-to-end gamification framework and real-time database synchronization.
-  - Masterminded the full-stack integration of all financial and academic modules.
+  - Oversaw full-stack integration across all academic and financial modules.
 
 - **Yagnish Anupam** — *Lead Systems Architect & Core Integration Specialist*
   - Designed the robust backend routing and secure authentication handshakes.
