@@ -5,7 +5,8 @@ import { ArrowLeft, Plus, X, Check, TrendingUp, DollarSign, Users, Award, MapPin
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
 import { Input } from "@components/ui/input";
-import { compareUniversities, UniversityData } from "@services";
+import { compareUniversities, completeQuest, UniversityData } from "@services";
+import { toast } from "sonner";
 
 const POPULAR_UNIVERSITIES = [
   "MIT", "Stanford", "Harvard", "Carnegie Mellon", "UC Berkeley",
@@ -43,6 +44,35 @@ export function UniversityComparison() {
     try {
       const result = await compareUniversities({ names: selectedNames, field: selectedField });
       setUniversities(result.universities || []);
+      
+      // Auto-complete "Dreamer" Quest if 4 universities are added
+      if (selectedNames.length >= 4) {
+        const userStr = localStorage.getItem("edupilot-user") || "{}";
+        const user = JSON.parse(userStr);
+        const user_id = user.id || user.user_id;
+        
+        if (user_id) {
+          const profile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
+          const alreadyDone = (profile.quests_completed || []).includes("compare");
+          
+          if (!alreadyDone) {
+            try {
+              const res = await completeQuest({ user_id, quest_id: "compare", xp_reward: 450 });
+              if (res.status === "success") {
+                const updated = { 
+                  ...profile, 
+                  xp: res.new_xp, 
+                  quests_completed: [...(profile.quests_completed || []), "compare"] 
+                };
+                localStorage.setItem("edupilot-profile", JSON.stringify(updated));
+                toast.success("🎯 Quest Complete: Dreamer! +450 XP");
+              }
+            } catch (qErr) {
+              console.warn("Auto-quest completion failed", qErr);
+            }
+          }
+        }
+      }
     } catch (err: any) {
       setError(err?.message ?? "Failed to load university data");
     } finally {

@@ -640,41 +640,63 @@ export function Dashboard() {
       {/* Main Content — Responsive Split Pane */}
       <div className="relative z-10 max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:h-[calc(100vh-73px)]">
         {/* Left: AI Chat */}
-        <div className={`flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 h-full lg:h-auto ${mobileWorkview === 'chat' ? 'flex fixed inset-0 z-40 bg-[#0D0D1A] pt-16 pb-24' : 'hidden lg:flex'}`}>
-          {/* Chat Header */}
-          <div className="p-4 md:p-6 border-b border-white/10">
-            <div className="flex items-center gap-3">
-              <motion.div
-                className="relative w-12 h-12 md:w-16 md:h-16"
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-purple-500 blur-xl opacity-60" />
-                <div className="absolute inset-2 rounded-full bg-gradient-to-r from-primary to-purple-400 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
+        <div className={`flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 h-full lg:h-auto ${
+          mobileWorkview === 'chat' 
+            ? 'flex fixed inset-0 z-40 bg-background pt-0 pb-20' 
+            : 'hidden lg:flex'
+        }`}>
+          {/* Chat Header - Mobile Optimized */}
+          <div className="p-4 md:p-6 border-b border-white/10 bg-card/30 backdrop-blur-md sticky top-0 z-10">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="lg:hidden mr-1"
+                  onClick={() => setMobileWorkview('home')}
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </Button>
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    className="relative w-10 h-10 md:w-16 md:h-16"
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                  >
+                    <div className="absolute inset-0 rounded-full bg-primary/20 blur-lg opacity-60" />
+                    <div className="absolute inset-1.5 rounded-full bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center text-white">
+                      <Sparkles className="w-4 h-4 md:w-6 md:h-6" />
+                    </div>
+                  </motion.div>
+                  <div>
+                    <h2 className="text-base md:text-xl font-bold text-foreground">AI Study Mentor</h2>
+                    <p className="text-[10px] md:text-sm text-muted-foreground font-medium uppercase tracking-tighter">Elite Virtual Guidance</p>
+                  </div>
                 </div>
-              </motion.div>
-              <div>
-                <h2 className="text-lg md:text-xl font-bold text-foreground">AI Career Navigator</h2>
-                <p className="text-xs md:text-sm text-muted-foreground">Your personal study abroad mentor</p>
+              </div>
+              <div className="hidden sm:flex items-center gap-2">
+                <div className="flex items-center gap-1.5 bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[10px] font-bold text-emerald-400 uppercase">System Ready</span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scroll-smooth no-scrollbar">
+          {/* Chat Messages - Mobile Friendly padding */}
+          <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scroll-smooth no-scrollbar pb-10">
             {messages.map((msg, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[85%] md:max-w-[75%] p-4 rounded-3xl text-sm leading-relaxed shadow-sm ${
+                  className={`max-w-[85%] md:max-w-[75%] p-4 rounded-2xl text-sm leading-relaxed shadow-lg ${
                     msg.role === "user"
-                      ? "bg-primary text-primary-foreground rounded-tr-sm glow-indigo"
-                      : "bg-white/10 dark:bg-white/5 backdrop-blur-md text-foreground rounded-tl-sm border border-black/5 dark:border-white/10"
+                      ? "bg-primary text-primary-foreground rounded-tr-none shadow-primary/10"
+                      : "bg-card border border-border/40 text-foreground rounded-tl-none"
                   }`}
                 >
                   <p className="whitespace-pre-line leading-relaxed">{msg.content}</p>
@@ -687,7 +709,7 @@ export function Dashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="flex justify-start"
               >
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md p-4 rounded-3xl rounded-tl-sm flex gap-2 border border-black/5 dark:border-white/10">
+                <div className="bg-card p-4 rounded-2xl rounded-tl-none flex gap-2 border border-border/40 shadow-md">
                   <motion.div className="w-1.5 h-1.5 bg-primary/40 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity }} />
                   <motion.div className="w-1.5 h-1.5 bg-primary/60 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.2 }} />
                   <motion.div className="w-1.5 h-1.5 bg-primary/80 rounded-full" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity, delay: 0.4 }} />
@@ -696,28 +718,38 @@ export function Dashboard() {
             )}
           </div>
 
-          {/* Input - Pinned for Mobile */}
-          <div className="p-4 md:p-6 border-t border-border bg-background/80 backdrop-blur-xl">
+          {/* Mobile Quick Actions - Bubble Chips */}
+          <div className="px-4 pb-2 lg:hidden flex gap-2 overflow-x-auto no-scrollbar">
+             {["Top CS Schools", "Compare MIT/Harvard", "Scholarship help", "ROI check"].map((chip) => (
+               <button 
+                key={chip} 
+                onClick={() => { setInput(chip); handleSend(); }}
+                className="whitespace-nowrap px-3 py-1.5 rounded-full bg-card border border-border/50 text-[10px] font-bold text-muted-foreground hover:bg-muted transition-colors active:scale-95"
+               >
+                 {chip}
+               </button>
+             ))}
+          </div>
+
+          {/* Input - Sticky for Mobile */}
+          <div className="p-4 md:p-6 border-t border-border/10 bg-background/95 backdrop-blur-xl">
             <div className="flex items-center gap-2 md:gap-3">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                placeholder="Ask your mentor about admissions..."
-                className="flex-1 bg-input border-border text-foreground text-sm md:text-base focus:border-primary/50"
+                placeholder="Ask anything..."
+                className="flex-1 bg-muted/30 border-border text-sm h-11 rounded-xl focus:ring-1 focus:ring-primary/20"
               />
               <Button
                 size="icon"
-                className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 flex-shrink-0"
+                className="h-11 w-11 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/10 rounded-xl shrink-0"
                 onClick={handleSend}
                 disabled={isTyping}
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-4.5 h-4.5" />
               </Button>
             </div>
-            <p className="text-[10px] md:text-xs text-foreground/40 mt-2 hidden sm:block">
-              💡 Try: "Compare MIT and Stanford" or "Show me scholarships"
-            </p>
           </div>
         </div>
 
