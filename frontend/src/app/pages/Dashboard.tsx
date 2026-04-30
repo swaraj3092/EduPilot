@@ -360,12 +360,20 @@ export function Dashboard() {
         // Sync back to profile
         const newProfile = { ...profile, xp: reward.new_xp };
         setProfile(newProfile);
-        localStorage.setItem("edupilot-profile", JSON.stringify(newProfile));
+        try {
+          localStorage.setItem("edupilot-profile", JSON.stringify(newProfile));
+        } catch(e) {
+          try {
+            const strippedProfile = { ...newProfile, profile_picture: null };
+            localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
+          } catch(e2) {
+            console.warn("Could not save profile cache updates.");
+          }
+        }
       }
     } catch (error: any) {
-      console.error("Chat Error:", error);
-      const errMsg = error?.message ?? "Unknown error";
-      setMessages((prev) => [...prev, { role: "assistant", content: `⚠️ AI unavailable: ${errMsg}` }]);
+      console.error("Chat Error (hidden from UI):", error?.message || error);
+      setMessages((prev) => [...prev, { role: "assistant", content: `⚠️ Connection Error: I'm having trouble reaching the server right now. Please try again in a moment.` }]);
     } finally {
       setIsTyping(false);
     }
