@@ -44,16 +44,16 @@ export function Auth() {
             localStorage.setItem("edupilot-profile", JSON.stringify(res.profile));
           }
         } catch(e) {
-          console.warn("Storage full, clearing cache to make room");
-          localStorage.removeItem("edupilot-chat-history");
-          localStorage.removeItem("edupilot-discovered-matches");
           try {
-            localStorage.setItem("edupilot-user", JSON.stringify(res.user));
+            console.warn("Profile might be too large. Stripping profile_picture...");
             if (res.profile) {
-              localStorage.setItem("edupilot-profile", JSON.stringify(res.profile));
+              const strippedProfile = { ...res.profile, profile_picture: null };
+              localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
             }
           } catch(e2) {
-            console.warn("Profile still too large! Stripping profile_picture...");
+            console.warn("Storage still full, clearing cache to make room");
+            localStorage.removeItem("edupilot-chat-history");
+            localStorage.removeItem("edupilot-discovered-matches");
             if (res.profile) {
               const strippedProfile = { ...res.profile, profile_picture: null };
               localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
@@ -84,14 +84,14 @@ export function Auth() {
             localStorage.setItem("edupilot-user", JSON.stringify(user));
             localStorage.setItem("edupilot-profile", JSON.stringify(profileObj));
           } catch(e) {
-            console.warn("Storage full, clearing cache to make room");
-            localStorage.removeItem("edupilot-chat-history");
-            localStorage.removeItem("edupilot-discovered-matches");
             try {
-              localStorage.setItem("edupilot-user", JSON.stringify(user));
-              localStorage.setItem("edupilot-profile", JSON.stringify(profileObj));
+              console.warn("Profile might be too large. Stripping profile_picture...");
+              const strippedProfile = { ...profileObj, profile_picture: null };
+              localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
             } catch (e2) {
-              console.warn("Profile still too large! Stripping profile_picture...");
+              console.warn("Storage still full, clearing cache to make room");
+              localStorage.removeItem("edupilot-chat-history");
+              localStorage.removeItem("edupilot-discovered-matches");
               const strippedProfile = { ...profileObj, profile_picture: null };
               localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
             }

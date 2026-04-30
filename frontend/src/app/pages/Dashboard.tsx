@@ -118,10 +118,11 @@ export function Dashboard() {
           try {
             localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
           } catch(e) {
-            localStorage.removeItem("edupilot-chat-history");
             try {
-              localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+              const strippedProfile = { ...currentProfile, profile_picture: null };
+              localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
             } catch (e2) {
+              localStorage.removeItem("edupilot-chat-history");
               const strippedProfile = { ...currentProfile, profile_picture: null };
               localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
             }
@@ -152,10 +153,11 @@ export function Dashboard() {
             try {
               localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
             } catch(e) {
-              localStorage.removeItem("edupilot-chat-history");
               try {
-                localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+                const strippedProfile = { ...currentProfile, profile_picture: null };
+                localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
               } catch (e2) {
+                localStorage.removeItem("edupilot-chat-history");
                 const strippedProfile = { ...currentProfile, profile_picture: null };
                 localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
               }
@@ -367,7 +369,9 @@ export function Dashboard() {
             const strippedProfile = { ...newProfile, profile_picture: null };
             localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
           } catch(e2) {
-            console.warn("Could not save profile cache updates.");
+            localStorage.removeItem("edupilot-chat-history");
+            const strippedProfile = { ...newProfile, profile_picture: null };
+            localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
           }
         }
       }
@@ -704,7 +708,7 @@ export function Dashboard() {
         {/* Left: AI Chat */}
         <div className={`relative flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 h-full lg:h-auto ${
           mobileWorkview === 'chat' 
-            ? 'flex fixed inset-0 z-50 bg-background pt-0 pb-20' 
+            ? 'flex fixed inset-0 z-50 bg-background pt-0 pb-[100px]' 
             : 'hidden lg:flex'
         }`}>
           {/* Chat Header - Mobile Optimized */}
@@ -904,7 +908,7 @@ export function Dashboard() {
           </div>
 
           {/* Tab Content */}
-          <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-4">
+          <div className="flex-1 overflow-y-auto px-4 pb-[100px] lg:pb-6 space-y-4">
             <AnimatePresence mode="wait">
               {activeTab === "matches" ? (
                 <motion.div
