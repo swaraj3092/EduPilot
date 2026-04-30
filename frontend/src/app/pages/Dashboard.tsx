@@ -702,7 +702,7 @@ export function Dashboard() {
       {/* Main Content — Responsive Split Pane */}
       <div className="relative z-10 max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:h-[calc(100vh-73px)]">
         {/* Left: AI Chat */}
-        <div className={`flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 h-full lg:h-auto ${
+        <div className={`relative flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 h-full lg:h-auto ${
           mobileWorkview === 'chat' 
             ? 'flex fixed inset-0 z-50 bg-background pt-0 pb-20' 
             : 'hidden lg:flex'
