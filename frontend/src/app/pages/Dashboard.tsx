@@ -115,7 +115,12 @@ export function Dashboard() {
             level: db.degree_level || currentProfile.level
           };
           setCompletedQuests(db.quests_completed || []);
-          localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+          try {
+            localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+          } catch(e) {
+            localStorage.removeItem("edupilot-chat-history");
+            localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+          }
         }
 
         // 2. Streak & Daily Check Logic (Using DB-synced value and LOCAL time)
@@ -139,7 +144,12 @@ export function Dashboard() {
 
             currentProfile.streak = newStreak;
             currentProfile.last_login_date = today;
-            localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+            try {
+              localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+            } catch(e) {
+              localStorage.removeItem("edupilot-chat-history");
+              localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+            }
 
             // 5. SYNC TO DB: Make the streak official in the database
             await updateProfile({
@@ -225,7 +235,14 @@ export function Dashboard() {
   // PERSISTENCE: Save data on update
   useEffect(() => {
     if (messages.length > 1) {
-      localStorage.setItem("edupilot-chat-history", JSON.stringify(messages));
+      try {
+        // Keep only the last 30 messages to prevent QuotaExceededError
+        const messagesToSave = messages.slice(-30);
+        localStorage.setItem("edupilot-chat-history", JSON.stringify(messagesToSave));
+      } catch (e) {
+        console.warn("Storage quota exceeded, clearing chat history");
+        localStorage.removeItem("edupilot-chat-history");
+      }
     }
   }, [messages]);
 

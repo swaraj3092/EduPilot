@@ -29,13 +29,28 @@ export function Auth() {
         const referrer = localStorage.getItem("edupilot-referrer");
         await registerUser({ email, password, referrer_code: referrer || undefined });
         const res = await loginUser({ email, password });
-        localStorage.setItem("edupilot-user", JSON.stringify(res.user));
+        try {
+          localStorage.setItem("edupilot-user", JSON.stringify(res.user));
+        } catch(e) {
+          localStorage.clear(); // Extreme fallback
+          localStorage.setItem("edupilot-user", JSON.stringify(res.user));
+        }
         navigate("/onboarding");
       } else if (authMode === "login") {
         const res = await loginUser({ email, password });
-        localStorage.setItem("edupilot-user", JSON.stringify(res.user));
-        if (res.profile) {
-          localStorage.setItem("edupilot-profile", JSON.stringify(res.profile));
+        try {
+          localStorage.setItem("edupilot-user", JSON.stringify(res.user));
+          if (res.profile) {
+            localStorage.setItem("edupilot-profile", JSON.stringify(res.profile));
+          }
+        } catch(e) {
+          console.warn("Storage full, clearing cache to make room");
+          localStorage.removeItem("edupilot-chat-history");
+          localStorage.removeItem("edupilot-discovered-matches");
+          localStorage.setItem("edupilot-user", JSON.stringify(res.user));
+          if (res.profile) {
+            localStorage.setItem("edupilot-profile", JSON.stringify(res.profile));
+          }
         }
         navigate("/dashboard");
       } else if (authMode === "reset") {
@@ -55,11 +70,23 @@ export function Auth() {
     const handleMessage = (event: MessageEvent) => {
       if (event.data.type === "GOOGLE_AUTH_SUCCESS" || event.data.type === "GITHUB_AUTH_SUCCESS") {
         const user = event.data.user;
-        localStorage.setItem("edupilot-user", JSON.stringify(user));
         
+        const saveSession = (profileObj: any) => {
+          try {
+            localStorage.setItem("edupilot-user", JSON.stringify(user));
+            localStorage.setItem("edupilot-profile", JSON.stringify(profileObj));
+          } catch(e) {
+            console.warn("Storage full, clearing cache to make room");
+            localStorage.removeItem("edupilot-chat-history");
+            localStorage.removeItem("edupilot-discovered-matches");
+            localStorage.setItem("edupilot-user", JSON.stringify(user));
+            localStorage.setItem("edupilot-profile", JSON.stringify(profileObj));
+          }
+        };
+
         // If social login returns a profile, use it; otherwise fallback
         if (event.data.profile) {
-          localStorage.setItem("edupilot-profile", JSON.stringify(event.data.profile));
+          saveSession(event.data.profile);
         } else {
           const profile = {
             full_name: user.name,
@@ -71,7 +98,7 @@ export function Auth() {
             xp: 0,
             streak: 1
           };
-          localStorage.setItem("edupilot-profile", JSON.stringify(profile));
+          saveSession(profile);
         }
         
         navigate("/dashboard");
