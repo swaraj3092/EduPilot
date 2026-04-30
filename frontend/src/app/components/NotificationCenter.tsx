@@ -22,8 +22,11 @@ export function NotificationCenter() {
   const unreadCount = useMemo(() => notifications.filter(n => !n.read).length, [notifications]);
   useEffect(() => {
     try {
-      const savedApps = localStorage.getItem("edupilot-applications");
+      const savedApps = localStorage.getItem("edupilot-apps");
       const savedProfile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
+      
+      const dismissedIds = JSON.parse(localStorage.getItem("edupilot-dismissed-notifs") || "[]");
+      const readIds = JSON.parse(localStorage.getItem("edupilot-read-notifs") || "[]");
       
       let items: Notification[] = [
         {
@@ -31,7 +34,7 @@ export function NotificationCenter() {
           title: "Welcome Bonus Claimed!",
           message: "You've earned 1,000 XP for completing your onboarding. Explore missions to level up!",
           time: "1h ago",
-          read: false,
+          read: readIds.includes("xp-welcome"),
           type: "update",
           icon: Award
         },
@@ -40,7 +43,7 @@ export function NotificationCenter() {
           title: "New Matching Scholarship",
           message: "A new $5,000 scholarship for Computer Science students in Germany was recently posted.",
           time: "3h ago",
-          read: true,
+          read: readIds.includes("scholarship-new"),
           type: "scholarship",
           icon: Award
         }
@@ -56,7 +59,7 @@ export function NotificationCenter() {
               title: `Urgent: ${app.university}`,
               message: `Deadline in ${daysLeft} days! Finalize your SOP now.`,
               time: "Action Required",
-              read: false,
+              read: readIds.includes(`deadline-${app.id}`),
               type: "deadline",
               icon: Calendar
             });
@@ -71,11 +74,14 @@ export function NotificationCenter() {
           title: "Quest Mastery",
           message: `Your current progress is synced! You have ${savedProfile.xp} XP points.`,
           time: "Just now",
-          read: false,
+          read: readIds.includes("quest-engagement"),
           type: "update",
           icon: Award
         });
       }
+
+      // Filter out dismissed notifications
+      items = items.filter(n => !dismissedIds.includes(n.id));
 
       setNotifications(items);
     } catch(e) {
@@ -85,16 +91,31 @@ export function NotificationCenter() {
 
 
   const markAsRead = (id: string) => {
+    const readIds = JSON.parse(localStorage.getItem("edupilot-read-notifs") || "[]");
+    if (!readIds.includes(id)) {
+      readIds.push(id);
+      localStorage.setItem("edupilot-read-notifs", JSON.stringify(readIds));
+    }
     setNotifications(notifications.map(n => 
       n.id === id ? { ...n, read: true } : n
     ));
   };
 
   const markAllAsRead = () => {
+    const readIds = JSON.parse(localStorage.getItem("edupilot-read-notifs") || "[]");
+    notifications.forEach(n => {
+      if (!readIds.includes(n.id)) readIds.push(n.id);
+    });
+    localStorage.setItem("edupilot-read-notifs", JSON.stringify(readIds));
     setNotifications(notifications.map(n => ({ ...n, read: true })));
   };
 
   const deleteNotification = (id: string) => {
+    const dismissedIds = JSON.parse(localStorage.getItem("edupilot-dismissed-notifs") || "[]");
+    if (!dismissedIds.includes(id)) {
+      dismissedIds.push(id);
+      localStorage.setItem("edupilot-dismissed-notifs", JSON.stringify(dismissedIds));
+    }
     setNotifications(notifications.filter(n => n.id !== id));
   };
 
@@ -191,6 +212,7 @@ export function NotificationCenter() {
                         transition={{ delay: i * 0.05 }}
                       >
                         <Card
+                          className="cursor-pointer hover:bg-white/5 transition border-border/40 relative overflow-hidden p-4"
                           onClick={() => {
                             setIsOpen(false);
                             markAsRead(notification.id);
