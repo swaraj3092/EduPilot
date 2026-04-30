@@ -119,7 +119,12 @@ export function Dashboard() {
             localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
           } catch(e) {
             localStorage.removeItem("edupilot-chat-history");
-            localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+            try {
+              localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+            } catch (e2) {
+              const strippedProfile = { ...currentProfile, profile_picture: null };
+              localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
+            }
           }
         }
 
@@ -148,7 +153,12 @@ export function Dashboard() {
               localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
             } catch(e) {
               localStorage.removeItem("edupilot-chat-history");
-              localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+              try {
+                localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+              } catch (e2) {
+                const strippedProfile = { ...currentProfile, profile_picture: null };
+                localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
+              }
             }
 
             // 5. SYNC TO DB: Make the streak official in the database

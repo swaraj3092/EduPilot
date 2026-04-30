@@ -47,9 +47,17 @@ export function Auth() {
           console.warn("Storage full, clearing cache to make room");
           localStorage.removeItem("edupilot-chat-history");
           localStorage.removeItem("edupilot-discovered-matches");
-          localStorage.setItem("edupilot-user", JSON.stringify(res.user));
-          if (res.profile) {
-            localStorage.setItem("edupilot-profile", JSON.stringify(res.profile));
+          try {
+            localStorage.setItem("edupilot-user", JSON.stringify(res.user));
+            if (res.profile) {
+              localStorage.setItem("edupilot-profile", JSON.stringify(res.profile));
+            }
+          } catch(e2) {
+            console.warn("Profile still too large! Stripping profile_picture...");
+            if (res.profile) {
+              const strippedProfile = { ...res.profile, profile_picture: null };
+              localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
+            }
           }
         }
         navigate("/dashboard");
@@ -79,8 +87,14 @@ export function Auth() {
             console.warn("Storage full, clearing cache to make room");
             localStorage.removeItem("edupilot-chat-history");
             localStorage.removeItem("edupilot-discovered-matches");
-            localStorage.setItem("edupilot-user", JSON.stringify(user));
-            localStorage.setItem("edupilot-profile", JSON.stringify(profileObj));
+            try {
+              localStorage.setItem("edupilot-user", JSON.stringify(user));
+              localStorage.setItem("edupilot-profile", JSON.stringify(profileObj));
+            } catch (e2) {
+              console.warn("Profile still too large! Stripping profile_picture...");
+              const strippedProfile = { ...profileObj, profile_picture: null };
+              localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
+            }
           }
         };
 
