@@ -61,9 +61,7 @@ export function ROICalculator() {
     }
   }, [selectedCountry, selectedField]);
 
-  useEffect(() => {
-    loadROI();
-  }, []);
+  // Removed automatic loadROI on mount to save AI credits
 
   const chartData = roiData ? generateROIChart(roiData, timeHorizon[0]) : [];
   const lastPoint = chartData[chartData.length - 1];

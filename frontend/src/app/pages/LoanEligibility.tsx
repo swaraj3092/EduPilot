@@ -8,6 +8,7 @@ import { Label } from "../components/ui/label";
 import { Card } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
 import { getLoanEligibility, LoanResponse } from "@services";
+import { toast } from "sonner";
 
 export function LoanEligibility() {
   const navigate = useNavigate();
@@ -22,34 +23,33 @@ export function LoanEligibility() {
   const [apiData, setApiData] = useState<LoanResponse | null>(null);
   const [animatedScore, setAnimatedScore] = useState(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const amount = parseInt(formData.loanAmount);
-      const income = parseInt(formData.income);
-      const credit = parseInt(formData.creditScore);
-      const employment = parseInt(formData.employmentYears);
+  const handleCalculate = async () => {
+    const amount = parseInt(formData.loanAmount);
+    const income = parseInt(formData.income);
+    const credit = parseInt(formData.creditScore);
+    const employment = parseInt(formData.employmentYears);
 
-      if (isNaN(amount) || isNaN(income) || isNaN(credit) || isNaN(employment)) return;
+    if (isNaN(amount) || isNaN(income) || isNaN(credit) || isNaN(employment)) {
+      toast.error("Please fill in all details");
+      return;
+    }
 
-      setLoading(true);
-      try {
-        const data = await getLoanEligibility({
-          loan_amount: amount,
-          annual_income: income,
-          credit_score: credit,
-          employment_years: employment
-        });
-        setApiData(data);
-      } catch (error) {
-        console.error("Loan API Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const timer = setTimeout(fetchData, 800);
-    return () => clearTimeout(timer);
-  }, [formData]);
+    setLoading(true);
+    try {
+      const data = await getLoanEligibility({
+        loan_amount: amount,
+        annual_income: income,
+        credit_score: credit,
+        employment_years: employment
+      });
+      setApiData(data);
+    } catch (error) {
+      console.error("Loan API Error:", error);
+      toast.error("Failed to check eligibility. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const eligibilityScore = apiData?.score ?? 0;
 
@@ -167,6 +167,14 @@ export function LoanEligibility() {
                   <p className="text-xs text-white/50 mt-1">Total professional experience</p>
                 </div>
               </div>
+
+              <Button 
+                className="w-full mt-8 bg-primary hover:bg-primary/90 text-primary-foreground font-bold shadow-lg shadow-primary/20"
+                onClick={handleCalculate}
+                disabled={loading}
+              >
+                {loading ? "Checking..." : "Check Loan Eligibility"}
+              </Button>
 
               {/* Info Card */}
               <div className="mt-8 p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 scroll-mt-20">

@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useNavigate } from "react-router";
 import {
   Send, Sparkles, TrendingUp, DollarSign, FileText, Award,
   GraduationCap, Target, Calendar, BookOpen, GitCompare,
   MessageSquareCode, Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map as GlobeMap, ListTodo, PlayCircle, Info, Loader2,
-  ArrowLeft
+  ArrowLeft, ChevronDown
 } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
@@ -19,7 +19,7 @@ import { BackToTop } from "@components/BackToTop";
 import { QuestDashboard } from "@components/QuestDashboard";
 import { 
   chatSend, getLeaderboard, completeQuest, awardXP, ChatMessage, 
-  getUserProfile, getTopUniversities, getLatestNews, generateAgentBlueprint 
+  getUserProfile, updateProfile, getTopUniversities, getLatestNews, generateAgentBlueprint 
 } from "@services";
 import ReactMarkdown from 'react-markdown';
 import { toast } from "sonner";
@@ -145,7 +145,8 @@ export function Dashboard() {
             await updateProfile({
               user_id: userId,
               full_name: currentProfile.name || currentProfile.full_name,
-              streak: newStreak
+              streak: newStreak,
+              last_login_date: today
             });
          }
 
@@ -191,6 +192,26 @@ export function Dashboard() {
       content: `👋 Hi ${(userStats.name || "Explorer").split(' ')[0]}! I'm your AI Study Abroad Mentor. I can help you explore universities, compare programs, and plan your journey. What would you like to know?`,
     },
   ]);
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isTyping]);
+
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
+    // Show button if user scrolled up more than 100px from bottom
+    const isScrolledUp = scrollHeight - scrollTop - clientHeight > 100;
+    setShowScrollButton(isScrolledUp);
+  };
 
   // CHAT & MATCH PERSISTENCE: Load saved data on mount
   useEffect(() => {
@@ -685,7 +706,11 @@ export function Dashboard() {
           </div>
 
           {/* Chat Messages - Mobile Friendly padding */}
-          <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scroll-smooth no-scrollbar pb-10">
+          <div 
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scroll-smooth no-scrollbar pb-10 relative"
+          >
             {messages.map((msg, i) => (
               <motion.div
                 key={i}
@@ -717,7 +742,27 @@ export function Dashboard() {
                 </div>
               </motion.div>
             )}
+            <div ref={messagesEndRef} className="h-4" />
           </div>
+
+          <AnimatePresence>
+            {showScrollButton && (
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="absolute bottom-24 right-6 z-20"
+              >
+                <Button 
+                  size="icon" 
+                  className="rounded-full shadow-lg shadow-black/50 bg-card border border-border text-foreground hover:bg-muted"
+                  onClick={scrollToBottom}
+                >
+                  <ChevronDown className="w-5 h-5" />
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Mobile Quick Actions - Bubble Chips */}
           <div className="px-4 pb-2 lg:hidden flex gap-2 overflow-x-auto no-scrollbar">

@@ -31,6 +31,7 @@ class ProfileUpdate(BaseModel):
     referral_code: Optional[str] = None
     referrals_count: Optional[int] = None
     profile_picture: Optional[str] = None
+    last_login_date: Optional[str] = None
 
 @router.post("/register")
 async def register(auth: UserAuth):
@@ -138,6 +139,8 @@ async def update_profile(profile: ProfileUpdate):
             update_data["referral_code"] = profile.referral_code
         if profile.referrals_count is not None:
             update_data["referrals_count"] = profile.referrals_count
+        if profile.last_login_date is not None:
+            update_data["last_login_date"] = profile.last_login_date
         if profile.profile_picture is not None:
             update_data["profile_picture"] = profile.profile_picture
             

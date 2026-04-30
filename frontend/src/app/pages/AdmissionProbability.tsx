@@ -8,6 +8,7 @@ import { Label } from "@components/ui/label";
 import { Card } from "@components/ui/card";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
 import { getAdmissionProbability, AdmissionResponse } from "@services";
+import { toast } from "sonner";
 
 export function AdmissionProbability() {
   const navigate = useNavigate();
@@ -21,33 +22,32 @@ export function AdmissionProbability() {
   const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState<AdmissionResponse | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const greNum = parseInt(scores.gre);
-      const gpaNum = parseFloat(scores.gpa);
-      const toeflNum = parseInt(scores.toefl);
+  const handleCalculate = async () => {
+    const greNum = parseInt(scores.gre);
+    const gpaNum = parseFloat(scores.gpa);
+    const toeflNum = parseInt(scores.toefl);
 
-      if (isNaN(greNum) || isNaN(gpaNum) || isNaN(toeflNum)) return;
+    if (isNaN(greNum) || isNaN(gpaNum) || isNaN(toeflNum)) {
+      toast.error("Please fill in all scores");
+      return;
+    }
 
-      setLoading(true);
-      try {
-        const data = await getAdmissionProbability({
-          gre: greNum,
-          gpa: gpaNum,
-          toefl: toeflNum,
-          universities: targetUni ? [targetUni] : []
-        });
-        setApiData(data);
-      } catch (error) {
-        console.error("Admission API Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const timer = setTimeout(fetchData, 800); // Debounce
-    return () => clearTimeout(timer);
-  }, [scores, targetUni]);
+    setLoading(true);
+    try {
+      const data = await getAdmissionProbability({
+        gre: greNum,
+        gpa: gpaNum,
+        toefl: toeflNum,
+        universities: targetUni ? [targetUni] : []
+      });
+      setApiData(data);
+    } catch (error) {
+      console.error("Admission API Error:", error);
+      toast.error("Failed to calculate odds. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Use API data or fallback
   const overallScore = apiData?.base_score ?? 0;
@@ -158,6 +158,14 @@ export function AdmissionProbability() {
                   <p className="text-[10px] text-muted-foreground mt-1 italic">We'll use AI to calculate odds for any school worldwide.</p>
                 </div>
               </div>
+
+              <Button 
+                className="w-full mt-6 bg-primary hover:bg-primary/90 text-primary-foreground font-bold shadow-lg shadow-primary/20"
+                onClick={handleCalculate}
+                disabled={loading}
+              >
+                {loading ? "Calculating..." : "Calculate Admission Odds"}
+              </Button>
 
               <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
                 <div className="flex items-start gap-2" onClick={() => {

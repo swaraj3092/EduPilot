@@ -44,7 +44,8 @@ export function Auth() {
         setAuthMode("login");
       }
     } catch (err: any) {
-      setError(err?.message || "Action failed. Please try again.");
+      console.error("Auth Error (hidden from UI):", err?.message || err);
+      setError("Authentication failed. Please check your credentials and try again.");
     } finally {
       setIsLoading(false);
     }
