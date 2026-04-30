@@ -212,6 +212,11 @@ export function Settings() {
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file) {
+                          if (file.size > 2 * 1024 * 1024) {
+                            alert("⚠️ Image is too large! Please choose an image under 2MB to ensure your AI chat history doesn't run out of memory.");
+                            e.target.value = ""; // Reset input
+                            return;
+                          }
                           const reader = new FileReader();
                           reader.onloadend = () => {
                             setProfile({ ...profile, profile_picture: reader.result as string });
