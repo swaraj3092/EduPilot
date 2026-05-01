@@ -555,72 +555,72 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isLOROpen} onOpenChange={setIsLOROpen}>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
-                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
+                <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold tracking-tight">AI LOR Drafter</DialogTitle>
-                    <DialogDescription className="text-muted-foreground font-medium">
-                      Draft professional LOR requests and briefings for your professors
+                    <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">AI LOR Drafter</DialogTitle>
+                    <DialogDescription className="text-white/40 font-bold uppercase text-[10px] tracking-widest mt-1">
+                      Professional Suite for Professor Briefings
                     </DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
+                    className="text-white/40 hover:text-white hover:bg-white/5" 
                     onClick={() => setIsLOROpen(false)}
                   >
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent">
                   <LORDrafter />
                 </div>
               </DialogContent>
             </Dialog>
 
             <Dialog open={isPeerOpen} onOpenChange={setIsPeerOpen}>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
-                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
+                <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold tracking-tight">Peer Network</DialogTitle>
-                    <DialogDescription className="text-muted-foreground font-medium">
-                      Connect with the community of alumni and target squad mates
+                    <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">Peer Network</DialogTitle>
+                    <DialogDescription className="text-white/40 font-bold uppercase text-[10px] tracking-widest mt-1">
+                      Connect with the Global Scholar Community
                     </DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
+                    className="text-white/40 hover:text-white hover:bg-white/5" 
                     onClick={() => setIsPeerOpen(false)}
                   >
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent">
                   <PeerNetwork />
                 </div>
               </DialogContent>
             </Dialog>
 
             <Dialog open={isParentOpen} onOpenChange={setIsParentOpen}>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
-                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
+                <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold tracking-tight text-rose-400">Parent Dashboard</DialogTitle>
-                    <DialogDescription className="text-muted-foreground font-medium">
-                      Read-only family view of your application journey
+                    <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">Parent Dashboard</DialogTitle>
+                    <DialogDescription className="text-white/40 font-bold uppercase text-[10px] tracking-widest mt-1">
+                      Secure Read-Only Access for Family
                     </DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
+                    className="text-white/40 hover:text-white hover:bg-white/5" 
                     onClick={() => setIsParentOpen(false)}
                   >
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent">
                   <ParentDashboard />
                 </div>
               </DialogContent>
