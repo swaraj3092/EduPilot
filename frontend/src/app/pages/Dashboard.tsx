@@ -5,7 +5,7 @@ import {
   Send, Sparkles, TrendingUp, DollarSign, FileText, Award,
   GraduationCap, Target, Calendar, BookOpen, GitCompare,
   MessageSquareCode, Settings as SettingsIcon, Menu, X, Flame, Zap, Newspaper, Compass, Map as GlobeMap, ListTodo, PlayCircle, Info, Loader2,
-  ArrowLeft, ChevronDown
+  ArrowLeft, ChevronDown, Mail
 } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
