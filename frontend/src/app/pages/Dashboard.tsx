@@ -12,6 +12,8 @@ import { Card } from "@components/ui/card";
 import { Input } from "@components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@components/ui/dialog";
 import { EssayCoach } from "@components/EssayCoach";
+import { LORDrafter } from "@components/LORDrafter";
+import { PeerNetwork } from "@components/PeerNetwork";
 import { NotificationCenter } from "@components/NotificationCenter";
 import { GrowthFlow } from "@components/GrowthFlow";
 import { Footer } from "@components/Footer";
@@ -62,6 +64,8 @@ export function Dashboard() {
   const [profile, setProfile] = useState(initialProfile);
   const [isNexusOpen, setIsNexusOpen] = useState(false);
   const [isEssayOpen, setIsEssayOpen] = useState(false);
+  const [isLOROpen, setIsLOROpen] = useState(false);
+  const [isPeerOpen, setIsPeerOpen] = useState(false);
   const [completedQuests, setCompletedQuests] = useState<string[]>(initialProfile.quests_completed || []);
   const savedUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
   const calculateLevel = (xp: number) => {
@@ -484,6 +488,8 @@ export function Dashboard() {
                     { label: "Test Prep Hub", icon: BookOpen, path: "/test-prep", color: "from-indigo-500 to-purple-500", desc: "Score prediction & prep tips" },
                     { label: "App Tracker", icon: Calendar, path: "/application-tracker", color: "from-blue-400 to-sky-400", desc: "Manage your deadlines & docs" },
                     { label: "Global Roadmap", icon: GlobeMap, path: "/roadmap", color: "from-purple-400 to-indigo-400", desc: "Generate your mission blueprint" },
+                    { label: "LOR Drafter", icon: Mail, path: "/lor-drafter", color: "from-emerald-400 to-teal-400", desc: "AI recommendation letter suite" },
+                    { label: "Peer Network", icon: Users, path: "/peer-network", color: "from-orange-400 to-amber-400", desc: "Connect with alumni & study squads" },
                   ].map((tool) => (
                     <motion.div
                       key={tool.label}
@@ -494,6 +500,10 @@ export function Dashboard() {
                         setTimeout(() => {
                           if (tool.label === "Essay Coach") {
                              setIsEssayOpen(true);
+                          } else if (tool.label === "LOR Drafter") {
+                             setIsLOROpen(true);
+                          } else if (tool.label === "Peer Network") {
+                             setIsPeerOpen(true);
                           } else if (tool.label === "Global Roadmap") {
                              handleGenerateBlueprint();
                           } else {
@@ -535,6 +545,54 @@ export function Dashboard() {
                 </div>
                 <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
                   <EssayCoach />
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={isLOROpen} onOpenChange={setIsLOROpen}>
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
+                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
+                  <DialogHeader className="text-left">
+                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold tracking-tight">AI LOR Drafter</DialogTitle>
+                    <DialogDescription className="text-muted-foreground font-medium">
+                      Draft professional LOR requests and briefings for your professors
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
+                    onClick={() => setIsLOROpen(false)}
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+                  <LORDrafter />
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={isPeerOpen} onOpenChange={setIsPeerOpen}>
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
+                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
+                  <DialogHeader className="text-left">
+                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold tracking-tight">Peer Network</DialogTitle>
+                    <DialogDescription className="text-muted-foreground font-medium">
+                      Connect with the community of alumni and target squad mates
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
+                    onClick={() => setIsPeerOpen(false)}
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+                  <PeerNetwork />
                 </div>
               </DialogContent>
             </Dialog>

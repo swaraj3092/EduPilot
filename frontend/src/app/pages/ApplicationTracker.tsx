@@ -12,6 +12,7 @@ import { Progress } from "@components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@components/ui/dialog";
 import { Input } from "@components/ui/input";
 import { generateApplicationTracker, AppTrackerResponse } from "@services";
+import { toast } from "sonner";
 
 type ApplicationStatus = "not-started" | "in-progress" | "submitted" | "decision";
 
@@ -98,6 +99,24 @@ export function ApplicationTracker() {
   const deleteApplication = (appId: string) => {
     setApplications(apps => apps.filter(app => app.id !== appId));
     setDeleteConfirm(null);
+  };
+
+  const syncToGoogleCalendar = (app: Application) => {
+    const deadline = new Date(app.deadline);
+    const startDate = deadline.toISOString().replace(/-|:|\.\d\d\d/g, "");
+    
+    // Set duration to 1 hour
+    const end = new Date(deadline.getTime() + (60 * 60 * 1000));
+    const endDate = end.toISOString().replace(/-|:|\.\d\d\d/g, "");
+
+    const title = encodeURIComponent(`EduPilot: ${app.university} Application Deadline`);
+    const details = encodeURIComponent(`Program: ${app.program}\n\nManaged by EduPilot AI Mentor.`);
+    const location = encodeURIComponent(app.university);
+    
+    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}&location=${location}&sf=true&output=xml`;
+    
+    window.open(url, '_blank');
+    toast.success("Opening Google Calendar...");
   };
 
   const handleAddSubmit = async () => {
@@ -367,6 +386,15 @@ export function ApplicationTracker() {
                                `${daysLeft} days left`}
                             </span>
                           </div>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-8 text-[10px] uppercase font-bold tracking-widest text-indigo-400 hover:bg-indigo-500/10"
+                            onClick={() => syncToGoogleCalendar(app)}
+                          >
+                            <Plus className="w-3 h-3 mr-1" />
+                            Sync to G-Cal
+                          </Button>
                         </div>
 
                         {app.notes && (
