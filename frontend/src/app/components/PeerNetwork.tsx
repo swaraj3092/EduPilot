@@ -17,12 +17,6 @@ const SQUADS = [
   { name: "Visa Interview prep", members: 89, focus: "Mock Drills", icon: Target, status: "Crucial" },
 ];
 
-const BUDDIES = [
-  { name: "Vikram R.", target: "MIT", course: "MS DS", match: "98%", status: "Online" },
-  { name: "Aditi G.", target: "Stanford", course: "MBA", match: "92%", status: "Away" },
-  { name: "Karan J.", target: "CMU", course: "MS CS", match: "89%", status: "Online" },
-];
-
 export function PeerNetwork() {
   const handleConnect = (name: string) => {
     toast.success(`Connection request sent to ${name}!`);
@@ -137,46 +131,6 @@ export function PeerNetwork() {
               Create Study Squad
             </Button>
           </div>
-        </div>
-
-        {/* Study Buddy Matcher */}
-        <div className="lg:col-span-3 pt-12 border-t border-border/40">
-           <div className="flex items-center justify-between mb-8">
-              <div className="space-y-1">
-                 <h3 className="text-2xl font-black text-foreground italic uppercase tracking-tight">Study Buddy Matcher</h3>
-                 <p className="text-sm text-muted-foreground">Match with students applying to your same programs for accountability.</p>
-              </div>
-              <Button className="bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20">
-                 Find New Matches
-              </Button>
-           </div>
-           
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {BUDDIES.map((buddy, i) => (
-                <Card key={buddy.name} className="p-5 bg-card/60 border-border/40 relative overflow-hidden group">
-                   <div className="absolute top-2 right-2 flex items-center gap-1.5">
-                      <div className={`w-1.5 h-1.5 rounded-full ${buddy.status === 'Online' ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`} />
-                      <span className="text-[9px] font-bold text-muted-foreground uppercase">{buddy.status}</span>
-                   </div>
-                   <div className="flex items-center gap-4 mb-4">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center font-bold text-primary">
-                        {buddy.name.charAt(0)}
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-foreground">{buddy.name}</h4>
-                        <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">{buddy.target} · {buddy.course}</p>
-                      </div>
-                   </div>
-                   <div className="flex items-center justify-between p-2 bg-muted/40 rounded-lg border border-border/20 mb-4">
-                      <span className="text-[10px] font-bold text-muted-foreground uppercase">Compatibility</span>
-                      <span className="text-xs font-black text-primary">{buddy.match}</span>
-                   </div>
-                   <Button size="sm" className="w-full h-8 text-[10px] font-bold uppercase tracking-widest">
-                      Say Hi 👋
-                   </Button>
-                </Card>
-              ))}
-           </div>
         </div>
       </div>
     </div>
