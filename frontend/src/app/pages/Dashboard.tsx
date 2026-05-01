@@ -14,6 +14,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { EssayCoach } from "@components/EssayCoach";
 import { LORDrafter } from "@components/LORDrafter";
 import { PeerNetwork } from "@components/PeerNetwork";
+import { ParentDashboard } from "@components/ParentDashboard";
+import { PostAdmissionHub } from "@components/PostAdmissionHub";
 import { NotificationCenter } from "@components/NotificationCenter";
 import { GrowthFlow } from "@components/GrowthFlow";
 import { Footer } from "@components/Footer";
@@ -66,6 +68,8 @@ export function Dashboard() {
   const [isEssayOpen, setIsEssayOpen] = useState(false);
   const [isLOROpen, setIsLOROpen] = useState(false);
   const [isPeerOpen, setIsPeerOpen] = useState(false);
+  const [isParentOpen, setIsParentOpen] = useState(false);
+  const [isPostAdmissionOpen, setIsPostAdmissionOpen] = useState(false);
   const [completedQuests, setCompletedQuests] = useState<string[]>(initialProfile.quests_completed || []);
   const savedUser = JSON.parse(localStorage.getItem("edupilot-user") || "{}");
   const calculateLevel = (xp: number) => {
@@ -489,7 +493,9 @@ export function Dashboard() {
                     { label: "App Tracker", icon: Calendar, path: "/application-tracker", color: "from-blue-400 to-sky-400", desc: "Manage your deadlines & docs" },
                     { label: "Global Roadmap", icon: GlobeMap, path: "/roadmap", color: "from-purple-400 to-indigo-400", desc: "Generate your mission blueprint" },
                     { label: "LOR Drafter", icon: Mail, path: "/lor-drafter", color: "from-emerald-400 to-teal-400", desc: "AI recommendation letter suite" },
-                    { label: "Peer Network", icon: Users, path: "/peer-network", color: "from-orange-400 to-amber-400", desc: "Connect with alumni & study squads" },
+                    { label: "Peer Network", icon: Users, path: "/peer-network", color: "from-orange-400 to-amber-400", desc: "Connect with alumni & buddies" },
+                    { label: "Parent View", icon: Heart, path: "/parent-view", color: "from-rose-400 to-pink-400", desc: "Read-only shareable family view" },
+                    { label: "Post-Admission", icon: GraduationCap, path: "/post-admission", color: "from-green-400 to-emerald-400", desc: "Pivoted onboarding & housing guide" },
                   ].map((tool) => (
                     <motion.div
                       key={tool.label}
@@ -504,6 +510,10 @@ export function Dashboard() {
                              setIsLOROpen(true);
                           } else if (tool.label === "Peer Network") {
                              setIsPeerOpen(true);
+                          } else if (tool.label === "Parent View") {
+                             setIsParentOpen(true);
+                          } else if (tool.label === "Post-Admission") {
+                             setIsPostAdmissionOpen(true);
                           } else if (tool.label === "Global Roadmap") {
                              handleGenerateBlueprint();
                           } else {
@@ -593,6 +603,54 @@ export function Dashboard() {
                 </div>
                 <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
                   <PeerNetwork />
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={isParentOpen} onOpenChange={setIsParentOpen}>
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
+                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
+                  <DialogHeader className="text-left">
+                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold tracking-tight text-rose-400">Parent Dashboard</DialogTitle>
+                    <DialogDescription className="text-muted-foreground font-medium">
+                      Read-only family view of your application journey
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
+                    onClick={() => setIsParentOpen(false)}
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+                  <ParentDashboard />
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={isPostAdmissionOpen} onOpenChange={setIsPostAdmissionOpen}>
+              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
+                <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
+                  <DialogHeader className="text-left">
+                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold tracking-tight text-green-400 uppercase italic">Post-Admission Hub</DialogTitle>
+                    <DialogDescription className="text-muted-foreground font-medium">
+                      Your structured onboarding guide for housing, health, and SIM
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
+                    onClick={() => setIsPostAdmissionOpen(false)}
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8">
+                  <PostAdmissionHub />
                 </div>
               </DialogContent>
             </Dialog>
