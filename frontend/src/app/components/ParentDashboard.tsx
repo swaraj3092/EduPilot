@@ -32,7 +32,7 @@ export function ParentDashboard() {
           <p className="text-muted-foreground font-medium">A transparent, read-only view for your family to stay updated on your journey.</p>
         </div>
         <Button 
-          className="bg-rose-600 hover:bg-rose-500 text-white font-black uppercase tracking-widest rounded-xl shadow-xl shadow-rose-500/20 h-12 px-8 group relative overflow-hidden"
+          className="bg-rose-600 hover:bg-rose-500 text-white font-black uppercase tracking-widest rounded-xl shadow-xl shadow-rose-500/20 h-12 px-8 group relative overflow-hidden w-full md:w-auto"
           onClick={handleShare}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />

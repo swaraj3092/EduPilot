@@ -369,10 +369,10 @@ export function ApplicationTracker() {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-6 text-sm">
+                        <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm">
                           <div className="flex items-center gap-2 text-foreground/80">
                             <Calendar className="w-4 h-4 text-primary" />
-                            <span>Deadline: <strong className="text-foreground">{new Date(app.deadline).toLocaleDateString()}</strong></span>
+                            <span className="text-[11px] sm:text-sm">Deadline: <strong className="text-foreground">{new Date(app.deadline).toLocaleDateString()}</strong></span>
                           </div>
                           <div className={`flex items-center gap-2 ${
                             daysLeft < 0 ? 'text-gray-400' :
@@ -380,7 +380,7 @@ export function ApplicationTracker() {
                             'text-green-400'
                           }`}>
                             <Clock className="w-4 h-4" />
-                            <span>
+                            <span className="text-[11px] sm:text-sm">
                               {daysLeft < 0 ? 'Passed' :
                                daysLeft === 0 ? 'Today' :
                                `${daysLeft} days left`}
@@ -389,7 +389,7 @@ export function ApplicationTracker() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            className="h-8 text-[10px] uppercase font-bold tracking-widest text-indigo-400 hover:bg-indigo-500/10"
+                            className="h-8 text-[9px] sm:text-[10px] uppercase font-bold tracking-widest text-indigo-400 hover:bg-indigo-500/10"
                             onClick={() => syncToGoogleCalendar(app)}
                           >
                             <Plus className="w-3 h-3 mr-1" />

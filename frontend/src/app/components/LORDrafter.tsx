@@ -121,24 +121,24 @@ export function LORDrafter() {
           animate={{ opacity: 1, scale: 1 }}
           className="space-y-8"
         >
-          <div className="flex items-center justify-between">
-            <Button variant="ghost" onClick={() => setDraft(null)} className="text-muted-foreground hover:text-white hover:bg-white/5">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <Button variant="ghost" onClick={() => setDraft(null)} className="text-muted-foreground hover:text-white hover:bg-white/5 w-full sm:w-auto">
               <RefreshCw className="w-4 h-4 mr-2" />
               Redraft
             </Button>
-            <div className="flex gap-3">
-               <Button onClick={() => copyToClipboard(draft.email, "Email")} variant="outline" className="h-10 text-xs font-bold uppercase tracking-widest bg-white/5 border-white/10 hover:bg-white/10">
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+               <Button onClick={() => copyToClipboard(draft.email, "Email")} variant="outline" className="h-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest bg-white/5 border-white/10 hover:bg-white/10 w-full sm:w-auto">
                  {copiedType === "Email" ? <Check className="w-4 h-4 mr-2 text-green-400" /> : <Mail className="w-4 h-4 mr-2" />}
                  Copy Email
                </Button>
-               <Button onClick={() => copyToClipboard(draft.briefing, "Briefing")} variant="outline" className="h-10 text-xs font-bold uppercase tracking-widest bg-white/5 border-white/10 hover:bg-white/10">
+               <Button onClick={() => copyToClipboard(draft.briefing, "Briefing")} variant="outline" className="h-10 text-[10px] sm:text-xs font-bold uppercase tracking-widest bg-white/5 border-white/10 hover:bg-white/10 w-full sm:w-auto">
                  {copiedType === "Briefing" ? <Check className="w-4 h-4 mr-2 text-green-400" /> : <FileText className="w-4 h-4 mr-2" />}
                  Copy Briefing
                </Button>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 pb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
             <Card className="p-6 bg-white/[0.02] border-white/10 h-[550px] overflow-hidden flex flex-col group relative">
               <div className="absolute inset-0 bg-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="flex items-center gap-2 mb-4 text-indigo-400 font-black uppercase text-[10px] tracking-[0.3em] relative z-10">

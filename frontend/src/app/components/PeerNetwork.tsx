@@ -34,8 +34,8 @@ export function PeerNetwork() {
           <Users className="w-3 h-3" />
           Collaborative Hub
         </div>
-        <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter uppercase bg-clip-text text-transparent bg-gradient-to-r from-white to-white/40">Peer Network</h2>
-        <p className="text-muted-foreground mt-3 max-w-2xl mx-auto font-medium">Connect with alumni who have already walked the path and join squads to accelerate your journey.</p>
+        <h2 className="text-3xl md:text-6xl font-black italic tracking-tighter uppercase bg-clip-text text-transparent bg-gradient-to-r from-white to-white/40">Peer Network</h2>
+        <p className="text-muted-foreground mt-3 max-w-2xl mx-auto font-medium text-xs sm:text-sm">Connect with alumni who have already walked the path and join squads to accelerate your journey.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-12">
@@ -65,7 +65,6 @@ export function PeerNetwork() {
                           <h4 className="font-bold text-white truncate">{alumni.name}</h4>
                           <span className="text-[9px] font-black text-white/40 uppercase whitespace-nowrap">{alumni.year}</span>
                         </div>
-                        <p className="text-xs text-indigo-400 font-black uppercase tracking-tighter mt-0.5 truncate">{alumni.uni}</p>
                         <p className="text-[10px] text-white/40 font-medium truncate mb-4 italic">{alumni.course}</p>
                         <div className="flex flex-wrap gap-1.5 mb-6">
                           {alumni.tags.map(tag => (

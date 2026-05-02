@@ -555,7 +555,7 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isLOROpen} onOpenChange={setIsLOROpen}>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
                     <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">AI LOR Drafter</DialogTitle>
@@ -579,7 +579,7 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isPeerOpen} onOpenChange={setIsPeerOpen}>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
                     <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">Peer Network</DialogTitle>
@@ -603,7 +603,7 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isParentOpen} onOpenChange={setIsParentOpen}>
-              <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
                     <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">Parent Dashboard</DialogTitle>
@@ -726,11 +726,22 @@ export function Dashboard() {
                     className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted transition"
                     onClick={() => {
                       setMobileMenuOpen(false);
-                      setTimeout(() => setIsEssayOpen(true), 300); // Increase buffer for stable mobile mount
+                      setTimeout(() => setIsEssayOpen(true), 300);
                     }}
                   >
-                    <FileText className="w-5 h-5 text-primary" />
+                    <FileText className="w-5 h-5 text-pink-400" />
                     <span className="text-sm font-bold">Essay Coach</span>
+                  </button>
+
+                  <button
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted transition"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setTimeout(() => setIsNexusOpen(true), 300);
+                    }}
+                  >
+                    <Sparkles className="w-5 h-5 text-indigo-400" />
+                    <span className="text-sm font-bold">Explore Nexus</span>
                   </button>
 
                   {NAV_ITEMS.map((item, i) => (
