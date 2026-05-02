@@ -516,7 +516,7 @@ export function Dashboard() {
                           }
                         }, 100);
                       }}
-                      className="group cursor-pointer p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-all relative overflow-hidden"
+                      className="group cursor-pointer p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-all relative overflow-hidden will-change-transform"
                     >
                       <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${tool.color} blur-[60px] opacity-10 group-hover:opacity-20 transition-opacity`} />
                       <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-black/20`}>
@@ -555,7 +555,7 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isLOROpen} onOpenChange={setIsLOROpen}>
-              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-xl border-white/10 p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
                     <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">AI LOR Drafter</DialogTitle>
@@ -572,14 +572,14 @@ export function Dashboard() {
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent">
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent custom-scrollbar">
                   <LORDrafter />
                 </div>
               </DialogContent>
             </Dialog>
 
             <Dialog open={isPeerOpen} onOpenChange={setIsPeerOpen}>
-              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-xl border-white/10 p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
                     <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">Peer Network</DialogTitle>
@@ -596,14 +596,14 @@ export function Dashboard() {
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent">
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent custom-scrollbar">
                   <PeerNetwork />
                 </div>
               </DialogContent>
             </Dialog>
 
             <Dialog open={isParentOpen} onOpenChange={setIsParentOpen}>
-              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)] [&>button]:hidden">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-xl border-white/10 p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
                     <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">Parent Dashboard</DialogTitle>
@@ -620,7 +620,7 @@ export function Dashboard() {
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent">
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent custom-scrollbar">
                   <ParentDashboard />
                 </div>
               </DialogContent>
@@ -1119,7 +1119,7 @@ export function Dashboard() {
 
       {/* AI Master Blueprint Modal */}
       <Dialog open={isBlueprintOpen} onOpenChange={setIsBlueprintOpen}>
-        <DialogContent className="max-w-4xl w-[95vw] h-[90vh] flex flex-col p-0 bg-background/95 backdrop-blur-2xl border-indigo-500/20 overflow-hidden">
+        <DialogContent className="max-w-4xl w-[95vw] h-[90vh] flex flex-col p-0 bg-background/95 backdrop-blur-xl border-indigo-500/20 overflow-hidden will-change-transform">
           <div className="p-6 border-b border-border/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">

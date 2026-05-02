@@ -130,7 +130,7 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
             initial={{ opacity: 0, scale: 0.9, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
-            className={`fixed inset-0 md:inset-4 lg:inset-10 ${isExpanded ? 'lg:inset-10' : 'lg:inset-20'} bg-card md:bg-card/95 border-0 md:border md:border-border rounded-none md:rounded-[40px] z-[101] overflow-hidden flex flex-col md:flex-row shadow-2xl transition-all duration-300`}
+            className={`fixed inset-0 md:inset-4 lg:inset-10 ${isExpanded ? 'lg:inset-10' : 'lg:inset-20'} bg-card md:bg-card/95 border-0 md:border md:border-border rounded-none md:rounded-[40px] z-[101] overflow-hidden flex flex-col md:flex-row shadow-2xl transition-all duration-300 will-change-transform`}
           >
             {/* Sidebar Stats (Desktop Only) */}
             <div className={`hidden md:flex w-full ${isExpanded ? 'md:w-64' : 'md:w-80'} bg-muted/50 border-r border-border p-8 flex-col transition-all overflow-y-auto`}>

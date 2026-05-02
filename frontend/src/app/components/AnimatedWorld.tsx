@@ -82,9 +82,9 @@ export function AnimatedWorld() {
         <motion.video 
           key={theme}
           autoPlay loop muted playsInline 
-          animate={{ scale: [1, 1.05, 1], x: ["0%", "1%", "0%"] }}
+          animate={{ scale: [1, 1.02, 1], x: ["0%", "0.5%", "0%"] }}
           transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-          className="absolute inset-y-0 right-0 w-[120vw] min-h-full object-cover origin-right"
+          className="absolute inset-y-0 right-0 w-[110vw] min-h-full object-cover origin-right will-change-transform"
           style={{
             maskImage: "linear-gradient(to left, black 0%, black 50%, transparent 100%)",
             WebkitMaskImage: "linear-gradient(to left, black 0%, black 50%, transparent 100%)",
@@ -106,12 +106,12 @@ export function AnimatedWorld() {
         <motion.div
           animate={{ opacity: [0.1, 0.2, 0.1], scale: [1, 1.1, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-indigo-600/20 via-slate-600/10 to-blue-800/10 rounded-full blur-[120px]"
+          className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-indigo-600/20 via-slate-600/10 to-blue-800/10 rounded-full blur-[80px] will-change-transform"
         />
         <motion.div
           animate={{ opacity: [0.05, 0.15, 0.05], scale: [1, 1.2, 1] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-0 right-1/3 w-[700px] h-[700px] bg-gradient-to-br from-blue-900/20 via-indigo-900/10 to-slate-800/10 rounded-full blur-[120px]"
+          className="absolute bottom-0 right-1/3 w-[700px] h-[700px] bg-gradient-to-br from-blue-900/20 via-indigo-900/10 to-slate-800/10 rounded-full blur-[80px] will-change-transform"
         />
       </div>
 
