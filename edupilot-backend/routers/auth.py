@@ -115,11 +115,16 @@ async def login(auth: UserAuth):
 
         # Extract profile and strip profile_picture to keep payload lean
         profile_data = db_user.get("profiles")
-        profile = profile_data[0] if profile_data else {
-            "full_name": "New User",
-            "xp": 0,
-            "streak": 1
-        }
+        if isinstance(profile_data, list) and len(profile_data) > 0:
+            profile = profile_data[0]
+        elif isinstance(profile_data, dict):
+            profile = profile_data
+        else:
+            profile = {
+                "full_name": "New User",
+                "xp": 0,
+                "streak": 1
+            }
         if isinstance(profile, dict):
             profile.pop("profile_picture", None)
 
