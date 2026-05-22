@@ -100,37 +100,52 @@ async def login(auth: UserAuth):
     if not supabase:
         raise HTTPException(status_code=500, detail="Database not connected")
 
-    # Fetch user + profile in one joined query (proven working format)
-    res = supabase.table("users").select("*, profiles(*)").eq("email", auth.email).limit(1).execute()
+    try:
+        # Fetch user + profile in one joined query
+        res = supabase.table("users").select("*, profiles(*)").eq("email", auth.email).limit(1).execute()
 
-    if not res.data:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+        if not res.data:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    db_user = res.data[0]
+        db_user = res.data[0]
 
-    # Non-blocking password check — runs in thread pool, never freezes event loop
-    if not await verify_password_async(auth.password, db_user["password"]):
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+        # Non-blocking password check
+        if not await verify_password_async(auth.password, db_user["password"]):
+            raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    # Extract profile and strip profile_picture to keep payload lean
-    profile_data = db_user.get("profiles")
-    profile = profile_data[0] if profile_data else {
-        "full_name": "New User",
-        "xp": 0,
-        "streak": 1
-    }
-    # Strip heavy field server-side — cuts payload ~95%
-    if isinstance(profile, dict):
-        profile.pop("profile_picture", None)
+        # Extract profile and strip profile_picture to keep payload lean
+        profile_data = db_user.get("profiles")
+        profile = profile_data[0] if profile_data else {
+            "full_name": "New User",
+            "xp": 0,
+            "streak": 1
+        }
+        if isinstance(profile, dict):
+            profile.pop("profile_picture", None)
 
-    return {
-        "status": "success",
-        "user": {
-            "id": db_user["id"],
-            "email": db_user["email"]
-        },
-        "profile": profile
-    }
+        return {
+            "status": "success",
+            "user": {
+                "id": db_user["id"],
+                "email": db_user["email"]
+            },
+            "profile": profile
+        }
+    except HTTPException:
+        raise  # re-raise 401s as-is
+    except Exception as e:
+        # Surface the real error so we can debug it
+        raise HTTPException(status_code=500, detail=f"Login error: {type(e).__name__}: {str(e)}")
+
+@router.get("/debug-login")
+async def debug_login():
+    """Temporary debug endpoint to test DB connectivity and query."""
+    try:
+        res = supabase.table("users").select("id, email").limit(1).execute()
+        return {"status": "ok", "can_query_users": True, "sample_count": len(res.data)}
+    except Exception as e:
+        return {"status": "error", "error": f"{type(e).__name__}: {str(e)}"}
+
 
 @router.post("/update-profile")
 async def update_profile(profile: ProfileUpdate):
