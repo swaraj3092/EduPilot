@@ -23,12 +23,12 @@ def _verify_password_sync(password: str, hashed: str) -> bool:
 
 async def verify_password_async(password: str, hashed: str) -> bool:
     """Non-blocking password verification — runs bcrypt in a thread pool."""
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     return await loop.run_in_executor(None, _verify_password_sync, password, hashed)
 
 # Models
 class UserAuth(BaseModel):
-    email: str # Can be email or phone based on UI
+    email: str
     password: str
     referrer_code: Optional[str] = None
 
@@ -52,7 +52,7 @@ async def register(auth: UserAuth):
         raise HTTPException(status_code=500, detail="Database not connected")
     
     # Check if user exists
-    existing = supabase.table("users").select("*").eq("email", auth.email).execute()
+    existing = supabase.table("users").select("id").eq("email", auth.email).execute()
     if existing.data:
         raise HTTPException(status_code=400, detail="User already registered")
     
@@ -73,12 +73,9 @@ async def register(auth: UserAuth):
     
     # Handle Referral Logic
     if auth.referrer_code:
-        # 1. Try to find the referrer
-        # We check referral_code first, then full_name slugs
         referrer_ref = supabase.table("profiles").select("*").eq("referral_code", auth.referrer_code).execute()
         
         if not referrer_ref.data:
-            # Fallback: Check if it's a sluggified name match
             all_profiles = supabase.table("profiles").select("user_id, full_name, referrals_count, xp").execute()
             for p in all_profiles.data:
                 slug = p["full_name"].lower().replace(' ', '') if p.get("full_name") else ""
@@ -89,13 +86,12 @@ async def register(auth: UserAuth):
         if referrer_ref.data:
             ref = referrer_ref.data[0]
             new_count = (ref.get("referrals_count") or 0) + 1
-            new_xp = (ref.get("xp") or 0) + 100 # Reward referrer with 100 XP
+            new_xp = (ref.get("xp") or 0) + 100
             
             supabase.table("profiles").update({
                 "referrals_count": new_count,
                 "xp": new_xp
             }).eq("user_id", ref["user_id"]).execute()
-            print(f"SUCCESS: Incremented referrals for {ref['user_id']} to {new_count}")
 
     return {"status": "success", "user_id": user_id, "message": "Account created successfully"}
 
@@ -104,27 +100,28 @@ async def login(auth: UserAuth):
     if not supabase:
         raise HTTPException(status_code=500, detail="Database not connected")
 
-    # Single joined query — fetch user + lean profile (no profile_picture to keep payload tiny)
-    res = supabase.table("users").select(
-        "id, email, password, profiles(user_id, full_name, xp, streak, target_country, target_field, degree_level, referral_code, referrals_count, quests_completed, last_login_date)"
-    ).eq("email", auth.email).limit(1).execute()
+    # Fetch user + profile in one joined query (proven working format)
+    res = supabase.table("users").select("*, profiles(*)").eq("email", auth.email).limit(1).execute()
 
     if not res.data:
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     db_user = res.data[0]
 
-    # Non-blocking password check — won't freeze the server even for bcrypt hashes
+    # Non-blocking password check — runs in thread pool, never freezes event loop
     if not await verify_password_async(auth.password, db_user["password"]):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    # Extract lean profile (profile_picture excluded to cut payload ~95%)
+    # Extract profile and strip profile_picture to keep payload lean
     profile_data = db_user.get("profiles")
     profile = profile_data[0] if profile_data else {
         "full_name": "New User",
         "xp": 0,
         "streak": 1
     }
+    # Strip heavy field server-side — cuts payload ~95%
+    if isinstance(profile, dict):
+        profile.pop("profile_picture", None)
 
     return {
         "status": "success",
