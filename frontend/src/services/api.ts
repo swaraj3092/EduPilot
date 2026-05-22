@@ -7,9 +7,9 @@
  *   import { chatSend, analyzeEssay, getAdmissionProbability, getLoanEligibility } from '../lib/api';
  */
 
-// Normalize BASE URL: Remove trailing slash if it exists to avoid double-slashes in fetch calls (e.g. //api/...)
-let rawBase = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
-const BASE = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
+// In production: use relative URL so Vercel proxies /api/* → Render (zero CORS)
+// In local dev: hit localhost:8000 directly
+const BASE = import.meta.env.VITE_API_URL ?? "";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
