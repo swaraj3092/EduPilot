@@ -13,26 +13,22 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# ── CORS (allow your Vite dev server + Vercel deployment) ─────────────────────
-frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
-
-# Allow dev and production origins
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:5174",
-    "http://127.0.0.1:5174",
-    "http://localhost:8000",
-]
-
-# Add Vercel env var if available
-if frontend_url:
-    origins.append(frontend_url)
-
+# ── CORS ───────────────────────────────────────────────────────────────────────
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_origin_regex="https://.*\.vercel\.app", # Allow all Vercel previews
+    allow_origins=[
+        # Local dev
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+        "http://localhost:8000",
+        # Production Vercel
+        "https://edu-pilot-tau.vercel.app",
+        # Add any FRONTEND_URL from env too
+        os.getenv("FRONTEND_URL", ""),
+    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",  # All Vercel preview deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
