@@ -85,11 +85,11 @@ export function PublicProfile() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 bg-[#060610]">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 ">
         <AnimatedWorld />
         <div className="relative z-10 text-center">
           <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-white">Fetching {username}'s Achievement Card...</h2>
+          <h2 className="text-xl font-bold text-foreground">Fetching {username}'s Achievement Card...</h2>
         </div>
       </div>
     );
@@ -97,14 +97,14 @@ export function PublicProfile() {
 
   if (error || !profile) {
     return (
-      <div className="min-h-screen bg-[#0D0D1A] flex flex-col items-center justify-center p-6 -mt-20">
+      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center p-6 -mt-20">
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="max-w-md w-full bg-card/40 backdrop-blur-2xl border border-border p-12 rounded-[40px] text-center shadow-2xl">
           <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-red-500/20">
              <AlertCircle className="w-10 h-10 text-red-500" />
           </div>
-          <h2 className="text-3xl font-black text-white mb-4 tracking-tight">{errorHeader}</h2>
+          <h2 className="text-3xl font-black text-foreground mb-4 tracking-tight">{errorHeader}</h2>
           <p className="text-muted-foreground mb-8 font-medium leading-relaxed">{errorMessage}</p>
-          <Button onClick={() => navigate('/')} className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-lg shadow-lg shadow-primary/20">
+          <Button onClick={() => navigate('/')} className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-foreground font-bold text-lg shadow-lg shadow-primary/20">
             Join EduPilot Anyway
           </Button>
         </motion.div>
@@ -113,7 +113,7 @@ export function PublicProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden flex flex-col items-center justify-center p-4 md:p-6 bg-[#060610]">
+    <div className="min-h-screen bg-background relative overflow-hidden flex flex-col items-center justify-center p-4 md:p-6 ">
       {/* Premium Background */}
       <AnimatedWorld />
 
@@ -142,7 +142,7 @@ export function PublicProfile() {
             whileHover={{ rotateY: -5, rotateX: 5, scale: 1.02 }}
             className="perspective-1000"
           >
-            <Card className="relative p-8 bg-gradient-to-br from-indigo-500/20 via-slate-900/40 to-purple-500/20 backdrop-blur-3xl border border-white/20 shadow-[0_30px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden group">
+            <Card className="relative p-8 bg-gradient-to-br from-indigo-500/20 via-slate-900/40 to-purple-500/20 backdrop-blur-3xl border border-border shadow-[0_30px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden group">
               {/* Animated Inner Shine */}
               <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/5 to-transparent skew-y-12 translate-y-full group-hover:translate-y-[-100%] transition-transform duration-1000" />
               
@@ -165,11 +165,11 @@ export function PublicProfile() {
                     transition={{ duration: 2, repeat: Infinity }}
                     className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-green-500 border-2 border-[#0A0A1F] flex items-center justify-center"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-white" />
+                    <CheckCircle2 className="w-4 h-4 text-foreground" />
                   </motion.div>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-1">{profile.full_name}</h3>
+                  <h3 className="text-2xl font-bold text-foreground mb-1">{profile.full_name}</h3>
                   <div className="flex items-center gap-2 text-indigo-400 text-sm font-semibold tracking-wide uppercase">
                     <GraduationCap className="w-4 h-4" />
                     Global Explorer
@@ -179,21 +179,21 @@ export function PublicProfile() {
 
               {/* Stats Row */}
               <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="p-4 rounded-2xl bg-white/10 border border-white/20 text-center group/stat hover:bg-white/15 transition-all">
+                <div className="p-4 rounded-2xl bg-white/10 border border-border text-center group/stat hover:bg-white/15 transition-all">
                   <Zap className="w-8 h-8 text-primary mx-auto mb-2 group-hover/stat:scale-110 transition-transform" />
-                  <div className="text-3xl font-bold text-white tracking-tighter">{profile.xp.toLocaleString()}</div>
-                  <div className="text-[10px] text-white/40 uppercase font-black tracking-widest">Mastery XP</div>
+                  <div className="text-3xl font-bold text-foreground tracking-tighter">{profile.xp.toLocaleString()}</div>
+                  <div className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">Mastery XP</div>
                 </div>
-                <div className="p-4 rounded-2xl bg-white/10 border border-white/20 text-center group/stat hover:bg-white/15 transition-all">
+                <div className="p-4 rounded-2xl bg-white/10 border border-border text-center group/stat hover:bg-white/15 transition-all">
                   <Flame className="w-8 h-8 text-orange-500 mx-auto mb-2 group-hover/stat:scale-110 transition-transform" />
-                  <div className="text-3xl font-bold text-white tracking-tighter">{profile.streak}</div>
-                  <div className="text-[10px] text-white/40 uppercase font-black tracking-widest">Day Pulse</div>
+                  <div className="text-3xl font-bold text-foreground tracking-tighter">{profile.streak}</div>
+                  <div className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">Day Pulse</div>
                 </div>
               </div>
 
               {/* Achievements Showcase */}
               <div className="space-y-4 mb-8">
-                <h4 className="text-xs font-bold text-white/40 uppercase tracking-[0.2em]">Latest Achievements</h4>
+                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-[0.2em]">Latest Achievements</h4>
                 <div className="flex gap-3 flex-wrap">
                   {(profile.badges || ["early_adopter", "profile_complete"]).slice(0, 3).map((badge: string, i: number) => (
                     <motion.div 
@@ -213,11 +213,11 @@ export function PublicProfile() {
               {/* Target Goal - "The Mission" */}
               <Card className="p-5 bg-gradient-to-r from-primary/20 via-primary/5 to-transparent border-none shadow-none relative overflow-hidden group/mission">
                  <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
-                 <div className="text-[10px] text-white/40 font-black uppercase mb-1.5 tracking-widest">Mission Objective</div>
-                 <div className="text-sm text-white font-bold leading-relaxed">
+                 <div className="text-[10px] text-muted-foreground font-black uppercase mb-1.5 tracking-widest">Mission Objective</div>
+                 <div className="text-sm text-foreground font-bold leading-relaxed">
                     Mastering <span className="text-primary italic">{profile.target_field || "Global Technology"}</span> admissions for <span className="text-primary italic">{profile.target_country || "top global universities"}</span>.
                  </div>
-                 <Sparkles className="absolute bottom-2 right-2 w-4 h-4 text-white/10 group-hover/mission:text-primary/40 transition-colors" />
+                 <Sparkles className="absolute bottom-2 right-2 w-4 h-4 text-foreground/10 group-hover/mission:text-primary/40 transition-colors" />
               </Card>
 
               {/* Join Badge */}
@@ -236,14 +236,14 @@ export function PublicProfile() {
                animate={{ opacity: 1, x: 0 }}
                transition={{ delay: 0.6 }}
              >
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-bold mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted border border-border text-primary text-xs font-bold mb-6">
                    <Rocket className="w-4 h-4" />
                    LEVEL {Math.floor(profile.xp / 1000) + 1} PILOT ENTRANCE
                 </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
                 Join <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-400 to-indigo-500">{profile.full_name.split(' ')[0]}'s</span> Study Abroad Crew.
               </h1>
-              <p className="text-lg text-white/60 mb-10 max-w-lg mx-auto lg:mx-0">
+              <p className="text-lg text-foreground/60 mb-10 max-w-lg mx-auto lg:mx-0">
                 Level up your education journey with AI-powered SOP reviews, 
                 university matching, and real-time loan eligibility checks.
               </p>
@@ -257,7 +257,7 @@ export function PublicProfile() {
                     Join {profile.full_name.split(' ')[0]}'s Crew
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                  </Button>
-                 <div className="flex items-center gap-3 text-white/40">
+                 <div className="flex items-center gap-3 text-muted-foreground">
                    <div className="flex -space-x-2">
                       {[1,2,3].map(i => (
                         <div key={i} className="w-8 h-8 rounded-full bg-slate-800 border-2 border-[#0A0A1F] flex items-center justify-center text-[8px] font-bold">U{i}</div>
@@ -274,8 +274,8 @@ export function PublicProfile() {
                        <Zap className="w-5 h-5 text-primary" />
                     </div>
                     <div className="text-left">
-                       <div className="text-white font-bold text-sm">AI SOP Review</div>
-                       <div className="text-[10px] text-white/40">Instant feedback & scoring</div>
+                       <div className="text-foreground font-bold text-sm">AI SOP Review</div>
+                       <div className="text-[10px] text-muted-foreground">Instant feedback & scoring</div>
                     </div>
                  </div>
                  <div className="flex items-start gap-3">
@@ -283,8 +283,8 @@ export function PublicProfile() {
                        <DollarSign className="w-5 h-5 text-green-400" />
                     </div>
                     <div className="text-left">
-                       <div className="text-white font-bold text-sm">Loan Pre-Approval</div>
-                       <div className="text-[10px] text-white/40">Real-time eligibility checks</div>
+                       <div className="text-foreground font-bold text-sm">Loan Pre-Approval</div>
+                       <div className="text-[10px] text-muted-foreground">Real-time eligibility checks</div>
                     </div>
                  </div>
               </div>
@@ -296,32 +296,32 @@ export function PublicProfile() {
              className="space-y-12"
            >
               <div className="space-y-4">
-                 <h2 className="text-7xl font-black text-white leading-[0.9] tracking-tight">
+                 <h2 className="text-7xl font-black text-foreground leading-[0.9] tracking-tight">
                    Welcome back, <br/> 
                    <span className="text-primary italic px-2">{viewerName}!</span>
                  </h2>
-                 <p className="text-xl text-white/50 font-medium max-w-lg">
-                   You're already part of the mission. Ready to continue your journey to <span className="text-white">{profile.target_country}</span>?
+                 <p className="text-xl text-foreground/50 font-medium max-w-lg">
+                   You're already part of the mission. Ready to continue your journey to <span className="text-foreground">{profile.target_country}</span>?
                  </p>
               </div>
 
               <div className="flex flex-col gap-6">
                  <Button 
                    onClick={() => navigate('/dashboard')}
-                   className="h-20 px-12 rounded-[30px] bg-primary text-white hover:bg-primary/90 transition-all flex items-center gap-4 text-2xl font-bold shadow-2xl shadow-primary/30 w-fit"
+                   className="h-20 px-12 rounded-[30px] bg-primary text-foreground hover:bg-primary/90 transition-all flex items-center gap-4 text-2xl font-bold shadow-2xl shadow-primary/30 w-fit"
                  >
                    Back to Dashboard
                    <ArrowRight className="w-6 h-6" />
                  </Button>
                  
-                 <div className="pt-8 border-t border-white/10 max-w-sm">
-                    <p className="text-xs font-bold text-white/30 uppercase tracking-widest mb-4">Your Social Impact</p>
+                 <div className="pt-8 border-t border-border max-w-sm">
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Your Social Impact</p>
                     <div className="flex items-center gap-4">
-                       <div className="px-4 py-2 rounded-xl bg-white/5 border border-white/10">
-                          <div className="text-xl font-bold text-white leading-none">{profile.referrals_count || 0}</div>
-                          <div className="text-[10px] text-white/40 uppercase font-black">Crew Members</div>
+                       <div className="px-4 py-2 rounded-xl bg-muted border border-border">
+                          <div className="text-xl font-bold text-foreground leading-none">{profile.referrals_count || 0}</div>
+                          <div className="text-[10px] text-muted-foreground uppercase font-black">Crew Members</div>
                        </div>
-                       <p className="text-sm text-white/40 font-medium italic">"Every explorer needs a solid crew."</p>
+                       <p className="text-sm text-muted-foreground font-medium italic">"Every explorer needs a solid crew."</p>
                     </div>
                  </div>
               </div>

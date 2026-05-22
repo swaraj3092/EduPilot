@@ -420,7 +420,7 @@ export function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-background">
+    <div className="min-h-screen relative overflow-hidden bg-transparent">
 
       {/* Top Navigation */}
       <nav className="relative z-20 backdrop-blur-xl bg-background/5 border-b border-border">
@@ -437,7 +437,7 @@ export function Dashboard() {
           <div className="hidden lg:flex items-center gap-3">
             <Dialog open={isNexusOpen} onOpenChange={setIsNexusOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold shadow-lg shadow-indigo-500/20 hover:scale-105 transition-transform px-6">
+                <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-foreground font-bold shadow-lg shadow-indigo-500/20 hover:scale-105 transition-transform px-6">
                   <Menu className="w-4 h-4 mr-2" />
                   Explore Nexus
                 </Button>
@@ -497,7 +497,7 @@ export function Dashboard() {
                       className="group cursor-pointer p-8 rounded-[32px] bg-card hover:bg-muted border border-border hover:border-indigo-500/50 transition-all duration-500 relative overflow-hidden will-change-transform shadow-xl"
                     >
                       <div className={`absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br ${tool.color} blur-[60px] opacity-10 group-hover:opacity-20 transition-opacity`} />
-                      <div className={`w-16 h-16 rounded-[24px] bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-2xl shadow-black/20 border border-white/20`}>
+                      <div className={`w-16 h-16 rounded-[24px] bg-gradient-to-br ${tool.color} flex items-center justify-center text-foreground mb-6 group-hover:scale-110 transition-transform shadow-2xl shadow-black/20 border border-border`}>
                         <tool.icon className="w-7 h-7" />
                       </div>
                       <h4 className="text-xl font-black text-foreground mb-2 uppercase italic tracking-tighter">{tool.label}</h4>
@@ -616,7 +616,7 @@ export function Dashboard() {
                   <Button 
                     key={item.path} 
                     variant="ghost" 
-                    className="text-white/40 hover:text-white hover:bg-white/5 font-black uppercase tracking-widest text-[10px] h-10 px-4 rounded-xl transition-all" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted font-black uppercase tracking-widest text-[10px] h-10 px-4 rounded-xl transition-all" 
                     onClick={() => navigate(item.path)}
                   >
                     <item.icon className="w-4 h-4 mr-2 text-indigo-400" />
@@ -633,14 +633,14 @@ export function Dashboard() {
                 className="hidden sm:flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-full hover:bg-orange-500/20 transition-colors active:scale-95 group"
               >
                 <Flame className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-white uppercase tracking-wider">{userStats.streak} Day Streak</span>
+                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.streak} Day Streak</span>
               </button>
               <button 
                 onClick={() => setIsQuestOpen(true)}
                 className="hidden sm:flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 px-3 py-1.5 rounded-full mr-2 hover:bg-purple-500/20 transition-colors active:scale-95 group"
               >
                 <Zap className="w-4 h-4 text-purple-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-white uppercase tracking-wider">{userStats.xp.toLocaleString()} XP</span>
+                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.xp.toLocaleString()} XP</span>
               </button>
               <NotificationCenter />
             </div>
@@ -684,7 +684,7 @@ export function Dashboard() {
             <NotificationCenter />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded-lg hover:bg-white/10 transition text-foreground/70"
+              className="p-1.5 rounded-lg hover:bg-muted transition text-foreground/70"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -738,7 +738,7 @@ export function Dashboard() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.05 + i * 0.05 }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-muted transition"
                       onClick={() => { navigate(item.path); setMobileMenuOpen(false); }}
                     >
                       <item.icon className="w-5 h-5 text-indigo-400" />
@@ -746,12 +746,12 @@ export function Dashboard() {
                     </motion.button>
                   ))}
 
-                  <div className="border-t border-white/10 mt-2 pt-2 flex flex-col gap-2">
+                  <div className="border-t border-border mt-2 pt-2 flex flex-col gap-2">
                     <motion.button
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.3 }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-white/10 transition"
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-foreground/70 hover:text-foreground hover:bg-muted transition"
                       onClick={() => { navigate("/settings"); setMobileMenuOpen(false); }}
                     >
                       <SettingsIcon className="w-5 h-5 text-indigo-400" />
@@ -792,13 +792,13 @@ export function Dashboard() {
       {/* Main Content — Responsive Split Pane */}
       <div className="relative z-10 max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:h-[calc(100vh-73px)]">
         {/* Left: AI Chat */}
-        <div className={`relative flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-white/10 h-full lg:h-auto ${
+        <div className={`relative flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-border h-full lg:h-auto ${
           mobileWorkview === 'chat' 
             ? 'flex fixed inset-0 z-50 bg-background pt-0 pb-[100px]' 
             : 'hidden lg:flex'
         }`}>
           {/* Chat Header - Mobile Optimized */}
-          <div className="p-4 md:p-6 border-b border-white/10 bg-card/30 backdrop-blur-md sticky top-0 z-10">
+          <div className="p-4 md:p-6 border-b border-border bg-card/30 backdrop-blur-md sticky top-0 z-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Button 
@@ -816,7 +816,7 @@ export function Dashboard() {
                     transition={{ duration: 4, repeat: Infinity }}
                   >
                     <div className="absolute inset-0 rounded-full bg-primary/20 blur-lg opacity-60" />
-                    <div className="absolute inset-1.5 rounded-full bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center text-white">
+                    <div className="absolute inset-1.5 rounded-full bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center text-foreground">
                       <Sparkles className="w-4 h-4 md:w-6 md:h-6" />
                     </div>
                   </motion.div>
@@ -959,7 +959,7 @@ export function Dashboard() {
                 onClick={handleGenerateBlueprint}
                 className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 cursor-pointer hover:from-indigo-500/20 transition-colors shadow-lg shadow-indigo-500/5"
               >
-                <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center text-white">
+                <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center text-foreground">
                   <GlobeMap className="w-4 h-4" />
                 </div>
                 <div className="flex-1">
@@ -1049,7 +1049,7 @@ export function Dashboard() {
                                   Analysis
                                 </Button>
                                 <Button 
-                                  className="h-8 bg-indigo-500 hover:bg-indigo-600 text-[10px] px-4 rounded-lg shadow-lg shadow-indigo-500/20 text-white"
+                                  className="h-8 bg-indigo-500 hover:bg-indigo-600 text-[10px] px-4 rounded-lg shadow-lg shadow-indigo-500/20 text-foreground"
                                   onClick={() => handleTrack(uni)}
                                 >
                                   Track
@@ -1110,7 +1110,7 @@ export function Dashboard() {
         <DialogContent className="max-w-4xl w-[95vw] h-[90vh] flex flex-col p-0 bg-background/95 backdrop-blur-xl border-indigo-500/20 overflow-hidden will-change-transform">
           <div className="p-6 border-b border-border/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+              <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-foreground shadow-lg shadow-indigo-500/20">
                 <GlobeMap className="w-5 h-5" />
               </div>
               <div>
