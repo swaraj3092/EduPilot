@@ -14,22 +14,13 @@ app = FastAPI(
 )
 
 # ── CORS ───────────────────────────────────────────────────────────────────────
+# allow_origins=["*"] + allow_credentials=False is the only spec-compliant way
+# to unblock all origins. Auth tokens live in localStorage, not cookies,
+# so credentials mode is not needed.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        # Local dev
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
-        "http://localhost:8000",
-        # Production Vercel
-        "https://edu-pilot-tau.vercel.app",
-        # Add any FRONTEND_URL from env too
-        os.getenv("FRONTEND_URL", ""),
-    ],
-    allow_origin_regex=r"https://.*\.vercel\.app",  # All Vercel preview deployments
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
