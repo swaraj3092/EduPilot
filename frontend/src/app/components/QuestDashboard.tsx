@@ -311,7 +311,16 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
                                  </thead>
                                  <tbody>
                                    {leaderboard.map((user, i) => (
-                                     <tr key={user.id} className="group hover:bg-white/[0.02] transition-colors">
+                                     <tr 
+                                       key={user.referral_code || i} 
+                                       className="group hover:bg-white/[0.02] transition-colors cursor-pointer"
+                                       onClick={() => {
+                                         if (user.referral_code) {
+                                           navigate(`/public-profile/${user.referral_code}`);
+                                           onClose(); // close the dashboard modal
+                                         }
+                                       }}
+                                     >
                                         <td className="p-6">
                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black italic ${i === 0 ? 'bg-yellow-500/20 text-yellow-500' : i === 1 ? 'bg-slate-300/20 text-slate-300' : i === 2 ? 'bg-amber-600/20 text-amber-600' : 'text-white/20'}`}>
                                              #{i + 1}
