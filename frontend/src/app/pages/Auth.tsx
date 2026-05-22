@@ -27,13 +27,13 @@ export function Auth() {
     try {
       if (authMode === "signup") {
         const referrer = localStorage.getItem("edupilot-referrer");
-        await registerUser({ email, password, referrer_code: referrer || undefined });
-        const res = await loginUser({ email, password });
+        // Register returns user_id — no second login roundtrip needed
+        const regRes = await registerUser({ email, password, referrer_code: referrer || undefined });
         try {
-          localStorage.setItem("edupilot-user", JSON.stringify(res.user));
-        } catch(e) {
-          localStorage.clear(); // Extreme fallback
-          localStorage.setItem("edupilot-user", JSON.stringify(res.user));
+          localStorage.setItem("edupilot-user", JSON.stringify({ id: regRes.user_id, email }));
+        } catch (e) {
+          localStorage.clear();
+          localStorage.setItem("edupilot-user", JSON.stringify({ id: regRes.user_id, email }));
         }
         navigate("/onboarding");
       } else if (authMode === "login") {
