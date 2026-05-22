@@ -55,15 +55,15 @@ export function LORDrafter() {
               <motion.div 
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-500/10 rounded-full border border-indigo-500/20 text-[10px] font-black text-indigo-400 uppercase tracking-[0.2em] mb-6"
+                className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-500/10 rounded-full border border-indigo-500/20 text-[10px] font-bold text-indigo-400 tracking-[0.2em] mb-6"
               >
                 <Zap className="w-3 h-3 fill-current" />
                 Strategic Protocol Alpha
               </motion.div>
-              <h2 className="text-5xl font-black italic tracking-tighter uppercase bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-foreground/50 leading-none">
+              <h2 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-foreground/50 leading-none">
                 LOR Drafter
               </h2>
-              <p className="text-muted-foreground mt-4 font-bold uppercase text-[10px] tracking-widest max-w-sm mx-auto">
+              <p className="text-muted-foreground mt-4 font-bold text-[10px] max-w-sm mx-auto">
                 Synthesize professional briefing documents and request protocols for your academic network.
               </p>
             </div>
@@ -74,7 +74,7 @@ export function LORDrafter() {
               <div className="relative z-10 space-y-10">
                 <div className="grid grid-cols-1 gap-8">
                   <div className="space-y-3">
-                    <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400/80 ml-1">Academic Authority Name</Label>
+                    <Label className="text-[10px] font-bold tracking-[0.3em] text-indigo-400/80 ml-1">Academic Authority Name</Label>
                     <Input 
                       placeholder="e.g. Dr. Arishetty" 
                       value={profName}
@@ -85,7 +85,7 @@ export function LORDrafter() {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                      <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400/80 ml-1">Objective Program</Label>
+                      <Label className="text-[10px] font-bold tracking-[0.3em] text-indigo-400/80 ml-1">Objective Program</Label>
                       <Input 
                         placeholder="e.g. MS in CS" 
                         value={course}
@@ -94,7 +94,7 @@ export function LORDrafter() {
                       />
                     </div>
                     <div className="space-y-3">
-                      <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400/80 ml-1">Interaction Context</Label>
+                      <Label className="text-[10px] font-bold tracking-[0.3em] text-indigo-400/80 ml-1">Interaction Context</Label>
                       <Input 
                         placeholder="e.g. Thesis Student" 
                         value={relationship}
@@ -106,7 +106,7 @@ export function LORDrafter() {
                 </div>
 
                 <Button 
-                  className="w-full h-16 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-foreground font-black uppercase tracking-[0.25em] rounded-2xl shadow-2xl shadow-indigo-500/20 group overflow-hidden relative border-t border-white/20 transition-all active:scale-95"
+                  className="w-full h-16 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-foreground font-bold tracking-[0.25em] rounded-2xl shadow-2xl shadow-indigo-500/20 group overflow-hidden relative border-t border-white/20 transition-all active:scale-95"
                   onClick={handleGenerate}
                   disabled={isGenerating}
                 >
@@ -140,8 +140,8 @@ export function LORDrafter() {
                   <FileText className="w-6 h-6 text-indigo-400" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-black uppercase tracking-widest text-foreground">Drafts Generated</h4>
-                  <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Protocol Sync Complete</p>
+                  <h4 className="text-sm font-bold text-foreground">Drafts Generated</h4>
+                  <p className="text-[10px] text-muted-foreground font-bold">Protocol Sync Complete</p>
                 </div>
               </div>
               
@@ -149,7 +149,7 @@ export function LORDrafter() {
                 <Button 
                   variant="ghost" 
                   onClick={() => setDraft(null)} 
-                  className="text-muted-foreground hover:text-foreground hover:bg-muted h-14 px-8 font-black uppercase tracking-widest text-[10px] rounded-2xl border border-border/50"
+                  className="text-muted-foreground hover:text-foreground hover:bg-muted h-14 px-8 font-bold text-[10px] rounded-2xl border border-border/50"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Reset
@@ -157,7 +157,7 @@ export function LORDrafter() {
                 
                 <Button 
                   onClick={() => copyToClipboard(draft.email, "Email")} 
-                  className={`h-14 px-10 text-[10px] font-black uppercase tracking-widest transition-all duration-500 rounded-2xl flex items-center gap-3 border ${
+                  className={`h-14 px-10 text-[10px] font-bold transition-all duration-500 rounded-2xl flex items-center gap-3 border ${
                     copiedType === "Email" 
                       ? "bg-emerald-500 text-foreground border-emerald-400 shadow-emerald-500/20" 
                       : "bg-indigo-600 hover:bg-indigo-500 text-foreground border-border shadow-indigo-500/20"
@@ -169,7 +169,7 @@ export function LORDrafter() {
                 
                 <Button 
                   onClick={() => copyToClipboard(draft.briefing, "Briefing")} 
-                  className={`h-14 px-10 text-[10px] font-black uppercase tracking-widest transition-all duration-500 rounded-2xl flex items-center gap-3 border ${
+                  className={`h-14 px-10 text-[10px] font-bold transition-all duration-500 rounded-2xl flex items-center gap-3 border ${
                     copiedType === "Briefing" 
                       ? "bg-emerald-500 text-foreground border-emerald-400 shadow-emerald-500/20" 
                       : "bg-purple-600 hover:bg-purple-500 text-foreground border-border shadow-purple-500/20"
@@ -190,7 +190,7 @@ export function LORDrafter() {
                 <Card className="p-1 bg-gradient-to-b from-indigo-500/30 to-transparent rounded-[40px] border-0 overflow-hidden shadow-2xl">
                   <div className="bg-card p-8 h-[650px] flex flex-col rounded-[39px]">
                     <div className="flex items-center justify-between mb-8">
-                      <div className="flex items-center gap-3 text-indigo-400 font-black uppercase text-[10px] tracking-[0.3em]">
+                      <div className="flex items-center gap-3 text-indigo-400 font-bold text-[10px] tracking-[0.3em]">
                         <Mail className="w-4 h-4" />
                         Communication Draft
                       </div>
@@ -214,7 +214,7 @@ export function LORDrafter() {
                 <Card className="p-1 bg-gradient-to-b from-purple-500/30 to-transparent rounded-[40px] border-0 overflow-hidden shadow-2xl">
                   <div className="bg-card p-8 h-[650px] flex flex-col rounded-[39px]">
                     <div className="flex items-center justify-between mb-8">
-                      <div className="flex items-center gap-3 text-purple-400 font-black uppercase text-[10px] tracking-[0.3em]">
+                      <div className="flex items-center gap-3 text-purple-400 font-bold text-[10px] tracking-[0.3em]">
                         <FileText className="w-4 h-4" />
                         Professor Briefing
                       </div>

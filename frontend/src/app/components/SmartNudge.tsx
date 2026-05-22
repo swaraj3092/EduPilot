@@ -69,7 +69,7 @@ export function SmartNudge() {
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-foreground/50">{activeNudge.type}</span>
+                <span className="text-[10px] font-bold text-foreground/50">{activeNudge.type}</span>
                 <button 
                   onClick={() => setActiveNudge(null)}
                   className="p-1 rounded-full hover:bg-white/10 transition"

@@ -102,7 +102,7 @@ export function PublicProfile() {
           <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-red-500/20">
              <AlertCircle className="w-10 h-10 text-red-500" />
           </div>
-          <h2 className="text-3xl font-black text-foreground mb-4 tracking-tight">{errorHeader}</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-4">{errorHeader}</h2>
           <p className="text-muted-foreground mb-8 font-medium leading-relaxed">{errorMessage}</p>
           <Button onClick={() => navigate('/')} className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-foreground font-bold text-lg shadow-lg shadow-primary/20">
             Join EduPilot Anyway
@@ -170,7 +170,7 @@ export function PublicProfile() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-foreground mb-1">{profile.full_name}</h3>
-                  <div className="flex items-center gap-2 text-indigo-400 text-sm font-semibold tracking-wide uppercase">
+                  <div className="flex items-center gap-2 text-indigo-400 text-sm font-semibold tracking-wide">
                     <GraduationCap className="w-4 h-4" />
                     Global Explorer
                   </div>
@@ -181,19 +181,19 @@ export function PublicProfile() {
               <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="p-4 rounded-2xl bg-white/10 border border-border text-center group/stat hover:bg-white/15 transition-all">
                   <Zap className="w-8 h-8 text-primary mx-auto mb-2 group-hover/stat:scale-110 transition-transform" />
-                  <div className="text-3xl font-bold text-foreground tracking-tighter">{profile.xp.toLocaleString()}</div>
-                  <div className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">Mastery XP</div>
+                  <div className="text-3xl font-bold text-foreground">{profile.xp.toLocaleString()}</div>
+                  <div className="text-[10px] text-muted-foreground font-bold">Mastery XP</div>
                 </div>
                 <div className="p-4 rounded-2xl bg-white/10 border border-border text-center group/stat hover:bg-white/15 transition-all">
                   <Flame className="w-8 h-8 text-orange-500 mx-auto mb-2 group-hover/stat:scale-110 transition-transform" />
-                  <div className="text-3xl font-bold text-foreground tracking-tighter">{profile.streak}</div>
-                  <div className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">Day Pulse</div>
+                  <div className="text-3xl font-bold text-foreground">{profile.streak}</div>
+                  <div className="text-[10px] text-muted-foreground font-bold">Day Pulse</div>
                 </div>
               </div>
 
               {/* Achievements Showcase */}
               <div className="space-y-4 mb-8">
-                <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-[0.2em]">Latest Achievements</h4>
+                <h4 className="text-xs font-bold text-muted-foreground tracking-[0.2em]">Latest Achievements</h4>
                 <div className="flex gap-3 flex-wrap">
                   {(profile.badges || ["early_adopter", "profile_complete"]).slice(0, 3).map((badge: string, i: number) => (
                     <motion.div 
@@ -213,16 +213,16 @@ export function PublicProfile() {
               {/* Target Goal - "The Mission" */}
               <Card className="p-5 bg-gradient-to-r from-primary/20 via-primary/5 to-transparent border-none shadow-none relative overflow-hidden group/mission">
                  <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
-                 <div className="text-[10px] text-muted-foreground font-black uppercase mb-1.5 tracking-widest">Mission Objective</div>
+                 <div className="text-[10px] text-muted-foreground font-bold mb-1.5">Mission Objective</div>
                  <div className="text-sm text-foreground font-bold leading-relaxed">
-                    Mastering <span className="text-primary italic">{profile.target_field || "Global Technology"}</span> admissions for <span className="text-primary italic">{profile.target_country || "top global universities"}</span>.
+                    Mastering <span className="text-primary">{profile.target_field || "Global Technology"}</span> admissions for <span className="text-primary">{profile.target_country || "top global universities"}</span>.
                  </div>
                  <Sparkles className="absolute bottom-2 right-2 w-4 h-4 text-foreground/10 group-hover/mission:text-primary/40 transition-colors" />
               </Card>
 
               {/* Join Badge */}
               <div className="absolute top-4 right-4 rotate-12">
-                 <div className="px-2 py-1 bg-white text-[#0A0A1F] text-[8px] font-bold uppercase tracking-wide shadow-lg"> Verified Pilot </div>
+                 <div className="px-2 py-1 bg-white text-[#0A0A1F] text-[8px] font-bold tracking-wide shadow-lg"> Verified Pilot </div>
               </div>
             </Card>
           </motion.div>
@@ -296,9 +296,9 @@ export function PublicProfile() {
              className="space-y-12"
            >
               <div className="space-y-4">
-                 <h2 className="text-7xl font-black text-foreground leading-[0.9] tracking-tight">
+                 <h2 className="text-7xl font-bold text-foreground leading-[0.9]">
                    Welcome back, <br/> 
-                   <span className="text-primary italic px-2">{viewerName}!</span>
+                   <span className="text-primary px-2">{viewerName}!</span>
                  </h2>
                  <p className="text-xl text-foreground/50 font-medium max-w-lg">
                    You're already part of the mission. Ready to continue your journey to <span className="text-foreground">{profile.target_country}</span>?
@@ -315,13 +315,13 @@ export function PublicProfile() {
                  </Button>
                  
                  <div className="pt-8 border-t border-border max-w-sm">
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Your Social Impact</p>
+                    <p className="text-xs font-bold text-muted-foreground mb-4">Your Social Impact</p>
                     <div className="flex items-center gap-4">
                        <div className="px-4 py-2 rounded-xl bg-muted border border-border">
                           <div className="text-xl font-bold text-foreground leading-none">{profile.referrals_count || 0}</div>
-                          <div className="text-[10px] text-muted-foreground uppercase font-black">Crew Members</div>
+                          <div className="text-[10px] text-muted-foreground font-bold">Crew Members</div>
                        </div>
-                       <p className="text-sm text-muted-foreground font-medium italic">"Every explorer needs a solid crew."</p>
+                       <p className="text-sm text-muted-foreground font-medium">"Every explorer needs a solid crew."</p>
                     </div>
                  </div>
               </div>

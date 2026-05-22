@@ -71,12 +71,12 @@ export function ScholarshipFinder() {
             </Button>
             <div className="flex items-center gap-2">
               <Award className="w-8 h-8 text-yellow-500" />
-              <span className="text-xl md:text-2xl font-black bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 bg-clip-text text-transparent italic">
+              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
                 Scholarship Finder
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">
+          <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-bold">
             <span className="w-2 h-2 rounded-full bg-green-500 inline-block animate-pulse" />
             AI-powered · Real-time
           </div>
@@ -182,15 +182,15 @@ export function ScholarshipFinder() {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <h3 className="text-xl font-bold text-foreground">{scholarship.name}</h3>
-                          {isUrgent && <span className="px-2 py-1 rounded-full bg-red-500/20 border border-red-500/30 text-red-500 text-[10px] font-black italic tracking-tighter">URGENT</span>}
+                          {isUrgent && <span className="px-2 py-1 rounded-full bg-red-500/20 border border-red-500/30 text-red-500 text-[10px] font-bold">URGENT</span>}
                         </div>
                         <p className="text-muted-foreground font-medium">{scholarship.provider}</p>
                       </div>
                       <div className="text-right">
-                        <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-1">Match Score</div>
+                        <div className="text-[10px] text-muted-foreground font-bold mb-1">Match Score</div>
                         <div className="flex items-center gap-2">
                           <Progress value={scholarship.matchScore} className="h-2 w-24" />
-                          <span className="text-2xl font-black text-foreground">{scholarship.matchScore}%</span>
+                          <span className="text-2xl font-bold text-foreground">{scholarship.matchScore}%</span>
                         </div>
                       </div>
                     </div>
@@ -199,45 +199,45 @@ export function ScholarshipFinder() {
                       <div className="flex items-center gap-2">
                         <DollarSign className="w-4 h-4 text-green-400" />
                         <div>
-                          <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Amount</div>
+                          <div className="text-[10px] text-muted-foreground font-bold">Amount</div>
                           <div className="text-sm font-bold text-foreground">{scholarship.amount}</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <Award className="w-4 h-4 text-blue-400" />
                         <div>
-                          <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Country</div>
+                          <div className="text-[10px] text-muted-foreground font-bold">Country</div>
                           <div className="text-sm font-bold text-foreground">{scholarship.country}</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-yellow-400" />
                         <div>
-                          <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Deadline</div>
+                          <div className="text-[10px] text-muted-foreground font-bold">Deadline</div>
                           <div className={`text-sm font-bold ${isUrgent ? 'text-red-500' : 'text-foreground'}`}>
                             {new Date(scholarship.deadline).toLocaleDateString()}
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-1">Days Left</div>
-                        <div className={`text-sm font-black ${daysLeft < 0 ? 'text-gray-400' : isUrgent ? 'text-red-500' : 'text-green-600'}`}>
+                        <div className="text-[10px] text-muted-foreground font-bold mb-1">Days Left</div>
+                        <div className={`text-sm font-bold ${daysLeft < 0 ? 'text-gray-400' : isUrgent ? 'text-red-500' : 'text-green-600'}`}>
                           {daysLeft < 0 ? 'Expired' : `${daysLeft} days`}
                         </div>
                       </div>
                     </div>
 
                     <div className="mb-4">
-                      <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-2">Eligible Fields</div>
+                      <div className="text-[10px] text-muted-foreground font-bold mb-2">Eligible Fields</div>
                       <div className="flex flex-wrap gap-2">
                         {scholarship.fieldOfStudy.map((field, idx) => (
-                          <span key={idx} className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-tight">{field}</span>
+                          <span key={idx} className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold">{field}</span>
                         ))}
                       </div>
                     </div>
 
                     <div className="mb-6">
-                      <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-2">Eligibility Requirements</div>
+                      <div className="text-[10px] text-muted-foreground font-bold mb-2">Eligibility Requirements</div>
                       <div className="flex flex-wrap gap-2">
                         {scholarship.eligibility.map((req, idx) => (
                           <span key={idx} className="px-3 py-1 rounded-lg bg-muted border border-border text-muted-foreground text-[10px] font-medium">{req}</span>

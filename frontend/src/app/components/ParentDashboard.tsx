@@ -46,21 +46,21 @@ export function ParentDashboard() {
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 bg-rose-500/10 rounded-full border border-rose-500/20 text-[10px] font-black text-rose-400 uppercase tracking-[0.3em]"
+            className="inline-flex items-center gap-2 px-4 py-1.5 bg-rose-500/10 rounded-full border border-rose-500/20 text-[10px] font-bold text-rose-400 tracking-[0.3em]"
           >
             <ShieldCheck className="w-3.5 h-3.5" />
             Family Trust Protocol
           </motion.div>
-          <h2 className="text-4xl md:text-7xl font-black italic tracking-tighter uppercase bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-foreground/50 leading-none">
+          <h2 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-foreground/50 leading-none">
             Parent Hub
           </h2>
-          <p className="text-muted-foreground max-w-lg font-bold uppercase text-[10px] tracking-widest leading-loose">
+          <p className="text-muted-foreground max-w-lg font-bold text-[10px] leading-loose">
             Synchronized, read-only transparency for your family ecosystem. Track application velocity and financial milestones in real-time.
           </p>
         </div>
 
         <Button 
-          className="bg-rose-600 hover:bg-rose-500 text-foreground font-black uppercase tracking-[0.2em] rounded-2xl shadow-2xl shadow-rose-500/30 h-16 px-10 group relative overflow-hidden w-full lg:w-auto transition-all active:scale-95 border-t border-white/20"
+          className="bg-rose-600 hover:bg-rose-500 text-foreground font-bold tracking-[0.2em] rounded-2xl shadow-2xl shadow-rose-500/30 h-16 px-10 group relative overflow-hidden w-full lg:w-auto transition-all active:scale-95 border-t border-white/20"
           onClick={handleShare}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -81,9 +81,9 @@ export function ParentDashboard() {
             <div className="w-16 h-16 rounded-[24px] bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 group-hover:bg-indigo-500/20 transition-all duration-500 border border-indigo-500/10">
               <Target className="w-8 h-8" />
             </div>
-            <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-muted-foreground mb-2">Live Target Count</h4>
-            <p className="text-5xl font-black text-foreground italic tracking-tighter">{apps.length}</p>
-            <p className="text-[10px] text-indigo-400 uppercase font-black tracking-[0.2em] mt-3">University Protocols</p>
+            <h4 className="font-bold tracking-[0.3em] text-[10px] text-muted-foreground mb-2">Live Target Count</h4>
+            <p className="text-5xl font-bold text-foreground">{apps.length}</p>
+            <p className="text-[10px] text-indigo-400 font-bold tracking-[0.2em] mt-3">University Protocols</p>
           </Card>
         </motion.div>
         
@@ -93,9 +93,9 @@ export function ParentDashboard() {
             <div className="w-16 h-16 rounded-[24px] bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 group-hover:bg-emerald-500/20 transition-all duration-500 border border-emerald-500/10">
               <TrendingUp className="w-8 h-8" />
             </div>
-            <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-muted-foreground mb-2">Journey Completion</h4>
-            <p className="text-5xl font-black text-foreground italic tracking-tighter">{overallProgress}%</p>
-            <p className="text-[10px] text-emerald-400 uppercase font-black tracking-[0.2em] mt-3">Objective Velocity</p>
+            <h4 className="font-bold tracking-[0.3em] text-[10px] text-muted-foreground mb-2">Journey Completion</h4>
+            <p className="text-5xl font-bold text-foreground">{overallProgress}%</p>
+            <p className="text-[10px] text-emerald-400 font-bold tracking-[0.2em] mt-3">Objective Velocity</p>
           </Card>
         </motion.div>
 
@@ -105,9 +105,9 @@ export function ParentDashboard() {
             <div className="w-16 h-16 rounded-[24px] bg-orange-500/10 flex items-center justify-center text-orange-400 mb-6 group-hover:scale-110 group-hover:bg-orange-500/20 transition-all duration-500 border border-orange-500/10">
               <DollarSign className="w-8 h-8" />
             </div>
-            <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-muted-foreground mb-2">Fiscal Readiness</h4>
-            <p className="text-5xl font-black text-foreground italic tracking-tighter">Gold</p>
-            <p className="text-[10px] text-orange-400 uppercase font-black tracking-[0.2em] mt-3">Financing Verified</p>
+            <h4 className="font-bold tracking-[0.3em] text-[10px] text-muted-foreground mb-2">Fiscal Readiness</h4>
+            <p className="text-5xl font-bold text-foreground">Gold</p>
+            <p className="text-[10px] text-orange-400 font-bold tracking-[0.2em] mt-3">Financing Verified</p>
           </Card>
         </motion.div>
       </motion.div>
@@ -123,11 +123,11 @@ export function ParentDashboard() {
           </div>
           
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-12 relative z-10">
-            <h3 className="text-xl font-black uppercase tracking-[0.3em] text-foreground flex items-center gap-4 italic">
+            <h3 className="text-xl font-bold tracking-[0.3em] text-foreground flex items-center gap-4">
               <Calendar className="w-7 h-7 text-indigo-500" />
               Active Milestone Feed
             </h3>
-            <div className="px-5 py-2 bg-muted border border-border rounded-2xl text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+            <div className="px-5 py-2 bg-muted border border-border rounded-2xl text-[10px] font-bold text-muted-foreground flex items-center gap-2">
               <Eye className="w-3.5 h-3.5" />
               Real-time Sync Active
             </div>
@@ -147,21 +147,21 @@ export function ParentDashboard() {
                  <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 p-6 bg-muted/50 border border-border/50 rounded-[24px] hover:bg-white/[0.04] transition-all group">
                     <div className="space-y-2">
                       <div className="flex items-center gap-3">
-                        <h4 className="font-black text-xl text-foreground uppercase tracking-tighter italic">{app.university}</h4>
+                        <h4 className="font-bold text-xl text-foreground">{app.university}</h4>
                         {app.status === 'submitted' && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
                       </div>
-                      <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">{app.program}</p>
+                      <p className="text-[10px] text-muted-foreground font-bold">{app.program}</p>
                     </div>
                     
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full lg:w-auto">
                       <div className="flex-1 lg:w-48">
                          <div className="flex justify-between mb-2">
-                            <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">Protocol Stage</span>
-                            <span className="text-[9px] font-black text-foreground/60 uppercase tracking-widest">{app.status === 'submitted' ? '100%' : '45%'}</span>
+                            <span className="text-[9px] font-bold text-muted-foreground">Protocol Stage</span>
+                            <span className="text-[9px] font-bold text-foreground/60">{app.status === 'submitted' ? '100%' : '45%'}</span>
                          </div>
                          <Progress value={app.status === 'submitted' ? 100 : 45} className={`h-1.5 ${app.status === 'submitted' ? 'bg-emerald-500/20' : 'bg-muted'}`} />
                       </div>
-                      <div className={`text-[9px] font-black px-6 py-2 rounded-xl uppercase tracking-[0.25em] transition-all duration-500 ${app.status === 'submitted' ? 'bg-emerald-500 text-foreground shadow-lg shadow-emerald-500/20' : 'bg-muted text-muted-foreground border border-border'}`}>
+                      <div className={`text-[9px] font-bold px-6 py-2 rounded-xl tracking-[0.25em] transition-all duration-500 ${app.status === 'submitted' ? 'bg-emerald-500 text-foreground shadow-lg shadow-emerald-500/20' : 'bg-muted text-muted-foreground border border-border'}`}>
                         {app.status === 'submitted' ? 'DEPLOYED' : 'INITIALIZING'}
                       </div>
                     </div>
@@ -172,14 +172,14 @@ export function ParentDashboard() {
                  <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-6">
                     <Target className="w-8 h-8 text-foreground/10" />
                  </div>
-                 <p className="text-muted-foreground font-black uppercase tracking-[0.3em] text-xs">No active protocols detected.</p>
+                 <p className="text-muted-foreground font-bold tracking-[0.3em] text-xs">No active protocols detected.</p>
               </div>
             )}
           </div>
         </Card>
       </motion.div>
       
-      <div className="flex items-center gap-4 p-8 bg-rose-500/5 rounded-[32px] border border-rose-500/10 text-[10px] text-rose-400 font-black uppercase tracking-[0.25em] relative overflow-hidden group">
+      <div className="flex items-center gap-4 p-8 bg-rose-500/5 rounded-[32px] border border-rose-500/10 text-[10px] text-rose-400 font-bold tracking-[0.25em] relative overflow-hidden group">
         <div className="absolute inset-0 bg-rose-500/[0.02] opacity-0 group-hover:opacity-100 transition-opacity" />
         <Lock className="w-4 h-4 shrink-0" />
         This interface is operating under high-security read-only protocols. Access is restricted to real-time observation only.

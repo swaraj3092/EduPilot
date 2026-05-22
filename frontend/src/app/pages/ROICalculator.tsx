@@ -216,7 +216,7 @@ export function ROICalculator() {
                 </ResponsiveContainer>
 
                 <div className="mt-8 pt-6 border-t border-border">
-                  <Label className="text-foreground/80 mb-4 block font-bold uppercase text-[10px] tracking-widest">Time Horizon: {timeHorizon[0]} years</Label>
+                  <Label className="text-foreground/80 mb-4 block font-bold text-[10px]">Time Horizon: {timeHorizon[0]} years</Label>
                   <Slider value={timeHorizon} onValueChange={setTimeHorizon} min={3} max={10} step={1} className="w-full" />
                 </div>
               </Card>

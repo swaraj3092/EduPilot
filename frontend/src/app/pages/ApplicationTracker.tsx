@@ -263,7 +263,7 @@ export function ApplicationTracker() {
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
                 <div className="flex items-center gap-2 mb-2 text-indigo-400">
                   <TrendingUp className="w-4 h-4" />
-                  <span className="text-[10px] uppercase font-bold tracking-widest">Trending Now</span>
+                  <span className="text-[10px] font-bold">Trending Now</span>
                 </div>
                 <h4 className="text-sm font-bold text-white mb-1">Singapore Hub</h4>
                 <p className="text-[10px] text-white/50 leading-relaxed">35% increase in STEM applications to NUS and NTU for 2026/27.</p>
@@ -271,7 +271,7 @@ export function ApplicationTracker() {
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
                 <div className="flex items-center gap-2 mb-2 text-emerald-400">
                   <Award className="w-4 h-4" />
-                  <span className="text-[10px] uppercase font-bold tracking-widest">Scholarship Alert</span>
+                  <span className="text-[10px] font-bold">Scholarship Alert</span>
                 </div>
                 <h4 className="text-sm font-bold text-white mb-1">DAAD Germany</h4>
                 <p className="text-[10px] text-white/50 leading-relaxed">New merit-based grants for Indian postgraduates announced today.</p>
@@ -279,7 +279,7 @@ export function ApplicationTracker() {
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
                 <div className="flex items-center gap-2 mb-2 text-orange-400">
                   <DollarSign className="w-4 h-4" />
-                  <span className="text-[10px] uppercase font-bold tracking-widest">Finance Trend</span>
+                  <span className="text-[10px] font-bold">Finance Trend</span>
                 </div>
                 <h4 className="text-sm font-bold text-white mb-1">Interest Rate Drop</h4>
                 <p className="text-[10px] text-white/50 leading-relaxed">Average education loan rates for US-bound students fell to 8.9%.</p>
@@ -389,7 +389,7 @@ export function ApplicationTracker() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            className="h-8 text-[9px] sm:text-[10px] uppercase font-bold tracking-widest text-indigo-400 hover:bg-indigo-500/10"
+                            className="h-8 text-[9px] sm:text-[10px] font-bold text-indigo-400 hover:bg-indigo-500/10"
                             onClick={() => syncToGoogleCalendar(app)}
                           >
                             <Plus className="w-3 h-3 mr-1" />
@@ -398,7 +398,7 @@ export function ApplicationTracker() {
                         </div>
 
                         {app.notes && (
-                          <div className="p-3 bg-muted rounded-lg border border-border text-sm text-muted-foreground italic">
+                          <div className="p-3 bg-muted rounded-lg border border-border text-sm text-muted-foreground">
                             <strong>AI Note: </strong> {app.notes}
                           </div>
                         )}
@@ -459,7 +459,7 @@ export function ApplicationTracker() {
                                   {doc.name}
                                 </span>
                               </div>
-                              <span className="text-xs font-medium px-2 py-1 rounded bg-muted text-muted-foreground/60 uppercase text-[10px] tracking-tight">
+                              <span className="text-xs font-medium px-2 py-1 rounded bg-muted text-muted-foreground/60 text-[10px]">
                                 {doc.uploaded ? 'Ready' : 'Pending'}
                               </span>
                             </div>

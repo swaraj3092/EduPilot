@@ -274,7 +274,7 @@ export function Auth() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-white/10"></div>
             </div>
-            <div className="relative flex justify-center text-[10px] uppercase tracking-widest font-black">
+            <div className="relative flex justify-center text-[10px] font-bold">
               <span className="bg-card px-3 text-muted-foreground">Or continue with</span>
             </div>
           </div>

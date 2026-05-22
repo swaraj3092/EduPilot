@@ -445,7 +445,7 @@ export function Dashboard() {
               <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-card/95 backdrop-blur-3xl border-border p-8 flex flex-col shadow-2xl overflow-y-auto [&>button]:hidden">
                 <div className="flex items-start justify-between border-b border-border pb-4 mb-6">
                   <DialogHeader>
-                    <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent mb-2 tracking-tight">Command Center</DialogTitle>
+                    <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent mb-2">Command Center</DialogTitle>
                     <DialogDescription className="text-muted-foreground text-lg font-medium">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
                   </DialogHeader>
                   <Button 
@@ -500,10 +500,10 @@ export function Dashboard() {
                       <div className={`w-16 h-16 rounded-[24px] bg-gradient-to-br ${tool.color} flex items-center justify-center text-foreground mb-6 group-hover:scale-110 transition-transform shadow-2xl shadow-black/20 border border-border`}>
                         <tool.icon className="w-7 h-7" />
                       </div>
-                      <h4 className="text-xl font-black text-foreground mb-2 uppercase italic tracking-tighter">{tool.label}</h4>
-                      <p className="text-[10px] text-muted-foreground leading-relaxed font-bold uppercase tracking-widest">{tool.desc}</p>
+                      <h4 className="text-xl font-bold text-foreground mb-2">{tool.label}</h4>
+                      <p className="text-[10px] text-muted-foreground leading-relaxed font-bold">{tool.desc}</p>
                       
-                      <div className="mt-6 flex items-center gap-2 text-[9px] font-black text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-[0.2em]">
+                      <div className="mt-6 flex items-center gap-2 text-[9px] font-bold text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity tracking-[0.2em]">
                          Initialize Protocol <ArrowRight className="w-3 h-3" />
                       </div>
                     </motion.div>
@@ -516,7 +516,7 @@ export function Dashboard() {
               <DialogContent className="max-w-[95vw] sm:max-w-[95vw] w-[95vw] h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden">
                 <div className="p-6 md:p-8 pb-3 flex items-center justify-between">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold tracking-tight">AI Essay Coach</DialogTitle>
+                    <DialogTitle className="text-foreground text-xl md:text-2xl font-bold">AI Essay Coach</DialogTitle>
                     <DialogDescription className="text-muted-foreground font-medium">
                       Get instant AI-powered feedback on your Statement of Purpose
                     </DialogDescription>
@@ -538,8 +538,8 @@ export function Dashboard() {
               <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
                 <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-border">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-2xl md:text-3xl font-black uppercase italic tracking-tighter">AI LOR Drafter</DialogTitle>
-                    <DialogDescription className="text-indigo-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
+                    <DialogTitle className="text-foreground text-2xl md:text-3xl font-bold">AI LOR Drafter</DialogTitle>
+                    <DialogDescription className="text-indigo-400 font-bold text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
                       <Zap className="w-3 h-3 fill-current" />
                       Neural Synthesis Protocol Active
                     </DialogDescription>
@@ -563,8 +563,8 @@ export function Dashboard() {
               <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
                 <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-border">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-2xl md:text-3xl font-black uppercase italic tracking-tighter">Peer Network</DialogTitle>
-                    <DialogDescription className="text-indigo-500 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
+                    <DialogTitle className="text-foreground text-2xl md:text-3xl font-bold">Peer Network</DialogTitle>
+                    <DialogDescription className="text-indigo-500 font-bold text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
                       <Users className="w-3.5 h-3.5" />
                       Global Scholar Grid Synchronized
                     </DialogDescription>
@@ -588,8 +588,8 @@ export function Dashboard() {
               <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
                 <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-border">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-foreground text-2xl md:text-3xl font-black uppercase italic tracking-tighter">Parent Portal</DialogTitle>
-                    <DialogDescription className="text-rose-500 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
+                    <DialogTitle className="text-foreground text-2xl md:text-3xl font-bold">Parent Portal</DialogTitle>
+                    <DialogDescription className="text-rose-500 font-bold text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
                       <ShieldCheck className="w-3.5 h-3.5" />
                       Family Trust Protocol Secure
                     </DialogDescription>
@@ -616,7 +616,7 @@ export function Dashboard() {
                   <Button 
                     key={item.path} 
                     variant="ghost" 
-                    className="text-muted-foreground hover:text-foreground hover:bg-muted font-black uppercase tracking-widest text-[10px] h-10 px-4 rounded-xl transition-all" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted font-bold text-[10px] h-10 px-4 rounded-xl transition-all" 
                     onClick={() => navigate(item.path)}
                   >
                     <item.icon className="w-4 h-4 mr-2 text-indigo-400" />
@@ -633,14 +633,14 @@ export function Dashboard() {
                 className="hidden sm:flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 px-3 py-1.5 rounded-full hover:bg-orange-500/20 transition-colors active:scale-95 group"
               >
                 <Flame className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.streak} Day Streak</span>
+                <span className="text-xs font-bold text-foreground tracking-wider">{userStats.streak} Day Streak</span>
               </button>
               <button 
                 onClick={() => setIsQuestOpen(true)}
                 className="hidden sm:flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 px-3 py-1.5 rounded-full mr-2 hover:bg-purple-500/20 transition-colors active:scale-95 group"
               >
                 <Zap className="w-4 h-4 text-purple-400 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-foreground uppercase tracking-wider">{userStats.xp.toLocaleString()} XP</span>
+                <span className="text-xs font-bold text-foreground tracking-wider">{userStats.xp.toLocaleString()} XP</span>
               </button>
               <NotificationCenter />
             </div>
@@ -822,14 +822,14 @@ export function Dashboard() {
                   </motion.div>
                   <div>
                     <h2 className="text-base md:text-xl font-bold text-foreground">AI Study Mentor</h2>
-                    <p className="text-[10px] md:text-sm text-muted-foreground font-medium uppercase tracking-tighter">Elite Virtual Guidance</p>
+                    <p className="text-[10px] md:text-sm text-muted-foreground font-medium">Elite Virtual Guidance</p>
                   </div>
                 </div>
               </div>
               <div className="hidden sm:flex items-center gap-2">
                 <div className="flex items-center gap-1.5 bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[10px] font-bold text-emerald-400 uppercase">System Ready</span>
+                  <span className="text-[10px] font-bold text-emerald-400">System Ready</span>
                 </div>
               </div>
             </div>
@@ -934,7 +934,7 @@ export function Dashboard() {
           
           {/* Action Center - Prioritized AI Nudges */}
           <div className="p-4 border-b border-border/10 bg-indigo-500/[0.03]">
-            <h3 className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+            <h3 className="text-xs font-bold text-indigo-400 mb-3 flex items-center gap-2">
               <Zap className="w-3 h-3" />
               AI Action Center
             </h3>
@@ -1007,7 +1007,7 @@ export function Dashboard() {
                   {filteredUniversities.length === 0 ? (
                     <div className="flex flex-col items-center justify-center p-12 text-center bg-card rounded-3xl border border-dashed border-border/20 mt-10">
                       <Sparkles className="w-8 h-8 text-indigo-400 opacity-30 mb-4" />
-                      <h4 className="text-sm font-medium text-foreground/40 italic">Waiting for your preferences...</h4>
+                      <h4 className="text-sm font-medium text-foreground/40">Waiting for your preferences...</h4>
                     </div>
                   ) : (
                     filteredUniversities.map((uni, i) => (
@@ -1016,7 +1016,7 @@ export function Dashboard() {
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between mb-1">
                               <h4 className="text-sm font-bold text-foreground line-clamp-1">{uni.name}</h4>
-                              <span className="text-[10px] font-bold text-primary/60 bg-primary/10 px-1.5 py-0.5 rounded uppercase">{uni.ranking}</span>
+                              <span className="text-[10px] font-bold text-primary/60 bg-primary/10 px-1.5 py-0.5 rounded">{uni.ranking}</span>
                             </div>
                             <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground mb-3">
                               <GlobeMap className="w-3 h-3" />
@@ -1037,7 +1037,7 @@ export function Dashboard() {
                             </div>
                             <div className="flex items-center justify-between border-t border-border/5 pt-3">
                               <div>
-                                <p className="text-[10px] text-muted-foreground uppercase leading-none mb-1">Tuition</p>
+                                <p className="text-[10px] text-muted-foreground leading-none mb-1">Tuition</p>
                                 <p className="text-xs font-bold text-foreground">{uni.tuition}</p>
                               </div>
                               <div className="flex items-center gap-2">
@@ -1078,7 +1078,7 @@ export function Dashboard() {
                     news.map((item, i) => (
                       <Card key={i} className="p-4 bg-card border-border/10 hover:border-indigo-500/20 transition-all cursor-pointer group">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="px-2 py-0.5 rounded-full bg-indigo-500/10 text-[9px] font-bold text-indigo-400 border border-indigo-500/20 uppercase tracking-tighter">
+                          <span className="px-2 py-0.5 rounded-full bg-indigo-500/10 text-[9px] font-bold text-indigo-400 border border-indigo-500/20">
                             {item.category}
                           </span>
                           <span className="text-[10px] text-foreground/30">{item.date}</span>
@@ -1095,7 +1095,7 @@ export function Dashboard() {
                     ))
                   )}
                   <div className="p-4 rounded-xl bg-orange-500/5 border border-orange-500/10 border-dashed">
-                     <p className="text-[10px] text-orange-400/80 text-center uppercase font-bold tracking-widest mb-1">Poonawalla Alert</p>
+                     <p className="text-[10px] text-orange-400/80 text-center font-bold mb-1">Poonawalla Alert</p>
                      <p className="text-[11px] text-foreground/60 text-center">New financing options for {profile.target_country || 'global'} studies just dropped. Check your eligibility to get pre-approved.</p>
                   </div>
                 </motion.div>
@@ -1126,7 +1126,7 @@ export function Dashboard() {
                     <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }} className="w-12 h-12 rounded-full border-t-2 border-indigo-500" />
                     <Sparkles className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 text-indigo-400" />
                  </div>
-                 <p className="text-sm text-foreground/60 italic animate-pulse">Consulting global database for the latest 2026 application trends...</p>
+                 <p className="text-sm text-foreground/60 animate-pulse">Consulting global database for the latest 2026 application trends...</p>
                  <div className="w-64 h-1.5 bg-muted rounded-full overflow-hidden">
                     <motion.div 
                       animate={{ x: [-200, 200] }} 

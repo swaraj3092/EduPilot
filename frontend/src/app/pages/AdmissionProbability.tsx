@@ -155,7 +155,7 @@ export function AdmissionProbability() {
                     value={targetUni}
                     onChange={(e: any) => setTargetUni(e.target.value)}
                   />
-                  <p className="text-[10px] text-muted-foreground mt-1 italic">We'll use AI to calculate odds for any school worldwide.</p>
+                  <p className="text-[10px] text-muted-foreground mt-1">We'll use AI to calculate odds for any school worldwide.</p>
                 </div>
               </div>
 
@@ -335,7 +335,7 @@ export function AdmissionProbability() {
             </motion.div>
 
             {(!apiData || (apiData.universities && apiData.universities.length === 0)) && (
-              <div className="text-center py-20 text-white/30 italic">
+              <div className="text-center py-20 text-white/30">
                 No universities to display yet.
               </div>
             )}

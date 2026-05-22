@@ -52,7 +52,7 @@ export function GrowthFlow() {
       <div className="flex items-center gap-2 mb-6">
         <Sparkles className="w-5 h-5 text-indigo-400" />
         <h3 className="text-xl font-bold text-white">Zero-Human Growth Loop</h3>
-        <span className="ml-auto px-2 py-0.5 rounded text-[10px] font-bold bg-green-500/20 text-green-400 border border-green-500/30 uppercase tracking-tighter">
+        <span className="ml-auto px-2 py-0.5 rounded text-[10px] font-bold bg-green-500/20 text-green-400 border border-green-500/30">
           Autonomous Agent Live
         </span>
       </div>
@@ -87,7 +87,7 @@ export function GrowthFlow() {
                       <motion.div 
                         initial={{ opacity: 0 }} 
                         animate={{ opacity: 1 }} 
-                        className="text-[10px] text-white/70 italic"
+                        className="text-[10px] text-white/70"
                       >
                         {step.status}
                       </motion.div>

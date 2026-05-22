@@ -465,7 +465,7 @@ export function EssayCoach() {
                         {plagiarism.sources.map((source, i) => (
                           <div key={i} className="p-3 rounded-lg bg-[#0F0F1A]/60 border border-white/5 shadow-inner">
                             <div className="flex items-start justify-between gap-3 mb-1">
-                              <p className="text-xs text-amber-300/80 italic font-medium">"{source.text}"</p>
+                              <p className="text-xs text-amber-300/80 font-medium">"{source.text}"</p>
                               <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] border border-amber-500/30">{source.similarity}% match</span>
                             </div>
                             <p className="text-[10px] text-white/30 font-light">Source: {source.source}</p>

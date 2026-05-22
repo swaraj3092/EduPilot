@@ -155,7 +155,7 @@ export function Settings() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
-            <h1 className="text-xl md:text-2xl font-black bg-gradient-to-r from-primary via-purple-600 to-pink-500 bg-clip-text text-transparent italic tracking-tight">
+            <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary via-purple-600 to-pink-500 bg-clip-text text-transparent">
               Settings
             </h1>
           </div>
@@ -200,7 +200,7 @@ export function Settings() {
                       {profile.profile_picture ? (
                         <img src={profile.profile_picture} alt="Profile" className="w-full h-full object-cover" />
                       ) : (
-                        <div className="text-4xl font-black text-muted-foreground/30 italic">{profile.name?.charAt(0) || "U"}</div>
+                        <div className="text-4xl font-bold text-muted-foreground/30">{profile.name?.charAt(0) || "U"}</div>
                       )}
                     </div>
                   </div>
@@ -225,13 +225,13 @@ export function Settings() {
                         }
                       }}
                     />
-                    <div className="text-white text-xs font-bold uppercase tracking-widest">Change Photo</div>
+                    <div className="text-white text-xs font-bold">Change Photo</div>
                   </label>
                 </div>
                 <div className="text-center md:text-left">
-                  <h3 className="text-2xl font-black text-foreground italic tracking-tight mb-1">{profile.name || "Elevated User"}</h3>
+                  <h3 className="text-2xl font-bold text-foreground mb-1">{profile.name || "Elevated User"}</h3>
                   <p className="text-sm text-muted-foreground font-medium mb-4">{profile.email}</p>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 text-[10px] font-bold text-primary uppercase tracking-widest">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 text-[10px] font-bold text-primary">
                     Verified Navigator
                   </div>
                 </div>
@@ -377,7 +377,7 @@ export function Settings() {
                   {passwordStatus}
                 </Button>
                 <div className="border-t border-border pt-6 mt-6">
-                  <h4 className="text-foreground font-bold mb-4 uppercase text-[10px] tracking-widest">Data Privacy</h4>
+                  <h4 className="text-foreground font-bold mb-4 text-[10px]">Data Privacy</h4>
                   <div className="space-y-4">
                     <div className="flex items-center justify-between p-4 rounded-xl bg-muted/50 border border-border">
                       <div>

@@ -99,7 +99,7 @@ export function TestPrepHub() {
           </div>
         ))}
       </div>
-      <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-4">{maxNote}</p>
+      <p className="text-[10px] text-muted-foreground font-bold mb-4">{maxNote}</p>
       <Button onClick={() => analyzeScore(testType, scores)} disabled={analysisLoading}
         className={`w-full bg-gradient-to-r ${color}`}>
         {analysisLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
@@ -116,15 +116,15 @@ export function TestPrepHub() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           className="mt-6 p-6 rounded-xl bg-primary/5 border border-primary/20 shadow-sm shadow-primary/5">
           <div className="text-center mb-4">
-            <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-1">AI Predicted Score</div>
-            <div className="text-4xl font-black text-foreground">{analysisResult.predicted_total}</div>
-            <div className="text-sm text-muted-foreground font-medium mt-1">{analysisResult.percentile} · <span className={`font-black uppercase tracking-tight ${
+            <div className="text-[10px] text-muted-foreground font-bold mb-1">AI Predicted Score</div>
+            <div className="text-4xl font-bold text-foreground">{analysisResult.predicted_total}</div>
+            <div className="text-sm text-muted-foreground font-medium mt-1">{analysisResult.percentile} · <span className={`font-bold ${
               analysisResult.rating === "Excellent" ? "text-green-600" :
               analysisResult.rating === "Good" ? "text-blue-600" :
               analysisResult.rating === "Average" ? "text-yellow-600" : "text-red-600"
             }`}>{analysisResult.rating}</span></div>
           </div>
-          <p className="text-sm text-muted-foreground font-medium italic mb-4">{analysisResult.feedback}</p>
+          <p className="text-sm text-muted-foreground font-medium mb-4">{analysisResult.feedback}</p>
           {analysisResult.universities_achievable?.length > 0 && (
             <div className="mb-3">
               <div className="text-xs text-white/50 mb-2">Universities Within Reach</div>
@@ -162,7 +162,7 @@ export function TestPrepHub() {
             </Button>
             <div className="flex items-center gap-2">
               <BookOpen className="w-8 h-8 text-primary" />
-              <span className="text-xl md:text-2xl font-black bg-gradient-to-r from-primary via-emerald-500 to-teal-500 bg-clip-text text-transparent italic">
+              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary via-emerald-500 to-teal-500 bg-clip-text text-transparent">
                 Test Prep Hub
               </span>
             </div>
@@ -271,7 +271,7 @@ export function TestPrepHub() {
                 <div className="space-y-3">
                   <div className="grid grid-cols-5 gap-4 px-4 pb-3 border-b border-border">
                     {["University", "GRE", "TOEFL", "IELTS", "Notes"].map(h => (
-                      <div key={h} className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{h}</div>
+                      <div key={h} className="text-[10px] font-bold text-muted-foreground">{h}</div>
                     ))}
                   </div>
                   {requirements.map((uni, i) => (
@@ -289,7 +289,7 @@ export function TestPrepHub() {
                         <div className="text-center">
                           <span className="px-2 py-1 rounded-lg bg-teal-500/20 text-teal-300 text-sm font-semibold">{uni.ielts}</span>
                         </div>
-                        <div className="text-[10px] text-muted-foreground font-medium italic">{uni.notes || "—"}</div>
+                        <div className="text-[10px] text-muted-foreground font-medium">{uni.notes || "—"}</div>
                       </div>
                     </motion.div>
                   ))}

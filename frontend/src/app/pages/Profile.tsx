@@ -140,8 +140,8 @@ export function Profile() {
             </div>
           </div>
           <div className="text-center md:text-left">
-            <h1 className="text-3xl md:text-5xl font-black text-foreground mb-1 italic tracking-tight">{userData.name}</h1>
-            <p className="text-sm md:text-lg text-muted-foreground font-medium uppercase tracking-widest">{profile?.degree_level || "Master"} Navigator</p>
+            <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-1">{userData.name}</h1>
+            <p className="text-sm md:text-lg text-muted-foreground font-medium">{profile?.degree_level || "Master"} Navigator</p>
           </div>
         </div>
 

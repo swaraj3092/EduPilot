@@ -37,7 +37,7 @@ export function PostAdmissionHub() {
           <GraduationCap className="w-10 h-10 text-white" />
         </motion.div>
         <div className="space-y-2">
-          <h2 className="text-4xl font-black text-foreground italic tracking-tight uppercase">Congrats, Graduate!</h2>
+          <h2 className="text-4xl font-bold text-foreground">Congrats, Graduate!</h2>
           <p className="text-muted-foreground max-w-lg mx-auto">You've cleared the hardest part. Now, let's get you ready for your life abroad with your personalized onboarding roadmap.</p>
         </div>
       </div>
@@ -49,7 +49,7 @@ export function PostAdmissionHub() {
         </div>
         <div className="flex justify-between items-end mb-4">
            <div>
-              <p className="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-1">Departure Readiness</p>
+              <p className="text-xs font-bold text-primary tracking-[0.2em] mb-1">Departure Readiness</p>
               <h3 className="text-2xl font-bold text-foreground">{progress}% Complete</h3>
            </div>
            <div className="text-right">
@@ -84,7 +84,7 @@ export function PostAdmissionHub() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">{step.category}</span>
+                    <span className="text-[10px] font-bold text-muted-foreground/60">{step.category}</span>
                     {completed.includes(step.id) && <CheckCircle2 className="w-4 h-4 text-green-400" />}
                   </div>
                   <h4 className={`font-bold text-lg mt-0.5 ${completed.includes(step.id) ? 'text-foreground/60 line-through' : 'text-foreground'}`}>

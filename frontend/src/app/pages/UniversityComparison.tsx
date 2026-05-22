@@ -148,7 +148,7 @@ export function UniversityComparison() {
             <h2 className="text-3xl font-bold text-foreground mb-2">
               Welcome back, {userProfile?.name?.split(' ')[0] || 'Student'}!
             </h2>
-            <p className="text-muted-foreground font-medium italic">
+            <p className="text-muted-foreground font-medium">
               Based on your interest in **{selectedField}**, pick at least 2 universities below to see 
               the latest **2026/27** data and ROI analysis.
             </p>
