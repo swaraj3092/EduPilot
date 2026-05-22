@@ -101,38 +101,16 @@ export function Dashboard() {
         const userId = authUser.id || authUser.user_id;
         if (!userId) return;
 
-        // 1. Fetch Full Profile from DB FIRST (Source of Truth)
-        const res = await getUserProfile(userId);
+        // 1. Check if we already have a profile from Login (Source of Truth)
         let currentProfile = JSON.parse(localStorage.getItem("edupilot-profile") || "{}");
         
-        if (res.status === "success" && res.profile) {
-          const db = res.profile;
-          currentProfile = {
-            ...currentProfile,
-            name: db.full_name || currentProfile.name,
-            xp: db.xp,
-            streak: db.streak || 1,
-            profile_picture: db.profile_picture || currentProfile.profile_picture,
-            referral_code: db.referral_code || currentProfile.referral_code,
-            last_login_date: db.last_login_date || currentProfile.last_login_date,
-            full_name: db.full_name,
-            country: db.target_country || currentProfile.country,
-            field: db.target_field || currentProfile.field,
-            level: db.degree_level || currentProfile.level
-          };
-          setCompletedQuests(db.quests_completed || []);
-          try {
-            localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
-          } catch(e) {
-            try {
-              const strippedProfile = { ...currentProfile, profile_picture: null };
-              localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
-            } catch (e2) {
-              localStorage.removeItem("edupilot-chat-history");
-              const strippedProfile = { ...currentProfile, profile_picture: null };
-              localStorage.setItem("edupilot-profile", JSON.stringify(strippedProfile));
-            }
-          }
+        // Only fetch from DB if profile is missing or essentially empty
+        if (!currentProfile.xp && userId) {
+           const res = await getUserProfile(userId);
+           if (res.status === "success" && res.profile) {
+              currentProfile = { ...currentProfile, ...res.profile, name: res.profile.full_name };
+              localStorage.setItem("edupilot-profile", JSON.stringify(currentProfile));
+           }
         }
 
         // 2. Streak & Daily Check Logic (Using DB-synced value and LOCAL time)
@@ -516,14 +494,18 @@ export function Dashboard() {
                           }
                         }, 100);
                       }}
-                      className="group cursor-pointer p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-indigo-500/30 transition-all relative overflow-hidden will-change-transform"
+                      className="group cursor-pointer p-8 rounded-[32px] bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 transition-all duration-500 relative overflow-hidden will-change-transform shadow-2xl"
                     >
-                      <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${tool.color} blur-[60px] opacity-10 group-hover:opacity-20 transition-opacity`} />
-                      <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-black/20`}>
-                        <tool.icon className="w-6 h-6" />
+                      <div className={`absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br ${tool.color} blur-[60px] opacity-10 group-hover:opacity-20 transition-opacity`} />
+                      <div className={`w-16 h-16 rounded-[24px] bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-2xl shadow-black/40 border border-white/20`}>
+                        <tool.icon className="w-7 h-7" />
                       </div>
-                      <h4 className="text-lg font-bold text-foreground mb-2">{tool.label}</h4>
-                      <p className="text-xs text-muted-foreground leading-relaxed font-medium">{tool.desc}</p>
+                      <h4 className="text-xl font-black text-white mb-2 uppercase italic tracking-tighter">{tool.label}</h4>
+                      <p className="text-[10px] text-white/40 leading-relaxed font-bold uppercase tracking-widest">{tool.desc}</p>
+                      
+                      <div className="mt-6 flex items-center gap-2 text-[9px] font-black text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-[0.2em]">
+                         Initialize Protocol <ArrowRight className="w-3 h-3" />
+                      </div>
                     </motion.div>
                   ))}
                 </div>
@@ -552,86 +534,92 @@ export function Dashboard() {
                   <EssayCoach />
                 </div>
               </DialogContent>
-            </Dialog>
-
-            <Dialog open={isLOROpen} onOpenChange={setIsLOROpen}>
-              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-xl border-white/10 p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform">
-                <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
+                       <Dialog open={isLOROpen} onOpenChange={setIsLOROpen}>
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0A0A15]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_100px_rgba(0,0,0,1)] [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
+                <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">AI LOR Drafter</DialogTitle>
-                    <DialogDescription className="text-white/40 font-bold uppercase text-[10px] tracking-widest mt-1">
-                      Professional Suite for Professor Briefings
+                    <DialogTitle className="text-white text-2xl md:text-3xl font-black uppercase italic tracking-tighter">AI LOR Drafter</DialogTitle>
+                    <DialogDescription className="text-indigo-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
+                      <Zap className="w-3 h-3 fill-current" />
+                      Neural Synthesis Protocol Active
                     </DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-white/40 hover:text-white hover:bg-white/5" 
+                    className="text-white/40 hover:text-white hover:bg-white/5 w-12 h-12 rounded-2xl border border-white/5" 
                     onClick={() => setIsLOROpen(false)}
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-6 h-6" />
                   </Button>
                 </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent custom-scrollbar">
+                <div className="flex-1 overflow-y-auto px-6 md:px-10 pb-10 bg-transparent custom-scrollbar">
                   <LORDrafter />
                 </div>
               </DialogContent>
             </Dialog>
 
             <Dialog open={isPeerOpen} onOpenChange={setIsPeerOpen}>
-              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-xl border-white/10 p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform">
-                <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0A0A15]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_100px_rgba(0,0,0,1)] [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
+                <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">Peer Network</DialogTitle>
-                    <DialogDescription className="text-white/40 font-bold uppercase text-[10px] tracking-widest mt-1">
-                      Connect with the Global Scholar Community
+                    <DialogTitle className="text-white text-2xl md:text-3xl font-black uppercase italic tracking-tighter">Peer Network</DialogTitle>
+                    <DialogDescription className="text-indigo-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
+                      <Users className="w-3.5 h-3.5" />
+                      Global Scholar Grid Synchronized
                     </DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-white/40 hover:text-white hover:bg-white/5" 
+                    className="text-white/40 hover:text-white hover:bg-white/5 w-12 h-12 rounded-2xl border border-white/5" 
                     onClick={() => setIsPeerOpen(false)}
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-6 h-6" />
                   </Button>
                 </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent custom-scrollbar">
+                <div className="flex-1 overflow-y-auto px-6 md:px-10 pb-10 bg-transparent custom-scrollbar">
                   <PeerNetwork />
                 </div>
               </DialogContent>
             </Dialog>
 
             <Dialog open={isParentOpen} onOpenChange={setIsParentOpen}>
-              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0D0D1A]/95 backdrop-blur-xl border-white/10 p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform">
-                <div className="p-6 md:p-8 pb-3 flex items-center justify-between border-b border-white/5">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0A0A15]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_100px_rgba(0,0,0,1)] [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
+                <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-white/5">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase italic tracking-tighter">Parent Dashboard</DialogTitle>
-                    <DialogDescription className="text-white/40 font-bold uppercase text-[10px] tracking-widest mt-1">
-                      Secure Read-Only Access for Family
+                    <DialogTitle className="text-white text-2xl md:text-3xl font-black uppercase italic tracking-tighter">Parent Portal</DialogTitle>
+                    <DialogDescription className="text-rose-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      Family Trust Protocol Secure
                     </DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-white/40 hover:text-white hover:bg-white/5" 
+                    className="text-white/40 hover:text-white hover:bg-white/5 w-12 h-12 rounded-2xl border border-white/5" 
                     onClick={() => setIsParentOpen(false)}
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-6 h-6" />
                   </Button>
                 </div>
-                <div className="flex-1 overflow-y-auto px-6 md:px-8 pb-6 md:pb-8 bg-transparent custom-scrollbar">
+                <div className="flex-1 overflow-y-auto px-6 md:px-10 pb-10 bg-transparent custom-scrollbar">
                   <ParentDashboard />
                 </div>
               </DialogContent>
-            </Dialog>
+            </Dialog>     </Dialog>
 
             {NAV_ITEMS.map((item) => {
               // Show only the 4 most critical buttons in Desktop Nav
               if (["Admission Odds", "ROI Calc", "Loan Check", "Compare"].includes(item.label)) {
                 return (
-                  <Button key={item.path} variant="ghost" className="text-foreground/70 hover:text-foreground" onClick={() => navigate(item.path)}>
-                    <item.icon className="w-4 h-4 mr-2" />
+                  <Button 
+                    key={item.path} 
+                    variant="ghost" 
+                    className="text-white/40 hover:text-white hover:bg-white/5 font-black uppercase tracking-widest text-[10px] h-10 px-4 rounded-xl transition-all" 
+                    onClick={() => navigate(item.path)}
+                  >
+                    <item.icon className="w-4 h-4 mr-2 text-indigo-400" />
                     {item.label}
                   </Button>
                 );
