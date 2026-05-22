@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, Flame, Zap, Trophy, Target, Star, Shield, TrendingUp, Users, Crown, ArrowRight, ExternalLink, Globe, ShieldCheck, Award } from "lucide-react";
+import { X, Flame, Zap, Trophy, Target, Star, Shield, TrendingUp, Users, Crown, ArrowRight, ExternalLink, Globe, ShieldCheck, Award, CheckCircle2 } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
 import { Skeleton } from "@components/ui/skeleton";
