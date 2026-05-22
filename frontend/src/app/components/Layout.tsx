@@ -7,7 +7,7 @@ export function Layout() {
   const location = useLocation();
 
   return (
-    <div className="relative min-h-screen bg-[#0D0D1A]">
+    <div className="relative min-h-screen bg-background text-foreground">
       {/* 3D Animated World Background */}
       <AnimatedWorld />
 

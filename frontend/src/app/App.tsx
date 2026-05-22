@@ -3,21 +3,23 @@ import { RouterProvider } from 'react-router';
 import { router } from './routes';
 
 export default function App() {
-  const [theme, setTheme] = useState(() => localStorage.getItem("edupilot-theme") || "dark");
-
   useEffect(() => {
-    const handleThemeChange = () => {
-      const newTheme = localStorage.getItem("edupilot-theme") || "dark";
-      setTheme(newTheme);
+    const applyTheme = () => {
+      const currentTheme = localStorage.getItem("edupilot-theme") || "dark";
+      if (currentTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
     };
 
-    window.addEventListener("themechange", handleThemeChange);
-    return () => window.removeEventListener("themechange", handleThemeChange);
+    applyTheme(); // Apply initially
+
+    window.addEventListener("themechange", applyTheme);
+    return () => window.removeEventListener("themechange", applyTheme);
   }, []);
 
   return (
-    <div className={theme}>
-      <RouterProvider router={router} />
-    </div>
+    <RouterProvider router={router} />
   );
 }

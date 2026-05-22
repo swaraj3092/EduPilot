@@ -420,10 +420,10 @@ export function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden bg-background">
 
       {/* Top Navigation */}
-      <nav className="relative z-20 backdrop-blur-xl bg-white/5 border-b border-white/10">
+      <nav className="relative z-20 backdrop-blur-xl bg-background/5 border-b border-border">
         <div className="max-w-[1800px] mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
@@ -535,10 +535,10 @@ export function Dashboard() {
                 </div>
               </DialogContent>
                        <Dialog open={isLOROpen} onOpenChange={setIsLOROpen}>
-              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0A0A15]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_100px_rgba(0,0,0,1)] [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
-                <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-white/5">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
+                <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-border">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-white text-2xl md:text-3xl font-black uppercase italic tracking-tighter">AI LOR Drafter</DialogTitle>
+                    <DialogTitle className="text-foreground text-2xl md:text-3xl font-black uppercase italic tracking-tighter">AI LOR Drafter</DialogTitle>
                     <DialogDescription className="text-indigo-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
                       <Zap className="w-3 h-3 fill-current" />
                       Neural Synthesis Protocol Active
@@ -547,7 +547,7 @@ export function Dashboard() {
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-white/40 hover:text-white hover:bg-white/5 w-12 h-12 rounded-2xl border border-white/5" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted w-12 h-12 rounded-2xl border border-border" 
                     onClick={() => setIsLOROpen(false)}
                   >
                     <X className="w-6 h-6" />
@@ -560,11 +560,11 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isPeerOpen} onOpenChange={setIsPeerOpen}>
-              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0A0A15]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_100px_rgba(0,0,0,1)] [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
-                <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-white/5">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
+                <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-border">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-white text-2xl md:text-3xl font-black uppercase italic tracking-tighter">Peer Network</DialogTitle>
-                    <DialogDescription className="text-indigo-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
+                    <DialogTitle className="text-foreground text-2xl md:text-3xl font-black uppercase italic tracking-tighter">Peer Network</DialogTitle>
+                    <DialogDescription className="text-indigo-500 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
                       <Users className="w-3.5 h-3.5" />
                       Global Scholar Grid Synchronized
                     </DialogDescription>
@@ -572,7 +572,7 @@ export function Dashboard() {
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-white/40 hover:text-white hover:bg-white/5 w-12 h-12 rounded-2xl border border-white/5" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted w-12 h-12 rounded-2xl border border-border" 
                     onClick={() => setIsPeerOpen(false)}
                   >
                     <X className="w-6 h-6" />
@@ -585,11 +585,11 @@ export function Dashboard() {
             </Dialog>
 
             <Dialog open={isParentOpen} onOpenChange={setIsParentOpen}>
-              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-[#0A0A15]/95 backdrop-blur-3xl border-white/10 p-0 flex flex-col shadow-[0_0_100px_rgba(0,0,0,1)] [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
-                <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-white/5">
+              <DialogContent className="max-w-full sm:max-w-[95vw] w-full sm:w-[95vw] h-full sm:h-[90vh] overflow-hidden bg-card/95 backdrop-blur-3xl border-border p-0 flex flex-col shadow-2xl [&>button]:hidden will-change-transform rounded-none sm:rounded-[40px]">
+                <div className="p-6 md:p-10 pb-3 flex items-center justify-between border-b border-border">
                   <DialogHeader className="text-left">
-                    <DialogTitle className="text-white text-2xl md:text-3xl font-black uppercase italic tracking-tighter">Parent Portal</DialogTitle>
-                    <DialogDescription className="text-rose-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
+                    <DialogTitle className="text-foreground text-2xl md:text-3xl font-black uppercase italic tracking-tighter">Parent Portal</DialogTitle>
+                    <DialogDescription className="text-rose-500 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center gap-2">
                       <ShieldCheck className="w-3.5 h-3.5" />
                       Family Trust Protocol Secure
                     </DialogDescription>
@@ -597,7 +597,7 @@ export function Dashboard() {
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-white/40 hover:text-white hover:bg-white/5 w-12 h-12 rounded-2xl border border-white/5" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted w-12 h-12 rounded-2xl border border-border" 
                     onClick={() => setIsParentOpen(false)}
                   >
                     <X className="w-6 h-6" />
