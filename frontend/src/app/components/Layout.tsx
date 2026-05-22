@@ -1,6 +1,7 @@
 import { useLocation, Outlet } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { AnimatedWorld } from "./AnimatedWorld";
+import { Toaster } from "@components/ui/sonner";
 
 export function Layout() {
   const location = useLocation();
@@ -14,6 +15,7 @@ export function Layout() {
       <div className="relative z-10">
         <Outlet />
       </div>
+      <Toaster theme="dark" position="top-right" />
     </div>
   );
 }
