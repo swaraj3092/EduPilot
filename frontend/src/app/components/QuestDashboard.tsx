@@ -5,6 +5,7 @@ import { Button } from "@components/ui/button";
 import { Card } from "@components/ui/card";
 import { getLeaderboard, completeQuest } from "@services";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 interface QuestDashboardProps {
   isOpen: boolean;
@@ -92,13 +93,14 @@ export function QuestDashboard({ isOpen, onClose, userStats, completedQuests, se
            const updated = { ...profile, xp: res.new_xp, quests_completed: [...(profile.quests_completed || []), quest.id] };
            localStorage.setItem("edupilot-profile", JSON.stringify(updated));
            setCompletedQuests(updated.quests_completed);
+           toast.success(`Quest Completed: ${quest.title}! +${quest.xp} XP`);
         }
+      } else {
+        navigate(quest.path);
+        onClose();
       }
     } catch (e) {
       console.error("Quest completion failed:", e);
-    } finally {
-      navigate(quest.path);
-      onClose();
     }
   };
   const navigateToProfile = (u: any) => {

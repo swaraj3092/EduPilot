@@ -442,16 +442,16 @@ export function Dashboard() {
                   Explore Nexus
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-slate-950/95 backdrop-blur-3xl border-slate-800/50 p-8 flex flex-col shadow-2xl overflow-y-auto [&>button]:hidden">
-                <div className="flex items-start justify-between border-b border-white/10 pb-4 mb-6">
+              <DialogContent className="max-w-6xl w-[95vw] h-[90vh] bg-card/95 backdrop-blur-3xl border-border p-8 flex flex-col shadow-2xl overflow-y-auto [&>button]:hidden">
+                <div className="flex items-start justify-between border-b border-border pb-4 mb-6">
                   <DialogHeader>
-                    <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2 tracking-tight">Command Center</DialogTitle>
-                    <DialogDescription className="text-slate-400 text-lg font-medium">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
+                    <DialogTitle className="text-3xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent mb-2 tracking-tight">Command Center</DialogTitle>
+                    <DialogDescription className="text-muted-foreground text-lg font-medium">Access every feature of your EduPilot ecosystem instantly.</DialogDescription>
                   </DialogHeader>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="text-slate-400 hover:text-white hover:bg-white/10" 
+                    className="text-muted-foreground hover:text-foreground hover:bg-muted" 
                     onClick={() => setIsNexusOpen(false)}
                   >
                     <X className="w-6 h-6" />
@@ -494,16 +494,16 @@ export function Dashboard() {
                           }
                         }, 100);
                       }}
-                      className="group cursor-pointer p-8 rounded-[32px] bg-white/[0.03] border border-white/10 hover:border-indigo-500/50 transition-all duration-500 relative overflow-hidden will-change-transform shadow-2xl"
+                      className="group cursor-pointer p-8 rounded-[32px] bg-card hover:bg-muted border border-border hover:border-indigo-500/50 transition-all duration-500 relative overflow-hidden will-change-transform shadow-xl"
                     >
                       <div className={`absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br ${tool.color} blur-[60px] opacity-10 group-hover:opacity-20 transition-opacity`} />
-                      <div className={`w-16 h-16 rounded-[24px] bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-2xl shadow-black/40 border border-white/20`}>
+                      <div className={`w-16 h-16 rounded-[24px] bg-gradient-to-br ${tool.color} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-2xl shadow-black/20 border border-white/20`}>
                         <tool.icon className="w-7 h-7" />
                       </div>
-                      <h4 className="text-xl font-black text-white mb-2 uppercase italic tracking-tighter">{tool.label}</h4>
-                      <p className="text-[10px] text-white/40 leading-relaxed font-bold uppercase tracking-widest">{tool.desc}</p>
+                      <h4 className="text-xl font-black text-foreground mb-2 uppercase italic tracking-tighter">{tool.label}</h4>
+                      <p className="text-[10px] text-muted-foreground leading-relaxed font-bold uppercase tracking-widest">{tool.desc}</p>
                       
-                      <div className="mt-6 flex items-center gap-2 text-[9px] font-black text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-[0.2em]">
+                      <div className="mt-6 flex items-center gap-2 text-[9px] font-black text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-[0.2em]">
                          Initialize Protocol <ArrowRight className="w-3 h-3" />
                       </div>
                     </motion.div>
