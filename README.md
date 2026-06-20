@@ -42,9 +42,9 @@ Students are forced to manually transfer data between platforms and make life-ch
 
 ## 🖼️ Platform Screenshots
 
-| 🏠 Landing Page | 🤖 AI Study Mentor |
+| 🏠 Landing Page | |
 |---|---|
-| ![Hero](screenshots/hero.png) | ![AI Mentor](screenshots/ai-mentor.png) |
+| ![Hero](screenshots/hero.png) | |
 
 | 🎯 Admission Probability | 📊 ROI Calculator |
 |---|---|
