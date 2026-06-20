@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="screenshots/logo.png" alt="EduPilot Logo" width="150" height="150" />
+</div>
+
 # ✈️ EduPilot: Your AI-Powered Study Abroad Navigator
 
 <div align="center">
@@ -188,9 +192,6 @@ EduPilot is designed as a **decision-support tool**, not a replacement for profe
 - Designed the end-to-end gamification framework and real-time database synchronization.
 - Oversaw full-stack integration across all academic and financial modules.
 
-**Yagnish Anupam** — *Backend & Systems Integration*
-- Designed the backend routing architecture and secure authentication handshakes.
-- Optimized the university comparison engine for real-time high-fidelity data retrieval.
 
 **Prajakta Kuila** — *UI/UX Design & Brand Identity*
 - Crafted the premium glassmorphism aesthetic and interactive design system.

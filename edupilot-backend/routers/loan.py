@@ -67,7 +67,7 @@ def calculate_eligibility(req: LoanRequest) -> dict:
         color   = "#ef4444"
         max_amt = req.loan_amount * 0.50   # 50%
 
-    # EMI options (Poonawalla-style: 10.5% p.a. flat)
+    # EMI options (Premium-style: 10.5% p.a. flat)
     interest_rate = 0.105
     def emi(principal: float, years: int) -> float:
         r = interest_rate / 12

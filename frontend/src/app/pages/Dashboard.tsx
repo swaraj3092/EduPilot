@@ -949,7 +949,7 @@ export function Dashboard() {
                 </div>
                 <div className="flex-1">
                   <p className="text-xs font-bold text-foreground line-clamp-1">Secure Financing Early</p>
-                  <p className="text-[10px] text-foreground/40">Poonawalla Fincorp rates dropped by 0.5%</p>
+                  <p className="text-[10px] text-foreground/40">Global loan rates dropped by 0.5%</p>
                 </div>
                 <PlayCircle className="w-4 h-4 text-foreground/20" />
               </motion.div>
@@ -1095,7 +1095,7 @@ export function Dashboard() {
                     ))
                   )}
                   <div className="p-4 rounded-xl bg-orange-500/5 border border-orange-500/10 border-dashed">
-                     <p className="text-[10px] text-orange-400/80 text-center font-bold mb-1">Poonawalla Alert</p>
+                     <p className="text-[10px] text-orange-400/80 text-center font-bold mb-1">Premium Alert</p>
                      <p className="text-[11px] text-foreground/60 text-center">New financing options for {profile.target_country || 'global'} studies just dropped. Check your eligibility to get pre-approved.</p>
                   </div>
                 </motion.div>

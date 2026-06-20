@@ -48,7 +48,7 @@ async def get_latest_news(country: str = "USA"):
         },
         {
             "id": "4",
-            "title": "Poonawalla Fincorp Education Loan Rates Drop",
+            "title": "Global Education Loan Rates Drop",
             "summary": "Financing your dream is now more affordable with a 0.5% reduction in interest rates for elite university admissions.",
             "category": "Financing",
             "date": "Today",

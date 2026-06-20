@@ -301,7 +301,7 @@ export function LoanEligibility() {
               </div>
             </Card>
 
-            {/* Poonawalla CTA */}
+            {/* Premium Lender CTA */}
             <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -315,7 +315,7 @@ export function LoanEligibility() {
                 }`}
                 disabled={approvalStatus !== "approved" || loading}
               >
-                {approvalStatus === "approved" ? "Apply with Poonawalla Fincorp" : "Improve Score to Apply"}
+                {approvalStatus === "approved" ? "Apply with Premium Lenders" : "Improve Score to Apply"}
               </Button>
             </motion.div>
           </motion.div>

@@ -227,7 +227,7 @@ export function ROICalculator() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="text-center md:text-left">
                     <h3 className="text-2xl font-bold text-foreground mb-2">Need Funding?</h3>
-                    <p className="text-muted-foreground font-medium">Get instant loan approval up to $100,000 with competitive rates from Poonawalla Fincorp</p>
+                    <p className="text-muted-foreground font-medium">Get instant loan approval up to $100,000 with competitive rates from premium lenders</p>
                   </div>
                   <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8"
                     onClick={() => navigate('/loan-eligibility')}>

@@ -94,7 +94,7 @@ Create `src/lib/api.ts` — copy the file from `frontend-integration/api.ts`.
 | POST | /api/chat/stream | SSE streaming chat |
 | POST | /api/essay/analyze | SOP analysis + rewrite |
 | POST | /api/admission/probability | Per-university admission odds |
-| POST | /api/loan/eligibility | Poonawalla-style loan score |
+| POST | /api/loan/eligibility | Premium loan score |
 
 ---
 
