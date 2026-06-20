@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="screenshots/logo.png" alt="EduPilot Logo" width="150" height="150" />
+  <img src="screenshots/logo.jpeg" alt="EduPilot Logo" width="150" height="150" />
 </div>
 
 # ✈️ EduPilot: Your AI-Powered Study Abroad Navigator
